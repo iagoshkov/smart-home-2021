@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 
 public class HomeConditionGsonPersister implements HomeConditionPersister{
 
-    public static SmartHome readHome() throws IOException {
+    public SmartHome readHome() throws IOException {
         String filename = "smart-home-1.js";
         Gson gson = new Gson();
         String json = new String(Files.readAllBytes(Paths.get(filename)));
