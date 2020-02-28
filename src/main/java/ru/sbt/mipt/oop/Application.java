@@ -1,6 +1,10 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.sensorEvent.*;
+
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class Application {
     private final HomeConditionPersister homeConditionPersister;
@@ -9,20 +13,22 @@ public class Application {
         this.homeConditionPersister = homeConditionGsonPersister;
     }
 
-    public static void main(String... args) throws IOException {
+    public static void main(String... args) throws IOException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         new Application(new HomeConditionGsonPersister()).handleEvents();
     }
 
-    private static SensorEvent getNextSensorEvent() {
-        // pretend like we're getting the events from physical world, but here we're going to just generate some random events
-        if (Math.random() < 0.05) return null; // null means end of event stream
-        SensorEventType sensorEventType = SensorEventType.values()[(int) (4 * Math.random())];
+    private static SensorEvent getNextSensorEvent() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        Class<?>[] classes = new Class[]{SensorDoorOpenEvent.class, SensorDoorClosedEvent.class, SensorLightOnEvent.class, SensorLightOffEvent.class};
+        if (Math.random() < 0.05) return null;
+        Class<?> choice = classes[(int) (4 * Math.random())];
         String objectId = "" + ((int) (10 * Math.random()));
-        return new SensorEvent(sensorEventType, objectId);
+        Constructor<?> constructor = choice.getConstructor(String.class);
+        Object event = constructor.newInstance(objectId);
+        return (SensorEvent) event;
     }
 
-    private void handleEvents() throws IOException {
-        EventHandler handler = new EventHandler(homeConditionPersister.readHome());
+    private void handleEvents() throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        EventHandler handler = new EventHandler(homeConditionPersister.readHome("smart-home-1.js"));
         SensorEvent event = getNextSensorEvent();
         while (event != null) {
             handler.handleEvent(event);

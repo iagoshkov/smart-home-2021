@@ -21,4 +21,27 @@ public class SmartHome {
     public Collection<Room> getRooms() {
         return rooms;
     }
+
+    public <T> Location<Light> findLightByID(String id) {
+        for (Room room : rooms) {
+            for (Light light : room.getLights()) {
+                if (light.getId().equals(id)) {
+                    return new Location<>(room, light);
+                }
+            }
+        }
+        return null;
+    }
+
+    public <T> Location<Door> findDoorByID(String id) {
+        for (Room room : rooms) {
+            for (Door door : room.getDoors()) {
+                if (door.getId().equals(id)) {
+                    return new Location<>(room, door);
+                }
+            }
+        }
+        return null;
+    }
+
 }
