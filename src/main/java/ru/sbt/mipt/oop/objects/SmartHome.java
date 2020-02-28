@@ -1,10 +1,15 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.objects;
+
+import ru.sbt.mipt.oop.objects.Door;
+import ru.sbt.mipt.oop.objects.Light;
+import ru.sbt.mipt.oop.objects.Location;
+import ru.sbt.mipt.oop.objects.Room;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHome {
-    Collection<Room> rooms;
+    private Collection<Room> rooms;
 
     public SmartHome() {
         rooms = new ArrayList<>();

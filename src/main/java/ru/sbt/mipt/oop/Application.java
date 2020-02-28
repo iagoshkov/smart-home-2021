@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.persister.HomeConditionGsonPersister;
+import ru.sbt.mipt.oop.persister.HomeConditionPersister;
 import ru.sbt.mipt.oop.sensorEvent.*;
 
 import java.io.IOException;
@@ -9,7 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 public class Application {
     private final HomeConditionPersister homeConditionPersister;
 
-    public Application(HomeConditionGsonPersister homeConditionGsonPersister) {
+    private Application(HomeConditionGsonPersister homeConditionGsonPersister) {
         this.homeConditionPersister = homeConditionGsonPersister;
     }
 
