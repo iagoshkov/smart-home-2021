@@ -13,7 +13,7 @@ public class Room {
         this.name = name;
     }
 
-    public Collection<Light> getLights() {
+    public Collection<LightInformation> getLights() {
         return lights;
     }
 
