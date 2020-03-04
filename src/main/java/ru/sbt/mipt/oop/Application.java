@@ -22,7 +22,7 @@ public class Application {
             if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
                 // событие от источника света
                 for (Room room : smartHome.getRooms()) {
-                    for (Light light : room.getLights()) {
+                    for (LightInformation light : room.getLights()) {
                         if (light.getId().equals(event.getObjectId())) {
                             if (event.getType() == LIGHT_ON) {
                                 light.setOn(true);
@@ -50,7 +50,7 @@ public class Application {
                                 // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
                                 if (room.getName().equals("hall")) {
                                     for (Room homeRoom : smartHome.getRooms()) {
-                                        for (Light light : homeRoom.getLights()) {
+                                        for (LightInformation light : homeRoom.getLights()) {
                                             light.setOn(false);
                                             SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
                                             sendCommand(command);
