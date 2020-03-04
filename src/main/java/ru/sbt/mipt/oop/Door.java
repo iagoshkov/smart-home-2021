@@ -23,7 +23,7 @@ public class Door {
     }
     
 }
-
+//We need special class that has main responsibility - to get information 
 public class DoorInformation extends Door{
     public String getId() {
         return id;
