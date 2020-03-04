@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import static ru.sbt.mipt.oop.SensorEventTypeLight.LIGHT_ON;
+
 public class Light {
     private boolean isOn;
     private final String id;
@@ -8,18 +10,16 @@ public class Light {
         this.id = id;
         this.isOn = isOn;
     }
-    
+
     public boolean isOn() {
         return isOn;
     }
-    
-    
+
     public String getId() {
         return id;
     }
-    
+
     public void setOn(boolean on) {
         isOn = on;
     }
 }
-
