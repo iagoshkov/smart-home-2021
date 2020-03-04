@@ -11,7 +11,7 @@ public class Door {
     /* It is first responsibility: 
     to get information about Door => 
     It is better to create new class
-    ""DoorInformation" with this 
+    "DoorInformation" with this 
     responsibility
     public String getId() {
         return id;
