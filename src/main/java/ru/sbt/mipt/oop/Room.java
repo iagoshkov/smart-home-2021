@@ -17,7 +17,7 @@ public class Room {
         return lights;
     }
 
-    public Collection<Door> getDoors() {
+    public Collection<DoorInformation> getDoors() {
         return doors;
     }
 
