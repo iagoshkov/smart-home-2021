@@ -20,7 +20,7 @@ public class Application {
     }
 
     private static SensorEvent getNextSensorEvent() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Class<?>[] classes = new Class[]{SensorDoorOpenEvent.class, SensorDoorClosedEvent.class, SensorLightOnEvent.class, SensorLightOffEvent.class};
+        Class<?>[] classes = new Class[]{SensorDoorOpenEvent.class, SensorDoorClosedEvent.class, SensorLightOnEvent.class, SensorLightOffEvent.class, SensorHallDoorClosedEvent.class};
         if (Math.random() < 0.05) return null;
         Class<?> choice = classes[(int) (4 * Math.random())];
         String objectId = "" + ((int) (10 * Math.random()));
