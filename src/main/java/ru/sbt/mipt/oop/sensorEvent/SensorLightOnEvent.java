@@ -14,9 +14,9 @@ public class SensorLightOnEvent extends SensorEvent {
 
     @Override
     public void handleEvent(SmartHome smartHome) {
-        Location<Light> location = smartHome.findLightByID(getObjectId());
+        Location location = smartHome.findLightByID(getObjectId());
         if (location == null) return;;
-        location.getObject().setOn(true);
+        location.getObject().setActive(true);
         System.out.println("Light " + location.getObject().getId() + " in room " + location.getRoom().getName() + " was turned on.");
     }
 }

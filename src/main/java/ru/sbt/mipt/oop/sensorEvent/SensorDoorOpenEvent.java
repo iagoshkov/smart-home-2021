@@ -13,9 +13,9 @@ public class SensorDoorOpenEvent extends SensorEvent {
 
     @Override
     public void handleEvent(SmartHome smartHome) {
-        Location<Door> location = smartHome.findDoorByID(getObjectId());
+        Location location = smartHome.findDoorByID(getObjectId());
         if (location == null) return;;
-        location.getObject().setOpen(true);
+        location.getObject().setActive(true);
         System.out.println("Door " + location.getObject().getId() + " in room " + location.getRoom().getName() + " was opened.");
     }
 }

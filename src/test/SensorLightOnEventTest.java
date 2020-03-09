@@ -12,10 +12,10 @@ class SensorLightOnEventTest {
         SmartHome smartHome = new HomeBuilder().getSmartHome();
         String objectId = "7";
         SensorEvent event = new SensorLightOnEvent(objectId);
-        boolean isOn = smartHome.findLightByID(objectId).getObject().isOn();
+        boolean isOn = smartHome.findLightByID(objectId).getObject().isActive();
         assertFalse(isOn);
         event.handleEvent(smartHome);
-        isOn = smartHome.findLightByID(objectId).getObject().isOn();
+        isOn = smartHome.findLightByID(objectId).getObject().isActive();
         assertTrue(isOn);
     }
 
@@ -24,10 +24,10 @@ class SensorLightOnEventTest {
         SmartHome smartHome = new HomeBuilder().getSmartHome();
         String objectId = "3";
         SensorEvent event = new SensorLightOnEvent(objectId);
-        boolean isOn = smartHome.findLightByID(objectId).getObject().isOn();
+        boolean isOn = smartHome.findLightByID(objectId).getObject().isActive();
         assertTrue(isOn);
         event.handleEvent(smartHome);
-        isOn = smartHome.findLightByID(objectId).getObject().isOn();
+        isOn = smartHome.findLightByID(objectId).getObject().isActive();
         assertTrue(isOn);
     }
 }

@@ -16,12 +16,12 @@ class SensorHallDoorClosedEventTest {
         SmartHome smartHome = new HomeBuilder().getSmartHome();
         String objectId = "4";
         SensorEvent event = new SensorHallDoorClosedEvent(objectId);
-        assertFalse(smartHome.findDoorByID(objectId).getObject().isOpen());
+        assertFalse(smartHome.findDoorByID(objectId).getObject().isActive());
         event.handleEvent(smartHome);
-        assertFalse(smartHome.findDoorByID(objectId).getObject().isOpen());
+        assertFalse(smartHome.findDoorByID(objectId).getObject().isActive());
         for (Room room : smartHome.getRooms()) {
             for (Light light : room.getLights()) {
-                assertFalse(light.isOn());
+                assertFalse(light.isActive());
             }
         }
     }
@@ -32,11 +32,11 @@ class SensorHallDoorClosedEventTest {
         String doorId = "3";
         String lightId = "3";
         SensorEvent event = new SensorHallDoorClosedEvent(doorId);
-        assertTrue(smartHome.findDoorByID(doorId).getObject().isOpen());
-        boolean isOn = smartHome.findLightByID(lightId).getObject().isOn();
+        assertTrue(smartHome.findDoorByID(doorId).getObject().isActive());
+        boolean isOn = smartHome.findLightByID(lightId).getObject().isActive();
         assertTrue(isOn);
         event.handleEvent(smartHome);
-        assertFalse(smartHome.findDoorByID(doorId).getObject().isOpen());
-        assertTrue(smartHome.findLightByID(lightId).getObject().isOn());
+        assertFalse(smartHome.findDoorByID(doorId).getObject().isActive());
+        assertTrue(smartHome.findLightByID(lightId).getObject().isActive());
     }
 }

@@ -1,16 +1,16 @@
 package ru.sbt.mipt.oop.objects;
 
-public class Location<T> {
+public class Location {
     private final Room room;
-    private final T object;
+    private final SmartHomeObject smartHomeObject;
 
-    public Location(Room room, T object) {
+    public Location(Room room, SmartHomeObject object) {
         this.room = room;
-        this.object = object;
+        this.smartHomeObject = object;
     }
 
-    public T getObject() {
-        return object;
+    public SmartHomeObject getObject() {
+        return smartHomeObject;
     }
 
     public Room getRoom() {

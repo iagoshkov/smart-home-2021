@@ -16,7 +16,7 @@ public class SensorHallDoorClosedEvent extends SensorDoorClosedEvent{
     private void turnOffLights(SmartHome smartHome) {
         for (Room homeRoom : smartHome.getRooms()) {
             for (Light light : homeRoom.getLights()) {
-                light.setOn(false);
+                light.setActive(false);
                 SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
                 sendCommand(command);
             }
@@ -26,7 +26,7 @@ public class SensorHallDoorClosedEvent extends SensorDoorClosedEvent{
     @Override
     public void handleEvent(SmartHome smartHome) {
         closeDoor(smartHome);
-        Location<Door> location = smartHome.findDoorByID(getObjectId());
+        Location location = smartHome.findDoorByID(getObjectId());
         if (location.getRoom().getName().equals("hall")) {
             turnOffLights(smartHome);
         }

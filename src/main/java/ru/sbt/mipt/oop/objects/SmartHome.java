@@ -1,5 +1,9 @@
 package ru.sbt.mipt.oop.objects;
 
+import ru.sbt.mipt.oop.iterator.SmartHomeIterator;
+import ru.sbt.mipt.oop.iterator.Iterator;
+
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -22,23 +26,23 @@ public class SmartHome{
         return rooms;
     }
 
-    public <T> Location<Light> findLightByID(String id) {
-        for (Room room : rooms) {
-            for (Light light : room.getLights()) {
-                if (light.getId().equals(id)) {
-                    return new Location<>(room, light);
-                }
+    public Location findLightByID(String id) {
+        Iterator<Location> iterator = new SmartHomeIterator(this);
+        while (iterator.hasNext()) {
+            Location currentLocation = iterator.getNext();
+            if (currentLocation.getObject().getId().equals(id) && currentLocation.getObject().getType() == SmartHomeObjectType.Light) {
+                return currentLocation;
             }
         }
         return null;
     }
 
-    public <T> Location<Door> findDoorByID(String id) {
-        for (Room room : rooms) {
-            for (Door door : room.getDoors()) {
-                if (door.getId().equals(id)) {
-                    return new Location<>(room, door);
-                }
+    public Location findDoorByID(String id) {
+        Iterator<Location> iterator = new SmartHomeIterator(this);
+        while (iterator.hasNext()) {
+            Location currentLocation = iterator.getNext();
+            if (currentLocation.getObject().getId().equals(id) && currentLocation.getObject().getType() == SmartHomeObjectType.Door) {
+                return currentLocation;
             }
         }
         return null;

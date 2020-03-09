@@ -13,9 +13,9 @@ class SensorDoorOpenEventTest {
         SmartHome smartHome = new HomeBuilder().getSmartHome();
         String objectId = "3";
         SensorEvent event = new SensorDoorOpenEvent(objectId);
-        assertTrue(smartHome.findDoorByID(objectId).getObject().isOpen());
+        assertTrue(smartHome.findDoorByID(objectId).getObject().isActive());
         event.handleEvent(smartHome);
-        assertTrue(smartHome.findDoorByID(objectId).getObject().isOpen());
+        assertTrue(smartHome.findDoorByID(objectId).getObject().isActive());
     }
 
     @Test
@@ -23,8 +23,8 @@ class SensorDoorOpenEventTest {
         SmartHome smartHome = new HomeBuilder().getSmartHome();
         String objectId = "2";
         SensorEvent event = new SensorDoorOpenEvent(objectId);
-        assertFalse(smartHome.findDoorByID(objectId).getObject().isOpen());
+        assertFalse(smartHome.findDoorByID(objectId).getObject().isActive());
         event.handleEvent(smartHome);
-        assertTrue(smartHome.findDoorByID(objectId).getObject().isOpen());
+        assertTrue(smartHome.findDoorByID(objectId).getObject().isActive());
     }
 }
