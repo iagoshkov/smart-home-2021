@@ -7,7 +7,6 @@ import ru.sbt.mipt.oop.objects.SmartHome;
 import ru.sbt.mipt.oop.persister.HomeConditionGsonPersister;
 import ru.sbt.mipt.oop.persister.HomeConditionPersister;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -18,7 +17,7 @@ public class HomeBuilder {
         homeConditionPersister.saveHome(smartHome);
     }
 
-    public static void main(String... args) throws IOException {
+    public static void main(String... args) {
         new HomeBuilder().dumpHome(new HomeConditionGsonPersister("output.js"));
     }
 
