@@ -1,6 +1,5 @@
 package ru.sbt.mipt.oop.sensorEvent;
 
-import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.objects.*;
 
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
