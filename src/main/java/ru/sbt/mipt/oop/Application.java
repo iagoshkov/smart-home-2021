@@ -4,19 +4,18 @@ import ru.sbt.mipt.oop.persister.HomeConditionGsonPersister;
 import ru.sbt.mipt.oop.persister.HomeConditionPersister;
 import ru.sbt.mipt.oop.sensorEvent.*;
 
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class Application {
     private final HomeConditionPersister homeConditionPersister;
 
-    private Application(HomeConditionGsonPersister homeConditionGsonPersister) {
-        this.homeConditionPersister = homeConditionGsonPersister;
+    private Application(HomeConditionPersister homeConditionPersister) {
+        this.homeConditionPersister = homeConditionPersister;
     }
 
-    public static void main(String... args) throws IOException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        new Application(new HomeConditionGsonPersister()).handleEvents();
+    public static void main(String... args) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        new Application(new HomeConditionGsonPersister("smart-home-1.js")).handleEvents();
     }
 
     private static SensorEvent getNextSensorEvent() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -29,8 +28,8 @@ public class Application {
         return (SensorEvent) event;
     }
 
-    private void handleEvents() throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        EventHandler handler = new EventHandler(homeConditionPersister.readHome("smart-home-1.js"));
+    private void handleEvents() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        EventHandler handler = new EventHandler(homeConditionPersister.readHome());
         SensorEvent event = getNextSensorEvent();
         while (event != null) {
             handler.handleEvent(event);

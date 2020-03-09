@@ -12,17 +12,17 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class HomeBuilder {
-    private final HomeConditionPersister homeConditionPersister;
+    private SmartHome smartHome = buildHome();
 
-    public HomeBuilder(HomeConditionGsonPersister homeConditionGsonPersister) {
-        this.homeConditionPersister = homeConditionGsonPersister;
+    private void dumpHome(HomeConditionPersister homeConditionPersister) {
+        homeConditionPersister.saveHome(smartHome);
     }
 
-    public static void main(String... args) throws IOException {
-        new HomeBuilder(new HomeConditionGsonPersister()).buildHome();
+    public static void main(String... args) {
+        new HomeBuilder().dumpHome(new HomeConditionGsonPersister("output.js"));
     }
 
-    private void buildHome() throws IOException {
+    private static SmartHome buildHome() {
         Room kitchen = new Room("kitchen");
         kitchen.addLights(Arrays.asList(new Light("1", false), new Light("2", true)));
         kitchen.addDoors(Collections.singletonList(new Door(false, "1")));
@@ -39,7 +39,10 @@ public class HomeBuilder {
         hall.addLights(Arrays.asList(new Light("7", false), new Light("8", false), new Light("9", false)));
         hall.addDoors(Collections.singletonList(new Door(false, "4")));
 
-        SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
-        homeConditionPersister.saveHome(smartHome, "output.js");
+        return new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
+    }
+
+    public SmartHome getSmartHome() {
+        return smartHome;
     }
 }
