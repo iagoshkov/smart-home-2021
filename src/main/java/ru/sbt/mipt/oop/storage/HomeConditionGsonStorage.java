@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.persister;
+package ru.sbt.mipt.oop.storage;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,10 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class HomeConditionGsonPersister implements HomeConditionPersister {
+public class HomeConditionGsonStorage implements HomeConditionStorage {
     private final String filename;
 
-    public HomeConditionGsonPersister(String filename) {
+    public HomeConditionGsonStorage(String filename) {
         this.filename = filename;
     }
 

@@ -4,8 +4,8 @@ import ru.sbt.mipt.oop.objects.Door;
 import ru.sbt.mipt.oop.objects.Light;
 import ru.sbt.mipt.oop.objects.Room;
 import ru.sbt.mipt.oop.objects.SmartHome;
-import ru.sbt.mipt.oop.persister.HomeConditionGsonPersister;
-import ru.sbt.mipt.oop.persister.HomeConditionPersister;
+import ru.sbt.mipt.oop.storage.HomeConditionGsonStorage;
+import ru.sbt.mipt.oop.storage.HomeConditionStorage;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,12 +13,12 @@ import java.util.Collections;
 public class HomeBuilder {
     private SmartHome smartHome = buildHome();
 
-    private void dumpHome(HomeConditionPersister homeConditionPersister) {
-        homeConditionPersister.saveHome(smartHome);
+    private void dumpHome(HomeConditionStorage homeConditionStorage) {
+        homeConditionStorage.saveHome(smartHome);
     }
 
     public static void main(String... args) {
-        new HomeBuilder().dumpHome(new HomeConditionGsonPersister("output.js"));
+        new HomeBuilder().dumpHome(new HomeConditionGsonStorage("output.js"));
     }
 
     private static SmartHome buildHome() {
