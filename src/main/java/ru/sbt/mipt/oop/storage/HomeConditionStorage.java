@@ -1,10 +1,8 @@
-package ru.sbt.mipt.oop.persister;
+package ru.sbt.mipt.oop.storage;
 
 import ru.sbt.mipt.oop.objects.SmartHome;
 
-import java.io.IOException;
-
-public interface HomeConditionPersister {
+public interface HomeConditionStorage {
     SmartHome readHome();
     void saveHome(SmartHome smartHome);
 }

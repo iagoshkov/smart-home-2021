@@ -1,39 +1,31 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.persister.HomeConditionGsonPersister;
-import ru.sbt.mipt.oop.persister.HomeConditionPersister;
-import ru.sbt.mipt.oop.sensorEvent.*;
+import ru.sbt.mipt.oop.eventhandler.EventDoorHandler;
+import ru.sbt.mipt.oop.eventhandler.EventLightHandler;
+import ru.sbt.mipt.oop.objects.SmartHome;
+import ru.sbt.mipt.oop.storage.HomeConditionGsonStorage;
+import ru.sbt.mipt.oop.provider.EventProvider;
+import ru.sbt.mipt.oop.provider.EventRandomProvider;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+
 
 public class Application {
-    private final HomeConditionPersister homeConditionPersister;
+    private final SmartHome smartHome;
+    private final EventsRegistrar eventsRegistrar;
 
-    private Application(HomeConditionPersister homeConditionPersister) {
-        this.homeConditionPersister = homeConditionPersister;
+
+    private Application(SmartHome smartHome, EventProvider eventProvider) {
+        this.smartHome = smartHome;
+        this.eventsRegistrar = new EventsRegistrar(eventProvider, Arrays.asList(new EventDoorHandler(smartHome), new EventLightHandler(smartHome)));
     }
 
-    public static void main(String... args) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        new Application(new HomeConditionGsonPersister("smart-home-1.js")).handleEvents();
+    public static void main(String... args) {
+        String filename = "smart-home-1.js";
+        new Application(new HomeConditionGsonStorage(filename).readHome(), new EventRandomProvider()).handleEvents();
     }
 
-    private static SensorEvent getNextSensorEvent() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        Class<?>[] classes = new Class[]{SensorDoorOpenEvent.class, SensorDoorClosedEvent.class, SensorLightOnEvent.class, SensorLightOffEvent.class, SensorHallDoorClosedEvent.class};
-        if (Math.random() < 0.05) return null;
-        Class<?> choice = classes[(int) (4 * Math.random())];
-        String objectId = "" + ((int) (10 * Math.random()));
-        Constructor<?> constructor = choice.getConstructor(String.class);
-        Object event = constructor.newInstance(objectId);
-        return (SensorEvent) event;
-    }
-
-    private void handleEvents() throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        EventHandler handler = new EventHandler(homeConditionPersister.readHome());
-        SensorEvent event = getNextSensorEvent();
-        while (event != null) {
-            handler.handleEvent(event);
-            event = getNextSensorEvent();
-        }
+    private void handleEvents() {
+        eventsRegistrar.registerEvents();
     }
 }

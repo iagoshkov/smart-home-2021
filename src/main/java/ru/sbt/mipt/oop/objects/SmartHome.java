@@ -22,26 +22,45 @@ public class SmartHome{
         return rooms;
     }
 
-    public <T> Location<Light> findLightByID(String id) {
+    public Light findLightByID(Room room, String id) {
+        if (room == null) return null;
+        for (Light light : room.getLights()) {
+            if (light.getId().equals(id)) {
+                return light;
+            }
+        }
+        return null;
+    }
+
+    public Room findRoomByLight(String id) {
         for (Room room : rooms) {
             for (Light light : room.getLights()) {
                 if (light.getId().equals(id)) {
-                    return new Location<>(room, light);
+                    return room;
                 }
             }
         }
         return null;
     }
 
-    public <T> Location<Door> findDoorByID(String id) {
+    public Room findRoomByDoor(String id) {
         for (Room room : rooms) {
             for (Door door : room.getDoors()) {
                 if (door.getId().equals(id)) {
-                    return new Location<>(room, door);
+                    return room;
                 }
             }
         }
         return null;
     }
 
+    public Door findDoorByID(Room room, String id) {
+        if (room == null) return null;
+        for (Door door : room.getDoors()) {
+            if (door.getId().equals(id)) {
+                return door;
+            }
+        }
+        return null;
+    }
 }
