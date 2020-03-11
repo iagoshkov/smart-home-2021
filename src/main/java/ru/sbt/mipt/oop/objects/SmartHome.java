@@ -42,6 +42,16 @@ public class SmartHome implements Actionable {
         return light.get();
     }
 
+    public Light findLightByID(String id) {
+        AtomicReference<Light> light = new AtomicReference<>();
+        this.execute(lightCandidate -> {
+            if (lightCandidate instanceof Light && ((Light) lightCandidate).getId().equals(id)) {
+                light.set((Light) lightCandidate);
+            }
+        });
+        return light.get();
+    }
+
     public Room findRoomByLight(String id) {
         AtomicReference<Room> r = new AtomicReference<>();
         this.execute(roomCandidate -> {
@@ -74,6 +84,16 @@ public class SmartHome implements Actionable {
         if (room == null) return null;
         AtomicReference<Door> door = new AtomicReference<>();
         room.execute(doorCandidate -> {
+            if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(id)) {
+                door.set((Door) doorCandidate);
+            }
+        });
+        return door.get();
+    }
+
+    public Door findDoorByID(String id) {
+        AtomicReference<Door> door = new AtomicReference<>();
+        this.execute(doorCandidate -> {
             if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(id)) {
                 door.set((Door) doorCandidate);
             }
