@@ -1,9 +1,13 @@
 package ru.sbt.mipt.oop.objects;
 
+import ru.sbt.mipt.oop.Actionable;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 
-public class SmartHome{
+public class SmartHome implements Actionable {
     private Collection<Room> rooms;
 
     public SmartHome() {
@@ -12,6 +16,11 @@ public class SmartHome{
 
     public SmartHome(Collection<Room> rooms) {
         this.rooms = rooms;
+    }
+
+    @Override
+    public void execute(Consumer<Object> action) {
+        rooms.forEach(room -> room.execute(action));
     }
 
     public void addRoom(Room room) {
@@ -24,43 +33,51 @@ public class SmartHome{
 
     public Light findLightByID(Room room, String id) {
         if (room == null) return null;
-        for (Light light : room.getLights()) {
-            if (light.getId().equals(id)) {
-                return light;
+        AtomicReference<Light> light = new AtomicReference<>();
+        room.execute(lightCandidate -> {
+            if (lightCandidate instanceof Light && ((Light) lightCandidate).getId().equals(id)) {
+                light.set((Light) lightCandidate);
             }
-        }
-        return null;
+        });
+        return light.get();
     }
 
     public Room findRoomByLight(String id) {
-        for (Room room : rooms) {
-            for (Light light : room.getLights()) {
-                if (light.getId().equals(id)) {
-                    return room;
-                }
+        AtomicReference<Room> r = new AtomicReference<>();
+        this.execute(roomCandidate -> {
+            if (roomCandidate instanceof Room) {
+                ((Room) roomCandidate).execute(lightCandidate -> {
+                    if (lightCandidate instanceof Light && ((Light) lightCandidate).getId().equals(id)) {
+                        r.set((Room) roomCandidate);
+                    }
+                });
             }
-        }
-        return null;
+        });
+        return r.get();
     }
 
     public Room findRoomByDoor(String id) {
-        for (Room room : rooms) {
-            for (Door door : room.getDoors()) {
-                if (door.getId().equals(id)) {
-                    return room;
-                }
+        AtomicReference<Room> r = new AtomicReference<>();
+        this.execute(roomCandidate -> {
+            if (roomCandidate instanceof Room) {
+                ((Room) roomCandidate).execute(doorCandidate -> {
+                    if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(id)) {
+                        r.set((Room) roomCandidate);
+                    }
+                });
             }
-        }
-        return null;
+        });
+        return r.get();
     }
 
     public Door findDoorByID(Room room, String id) {
         if (room == null) return null;
-        for (Door door : room.getDoors()) {
-            if (door.getId().equals(id)) {
-                return door;
+        AtomicReference<Door> door = new AtomicReference<>();
+        room.execute(doorCandidate -> {
+            if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(id)) {
+                door.set((Door) doorCandidate);
             }
-        }
-        return null;
+        });
+        return door.get();
     }
 }

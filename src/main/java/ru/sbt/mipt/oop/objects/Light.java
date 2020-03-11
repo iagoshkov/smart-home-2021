@@ -1,6 +1,10 @@
 package ru.sbt.mipt.oop.objects;
 
-public class Light {
+import ru.sbt.mipt.oop.Actionable;
+
+import java.util.function.Consumer;
+
+public class Light implements Actionable {
     private boolean isOn;
     private final String id;
 
@@ -19,5 +23,10 @@ public class Light {
 
     public void setOn(boolean on) {
         isOn = on;
+    }
+
+    @Override
+    public void execute(Consumer<Object> action) {
+        action.accept(this);
     }
 }

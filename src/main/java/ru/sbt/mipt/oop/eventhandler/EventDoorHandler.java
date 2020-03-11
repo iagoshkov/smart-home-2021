@@ -2,8 +2,8 @@ package ru.sbt.mipt.oop.eventhandler;
 
 import ru.sbt.mipt.oop.CommandType;
 import ru.sbt.mipt.oop.SensorCommand;
-import ru.sbt.mipt.oop.SensorEvent;
-import ru.sbt.mipt.oop.SensorEventType;
+import ru.sbt.mipt.oop.event.SensorEvent;
+import ru.sbt.mipt.oop.event.SensorEventType;
 import ru.sbt.mipt.oop.objects.Door;
 import ru.sbt.mipt.oop.objects.Light;
 import ru.sbt.mipt.oop.objects.Room;
