@@ -16,58 +16,49 @@ public class EventDoorHandler implements EventHandler {
         this.smartHome = smartHome;
     }
 
+    public Room findRoomByDoor(String id) {
+        for (Room room : smartHome.getRooms()) {
+            for (Door door : room.getDoors()) {
+                if (door.getId().equals(id)) {
+                    return room;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Door findDoorByID(Room room, String id) {
+        if (room == null) return null;
+        for (Door door : room.getDoors()) {
+            if (door.getId().equals(id)) {
+                return door;
+            }
+        }
+        return null;
+    }
+
     @Override
     public void handleEvent(SensorEvent event) {
         if (event.getType() == SensorEventType.DOOR_OPEN) {
             handleDoorOpenEvent(event);
-        } else if (event.getType() == SensorEventType.DOOR_CLOSED) {
+        } else if (event.getType() == SensorEventType.DOOR_CLOSED && findRoomByDoor(event.getObjectId()) != null && !findRoomByDoor(event.getObjectId()).getName().equals("hall")) {
             handleDoorClosedEvent(event);
         }
     }
 
     private void handleDoorOpenEvent(SensorEvent event) {
-        Room room = smartHome.findRoomByDoor(event.getObjectId());
-        Door door = smartHome.findDoorByID(room, event.getObjectId());
+        Room room = findRoomByDoor(event.getObjectId());
+        Door door = findDoorByID(room, event.getObjectId());
         if (door == null) return;
         door.setOpen(true);
         System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
     }
 
-    private void closeDoor(SensorEvent sensorEvent) {
-        Room room = smartHome.findRoomByDoor(sensorEvent.getObjectId());
-        Door door = smartHome.findDoorByID(room, sensorEvent.getObjectId());
+    private void handleDoorClosedEvent(SensorEvent event) {
+        Room room = findRoomByDoor(event.getObjectId());
+        Door door = findDoorByID(room, event.getObjectId());
         if (door == null) return;
         door.setOpen(false);
         System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
-    }
-
-    private void handleDoorClosedEvent(SensorEvent event) {
-        Room room = smartHome.findRoomByDoor(event.getObjectId());
-        Door door = smartHome.findDoorByID(room, event.getObjectId());
-        if (door == null) return;
-        if (room.getName().equals("hall")) {
-            handleHallDoorClosedEvent(event);
-        } else {
-            closeDoor(event);
-        }
-    }
-
-    private static void sendCommand(SensorCommand command) {
-        System.out.println("Pretent we're sending command " + command);
-    }
-
-    private void turnOffLights(SmartHome smartHome) {
-        for (Room homeRoom : smartHome.getRooms()) {
-            for (Light light : homeRoom.getLights()) {
-                light.setOn(false);
-                SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                sendCommand(command);
-            }
-        }
-    }
-
-    private void handleHallDoorClosedEvent(SensorEvent sensorEvent) {
-        closeDoor(sensorEvent);
-        turnOffLights(smartHome);
     }
 }
