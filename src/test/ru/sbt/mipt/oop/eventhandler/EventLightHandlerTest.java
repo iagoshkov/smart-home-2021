@@ -15,10 +15,10 @@ class EventLightHandlerTest {
         SmartHome smartHome = new HomeBuilder().getSmartHome();
         String objectId = "1";
         SensorEvent event = new SensorEvent(SensorEventType.LIGHT_ON, objectId);
-        EventHandler handler = new EventLightHandler(smartHome);
-        assertFalse(smartHome.findLightByID(objectId).isOn());
+        EventLightHandler handler = new EventLightHandler(smartHome);
+        assertFalse(handler.findLightByID(objectId).isOn());
         handler.handleEvent(event);
-        assertTrue(smartHome.findLightByID(objectId).isOn());
+        assertTrue(handler.findLightByID(objectId).isOn());
     }
 
     @Test
@@ -26,9 +26,9 @@ class EventLightHandlerTest {
         SmartHome smartHome = new HomeBuilder().getSmartHome();
         String objectId = "2";
         SensorEvent event = new SensorEvent(SensorEventType.LIGHT_OFF, objectId);
-        EventHandler handler = new EventLightHandler(smartHome);
-        assertTrue(smartHome.findLightByID(objectId).isOn());
+        EventLightHandler handler = new EventLightHandler(smartHome);
+        assertTrue(handler.findLightByID(objectId).isOn());
         handler.handleEvent(event);
-        assertFalse(smartHome.findLightByID(objectId).isOn());
+        assertFalse(handler.findLightByID(objectId).isOn());
     }
 }

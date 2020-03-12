@@ -2,6 +2,8 @@ package ru.sbt.mipt.oop.objects;
 
 import org.junit.jupiter.api.Test;
 import ru.sbt.mipt.oop.HomeBuilder;
+import ru.sbt.mipt.oop.eventhandler.EventDoorHandler;
+import ru.sbt.mipt.oop.eventhandler.EventLightHandler;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,8 +18,8 @@ class SmartHomeTest {
         room.addLights(Arrays.asList(new Light("7", false), new Light("8", false), new Light("9", false)));
         room.addDoors(Collections.singletonList(new Door(false, "4")));
         SmartHome smartHome = new SmartHome(Collections.singletonList(room));
-        assertNull(smartHome.findLightByID("4"));
-        assertNull(smartHome.findLightByID(smartHome.findRoomByLight("4"), "4"));
+        EventLightHandler handler = new EventLightHandler(smartHome);
+        assertNull(handler.findLightByID("4"));
     }
 
     @Test
@@ -26,11 +28,8 @@ class SmartHomeTest {
         room.addLights(Arrays.asList(new Light("4", false), new Light("8", false), new Light("9", false)));
         room.addDoors(Collections.singletonList(new Door(true, "4")));
         SmartHome smartHome = new SmartHome(Collections.singletonList(room));
-        Light light = smartHome.findLightByID("4");
-        assertEquals(light.getId(), "4");
-        assertFalse(light.isOn());
-
-        light = smartHome.findLightByID(smartHome.findRoomByLight("4"), "4");
+        EventLightHandler handler = new EventLightHandler(smartHome);
+        Light light = handler.findLightByID("4");
         assertEquals(light.getId(), "4");
         assertFalse(light.isOn());
     }
@@ -46,8 +45,9 @@ class SmartHomeTest {
         hall.addDoors(Collections.singletonList(new Door(true, "5")));
 
         SmartHome smartHome = new SmartHome(Arrays.asList(room, hall));
+        EventLightHandler handler = new EventLightHandler(smartHome);
 
-        Room foundRoom = smartHome.findRoomByLight("5");
+        Room foundRoom = handler.findRoomByLight("5");
         assertEquals(foundRoom.getName(), hall.getName());
     }
 
@@ -62,8 +62,9 @@ class SmartHomeTest {
         hall.addDoors(Collections.singletonList(new Door(true, "5")));
 
         SmartHome smartHome = new SmartHome(Arrays.asList(room, hall));
+        EventDoorHandler handler = new EventDoorHandler(smartHome);
 
-        Room foundRoom = smartHome.findRoomByDoor("4");
+        Room foundRoom = handler.findRoomByDoor("4");
         assertEquals(foundRoom.getName(), room.getName());
     }
 
@@ -71,18 +72,16 @@ class SmartHomeTest {
     void testNotFindDoorByID() {
         SmartHome smartHome = new HomeBuilder().getSmartHome();
         String objectID = "5";
-        assertNull(smartHome.findDoorByID(objectID));
-        assertNull(smartHome.findDoorByID(smartHome.findRoomByDoor(objectID), objectID));
+        EventDoorHandler handler = new EventDoorHandler(smartHome);
+        assertNull(handler.findDoorByID(objectID));
     }
 
     @Test
     void testFindDoorByID() {
         SmartHome smartHome = new HomeBuilder().getSmartHome();
         String objectID = "1";
-        assertEquals(smartHome.findDoorByID(objectID).getId(), objectID);
-        assertEquals(smartHome.findDoorByID(smartHome.findRoomByDoor(objectID), objectID).getId(), objectID);
-
-        assertFalse(smartHome.findDoorByID(objectID).isOpen());
-        assertFalse(smartHome.findDoorByID(smartHome.findRoomByDoor(objectID), objectID).isOpen());
+        EventDoorHandler handler = new EventDoorHandler(smartHome);
+        assertEquals(handler.findDoorByID(objectID).getId(), objectID);
+        assertFalse(handler.findDoorByID(objectID).isOpen());
     }
 }
