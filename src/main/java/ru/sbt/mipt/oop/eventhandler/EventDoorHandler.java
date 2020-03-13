@@ -10,13 +10,13 @@ import ru.sbt.mipt.oop.objects.Room;
 import ru.sbt.mipt.oop.objects.SmartHome;
 
 public class EventDoorHandler implements EventHandler {
-    private final SmartHome smartHome;
+    protected final SmartHome smartHome;
 
     public EventDoorHandler(SmartHome smartHome) {
         this.smartHome = smartHome;
     }
 
-    public Room findRoomByDoor(String id) {
+    protected Room findRoomByDoor(String id) {
         for (Room room : smartHome.getRooms()) {
             for (Door door : room.getDoors()) {
                 if (door.getId().equals(id)) {
@@ -27,7 +27,7 @@ public class EventDoorHandler implements EventHandler {
         return null;
     }
 
-    public Door findDoorByID(Room room, String id) {
+    protected Door findDoorByID(Room room, String id) {
         if (room == null) return null;
         for (Door door : room.getDoors()) {
             if (door.getId().equals(id)) {
@@ -54,11 +54,15 @@ public class EventDoorHandler implements EventHandler {
         System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
     }
 
-    private void handleDoorClosedEvent(SensorEvent event) {
+    protected void closeDoor(SensorEvent event) {
         Room room = findRoomByDoor(event.getObjectId());
         Door door = findDoorByID(room, event.getObjectId());
         if (door == null) return;
         door.setOpen(false);
         System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
+    }
+
+    private void handleDoorClosedEvent(SensorEvent event) {
+        closeDoor(event);
     }
 }
