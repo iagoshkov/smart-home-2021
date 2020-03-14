@@ -9,13 +9,13 @@ import ru.sbt.mipt.oop.objects.SmartHome;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class EventDoorHandler implements EventHandler {
-    private final SmartHome smartHome;
+    protected final SmartHome smartHome;
 
     public EventDoorHandler(SmartHome smartHome) {
         this.smartHome = smartHome;
     }
 
-    public Room findRoomByDoor(String id) {
+    protected Room findRoomByDoor(String id) {
         AtomicReference<Room> r = new AtomicReference<>();
         smartHome.execute(roomCandidate -> {
             if (roomCandidate instanceof Room) {
@@ -30,7 +30,7 @@ public class EventDoorHandler implements EventHandler {
     }
 
 
-    public Door findDoorByID(String id) {
+    protected Door findDoorByID(String id) {
         AtomicReference<Door> door = new AtomicReference<>();
         smartHome.execute(doorCandidate -> {
             if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(id)) {
@@ -57,11 +57,15 @@ public class EventDoorHandler implements EventHandler {
         System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
     }
 
-    private void handleDoorClosedEvent(SensorEvent event) {
+    protected void closeDoor(SensorEvent event) {
         Room room = findRoomByDoor(event.getObjectId());
         Door door = findDoorByID(event.getObjectId());
         if (door == null) return;
         door.setOpen(false);
         System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
+    }
+
+    private void handleDoorClosedEvent(SensorEvent event) {
+        closeDoor(event);
     }
 }

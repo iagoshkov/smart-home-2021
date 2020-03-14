@@ -15,7 +15,7 @@ public class EventLightHandler implements EventHandler{
         this.smartHome = smartHome;
     }
 
-    public Light findLightByID(String id) {
+    private Light findLightByID(String id) {
         AtomicReference<Light> light = new AtomicReference<>();
         smartHome.execute(lightCandidate -> {
             if (lightCandidate instanceof Light && ((Light) lightCandidate).getId().equals(id)) {
@@ -25,7 +25,7 @@ public class EventLightHandler implements EventHandler{
         return light.get();
     }
 
-    public Room findRoomByLight(String id) {
+    private Room findRoomByLight(String id) {
         AtomicReference<Room> r = new AtomicReference<>();
         smartHome.execute(roomCandidate -> {
             if (roomCandidate instanceof Room) {
