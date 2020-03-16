@@ -1,16 +1,22 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.objects;
 
 import java.util.Collection;
 
 public class Room {
     private Collection<Light> lights;
     private Collection<Door> doors;
-    private String name;
+    private final String name;
 
-    public Room(Collection<Light> lights, Collection<Door> doors, String name) {
-        this.lights = lights;
-        this.doors = doors;
+    public Room(String name) {
         this.name = name;
+    }
+
+    public void addDoors(Collection <Door> doors) {
+        this.doors = doors;
+    }
+
+    public void addLights(Collection <Light> lights) {
+        this.lights = lights;
     }
 
     public Collection<Light> getLights() {
