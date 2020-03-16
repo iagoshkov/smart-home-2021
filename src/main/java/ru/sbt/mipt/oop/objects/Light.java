@@ -1,8 +1,7 @@
 package ru.sbt.mipt.oop.objects;
 
+import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Actionable;
-
-import java.util.function.Consumer;
 
 public class Light implements Actionable {
     private boolean isOn;
@@ -26,7 +25,7 @@ public class Light implements Actionable {
     }
 
     @Override
-    public void execute(Consumer<Object> action) {
-        action.accept(this);
+    public void execute(Action action) {
+        action.act(this);
     }
 }

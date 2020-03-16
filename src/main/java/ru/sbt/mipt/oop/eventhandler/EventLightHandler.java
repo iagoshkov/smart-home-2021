@@ -6,7 +6,6 @@ import ru.sbt.mipt.oop.objects.Light;
 import ru.sbt.mipt.oop.objects.Room;
 import ru.sbt.mipt.oop.objects.SmartHome;
 
-import java.util.concurrent.atomic.AtomicReference;
 
 public class EventLightHandler implements EventHandler{
     private final SmartHome smartHome;
@@ -16,27 +15,27 @@ public class EventLightHandler implements EventHandler{
     }
 
     private Light findLightByID(String id) {
-        AtomicReference<Light> light = new AtomicReference<>();
+        final Light[] light = {null};
         smartHome.execute(lightCandidate -> {
             if (lightCandidate instanceof Light && ((Light) lightCandidate).getId().equals(id)) {
-                light.set((Light) lightCandidate);
+                light[0] = (Light) lightCandidate;
             }
         });
-        return light.get();
+        return light[0];
     }
 
     private Room findRoomByLight(String id) {
-        AtomicReference<Room> r = new AtomicReference<>();
+        final Room[] r = {null};
         smartHome.execute(roomCandidate -> {
             if (roomCandidate instanceof Room) {
                 ((Room) roomCandidate).execute(lightCandidate -> {
                     if (lightCandidate instanceof Light && ((Light) lightCandidate).getId().equals(id)) {
-                        r.set((Room) roomCandidate);
+                        r[0] = (Room) roomCandidate;
                     }
                 });
             }
         });
-        return r.get();
+        return r[0];
     }
 
     private void handleLightOffEvent(SensorEvent event) {

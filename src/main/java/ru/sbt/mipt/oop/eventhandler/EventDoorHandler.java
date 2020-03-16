@@ -6,7 +6,6 @@ import ru.sbt.mipt.oop.objects.Door;
 import ru.sbt.mipt.oop.objects.Room;
 import ru.sbt.mipt.oop.objects.SmartHome;
 
-import java.util.concurrent.atomic.AtomicReference;
 
 public class EventDoorHandler implements EventHandler {
     protected final SmartHome smartHome;
@@ -16,28 +15,28 @@ public class EventDoorHandler implements EventHandler {
     }
 
     protected Room findRoomByDoor(String id) {
-        AtomicReference<Room> r = new AtomicReference<>();
+        final Room[] r = {null};
         smartHome.execute(roomCandidate -> {
             if (roomCandidate instanceof Room) {
                 ((Room) roomCandidate).execute(doorCandidate -> {
                     if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(id)) {
-                        r.set((Room) roomCandidate);
+                        r[0] = (Room) roomCandidate;
                     }
                 });
             }
         });
-        return r.get();
+        return r[0];
     }
 
 
     protected Door findDoorByID(String id) {
-        AtomicReference<Door> door = new AtomicReference<>();
+        final Door[] door = {null};
         smartHome.execute(doorCandidate -> {
             if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(id)) {
-                door.set((Door) doorCandidate);
+                door[0] = (Door) doorCandidate;
             }
         });
-        return door.get();
+        return door[0];
     }
 
     @Override

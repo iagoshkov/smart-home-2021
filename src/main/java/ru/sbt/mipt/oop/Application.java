@@ -1,5 +1,6 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.command.ProvisionalSensorCommandSender;
 import ru.sbt.mipt.oop.eventhandler.EventDoorHandler;
 import ru.sbt.mipt.oop.eventhandler.EventHallDoorHandler;
 import ru.sbt.mipt.oop.eventhandler.EventLightHandler;
@@ -12,18 +13,17 @@ import java.util.Arrays;
 
 
 public class Application {
-    private final SmartHome smartHome;
     private final EventsRegistrar eventsRegistrar;
 
 
-    private Application(SmartHome smartHome, EventProvider eventProvider) {
-        this.smartHome = smartHome;
-        this.eventsRegistrar = new EventsRegistrar(eventProvider, Arrays.asList(new EventDoorHandler(smartHome), new EventLightHandler(smartHome), new EventHallDoorHandler(smartHome, new ProvisionalSensorCommandSender())));
+    private Application(EventsRegistrar eventsRegistrar) {
+        this.eventsRegistrar = eventsRegistrar;
     }
 
     public static void main(String... args) {
         String filename = "smart-home-1.js";
-        new Application(new HomeConditionGsonStorage(filename).readHome(), new EventRandomProvider()).handleEvents();
+        SmartHome smartHome = new HomeConditionGsonStorage(filename).readHome();
+        new Application(new EventsRegistrar(new EventRandomProvider(), Arrays.asList(new EventDoorHandler(smartHome), new EventLightHandler(smartHome), new EventHallDoorHandler(smartHome, new ProvisionalSensorCommandSender())))).handleEvents();
     }
 
     private void handleEvents() {

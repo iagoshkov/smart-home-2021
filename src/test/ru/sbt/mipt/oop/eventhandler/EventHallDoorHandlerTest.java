@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop.eventhandler;
 
 import org.junit.jupiter.api.Test;
+import ru.sbt.mipt.oop.command.ProvisionalSensorCommandSender;
 import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.event.SensorEventType;
 import ru.sbt.mipt.oop.objects.Door;
@@ -23,7 +24,7 @@ class EventHallDoorHandlerTest {
         SmartHome smartHome = new SmartHome(Collections.singletonList(hall));
         String objectId = "4";
         SensorEvent event = new SensorEvent(SensorEventType.DOOR_CLOSED, objectId);
-        EventHallDoorHandler hallDoorHandler = new EventHallDoorHandler(smartHome);
+        EventHallDoorHandler hallDoorHandler = new EventHallDoorHandler(smartHome, new ProvisionalSensorCommandSender());
         EventDoorHandler doorHandler = new EventDoorHandler(smartHome);
         assertTrue(doorHandler.findDoorByID(objectId).isOpen());
         hallDoorHandler.handleEvent(event);
@@ -43,7 +44,7 @@ class EventHallDoorHandlerTest {
         SmartHome smartHome = new SmartHome(Collections.singletonList(hall));
         String objectId = "4";
         SensorEvent event = new SensorEvent(SensorEventType.DOOR_CLOSED, objectId);
-        EventHallDoorHandler hallDoorHandler = new EventHallDoorHandler(smartHome);
+        EventHallDoorHandler hallDoorHandler = new EventHallDoorHandler(smartHome, new ProvisionalSensorCommandSender());
         EventDoorHandler doorHandler = new EventDoorHandler(smartHome);
         assertTrue(doorHandler.findDoorByID(objectId).isOpen());
         hallDoorHandler.handleEvent(event);

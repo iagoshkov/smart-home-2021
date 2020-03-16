@@ -1,10 +1,10 @@
 package ru.sbt.mipt.oop.eventhandler;
 
 import ru.sbt.mipt.oop.CommandType;
-import ru.sbt.mipt.oop.SensorCommand;
+import ru.sbt.mipt.oop.command.SensorCommand;
+import ru.sbt.mipt.oop.command.SensorCommandSender;
 import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.event.SensorEventType;
-import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.objects.Light;
 import ru.sbt.mipt.oop.objects.Room;
 import ru.sbt.mipt.oop.objects.SmartHome;
@@ -25,13 +25,13 @@ public class EventHallDoorHandler extends EventDoorHandler implements EventHandl
     }
 
     private void turnOffLights() {
-        for (Room homeRoom : smartHome.getRooms()) {
-            for (Light light : homeRoom.getLights()) {
-                light.setOn(false);
-                SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
+        smartHome.execute(light -> {
+            if (light instanceof Light) {
+                ((Light) light).setOn(false);
+                SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, ((Light)light).getId());
                 sensorCommandSender.sendCommand(command);
             }
-        }
+        });
     }
 
     private void handleHallDoorClosedEvent(SensorEvent sensorEvent) {
