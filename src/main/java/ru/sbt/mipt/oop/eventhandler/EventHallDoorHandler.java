@@ -7,9 +7,11 @@ import ru.sbt.mipt.oop.objects.Room;
 import ru.sbt.mipt.oop.objects.SmartHome;
 
 public class EventHallDoorHandler extends EventDoorHandler implements EventHandler {
+    private final SensorCommandSender sensorCommandSender;
 
-    public EventHallDoorHandler(SmartHome smartHome) {
+    public EventHallDoorHandler(SmartHome smartHome, SensorCommandSender sensorCommandSender) {
         super(smartHome);
+        this.sensorCommandSender = sensorCommandSender;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class EventHallDoorHandler extends EventDoorHandler implements EventHandl
             for (Light light : homeRoom.getLights()) {
                 light.setOn(false);
                 SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                SensorCommandSender.sendCommand(command);
+                sensorCommandSender.sendCommand(command);
             }
         }
     }
