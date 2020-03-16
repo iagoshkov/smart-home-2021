@@ -18,7 +18,7 @@ public class Application {
 
     private Application(SmartHome smartHome, EventProvider eventProvider) {
         this.smartHome = smartHome;
-        this.eventsRegistrar = new EventsRegistrar(eventProvider, Arrays.asList(new EventDoorHandler(smartHome), new EventLightHandler(smartHome), new EventHallDoorHandler(smartHome)));
+        this.eventsRegistrar = new EventsRegistrar(eventProvider, Arrays.asList(new EventDoorHandler(smartHome), new EventLightHandler(smartHome), new EventHallDoorHandler(smartHome, new ProvisionalSensorCommandSender())));
     }
 
     public static void main(String... args) {
