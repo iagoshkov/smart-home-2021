@@ -14,54 +14,47 @@ public class EventDoorHandler implements EventHandler {
         this.smartHome = smartHome;
     }
 
-    protected Room findRoomByDoor(String id) {
-        final Room[] r = {null};
-        smartHome.execute(roomCandidate -> {
-            if (roomCandidate instanceof Room) {
-                ((Room) roomCandidate).execute(doorCandidate -> {
-                    if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(id)) {
-                        r[0] = (Room) roomCandidate;
-                    }
-                });
-            }
-        });
-        return r[0];
-    }
-
-
-    protected Door findDoorByID(String id) {
-        final Door[] door = {null};
-        smartHome.execute(doorCandidate -> {
-            if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(id)) {
-                door[0] = (Door) doorCandidate;
-            }
-        });
-        return door[0];
-    }
-
     @Override
     public void handleEvent(SensorEvent event) {
         if (event.getType() == SensorEventType.DOOR_OPEN) {
             handleDoorOpenEvent(event);
-        } else if (event.getType() == SensorEventType.DOOR_CLOSED && findRoomByDoor(event.getObjectId()) != null && !findRoomByDoor(event.getObjectId()).getName().equals("hall")) {
-            handleDoorClosedEvent(event);
+        } else if (event.getType() == SensorEventType.DOOR_CLOSED ) {
+            smartHome.execute(roomCandidate -> {
+                if (roomCandidate instanceof Room) {
+                    ((Room) roomCandidate).execute(doorCandidate -> {
+                        if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(event.getObjectId()) && !((Room) roomCandidate).getName().equals("hall")) {
+                            handleDoorClosedEvent(event);
+                        }
+                    });
+                }
+            });
         }
     }
 
     private void handleDoorOpenEvent(SensorEvent event) {
-        Room room = findRoomByDoor(event.getObjectId());
-        Door door = findDoorByID(event.getObjectId());
-        if (door == null) return;
-        door.setOpen(true);
-        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
+        smartHome.execute(roomCandidate -> {
+            if (roomCandidate instanceof Room) {
+                ((Room) roomCandidate).execute(doorCandidate -> {
+                    if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(event.getObjectId())) {
+                        ((Door)doorCandidate).setOpen(true);
+                        System.out.println("Door " + ((Door)doorCandidate).getId() + " in room " + ((Room) roomCandidate).getName() + " was opened.");
+                    }
+                });
+            }
+        });
     }
 
     protected void closeDoor(SensorEvent event) {
-        Room room = findRoomByDoor(event.getObjectId());
-        Door door = findDoorByID(event.getObjectId());
-        if (door == null) return;
-        door.setOpen(false);
-        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
+        smartHome.execute(roomCandidate -> {
+            if (roomCandidate instanceof Room) {
+                ((Room) roomCandidate).execute(doorCandidate -> {
+                    if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(event.getObjectId())) {
+                        ((Door)doorCandidate).setOpen(false);
+                        System.out.println("Door " + ((Door)doorCandidate).getId() + " in room " + ((Room) roomCandidate).getName() + " was closed.");
+                    }
+                });
+            }
+        });
     }
 
     private void handleDoorClosedEvent(SensorEvent event) {

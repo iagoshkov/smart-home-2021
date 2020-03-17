@@ -25,10 +25,17 @@ class EventHallDoorHandlerTest {
         String objectId = "4";
         SensorEvent event = new SensorEvent(SensorEventType.DOOR_CLOSED, objectId);
         EventHallDoorHandler hallDoorHandler = new EventHallDoorHandler(smartHome, new ProvisionalSensorCommandSender());
-        EventDoorHandler doorHandler = new EventDoorHandler(smartHome);
-        assertTrue(doorHandler.findDoorByID(objectId).isOpen());
+        smartHome.execute(doorCandidate -> {
+            if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(objectId)) {
+                assertTrue(((Door) doorCandidate).isOpen());
+            }
+        });
         hallDoorHandler.handleEvent(event);
-        assertFalse(doorHandler.findDoorByID(objectId).isOpen());
+        smartHome.execute(doorCandidate -> {
+            if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(objectId)) {
+                assertFalse(((Door) doorCandidate).isOpen());
+            }
+        });
         smartHome.execute(light -> {
             if (light instanceof Light) {
                 assertFalse(((Light)light).isOn());
@@ -45,10 +52,17 @@ class EventHallDoorHandlerTest {
         String objectId = "4";
         SensorEvent event = new SensorEvent(SensorEventType.DOOR_CLOSED, objectId);
         EventHallDoorHandler hallDoorHandler = new EventHallDoorHandler(smartHome, new ProvisionalSensorCommandSender());
-        EventDoorHandler doorHandler = new EventDoorHandler(smartHome);
-        assertTrue(doorHandler.findDoorByID(objectId).isOpen());
+        smartHome.execute(doorCandidate -> {
+            if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(objectId)) {
+                assertTrue(((Door) doorCandidate).isOpen());
+            }
+        });
         hallDoorHandler.handleEvent(event);
-        assertTrue(doorHandler.findDoorByID(objectId).isOpen());
+        smartHome.execute(doorCandidate -> {
+            if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(objectId)) {
+                assertTrue(((Door) doorCandidate).isOpen());
+            }
+        });
         smartHome.execute(light -> {
             if (light instanceof Light) {
                 assertTrue(((Light)light).isOn());
