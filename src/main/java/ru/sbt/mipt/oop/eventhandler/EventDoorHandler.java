@@ -19,15 +19,7 @@ public class EventDoorHandler implements EventHandler {
         if (event.getType() == SensorEventType.DOOR_OPEN) {
             handleDoorOpenEvent(event);
         } else if (event.getType() == SensorEventType.DOOR_CLOSED ) {
-            smartHome.execute(roomCandidate -> {
-                if (roomCandidate instanceof Room) {
-                    ((Room) roomCandidate).execute(doorCandidate -> {
-                        if (doorCandidate instanceof Door && ((Door) doorCandidate).getId().equals(event.getObjectId()) && !((Room) roomCandidate).getName().equals("hall")) {
-                            handleDoorClosedEvent(event);
-                        }
-                    });
-                }
-            });
+            handleDoorClosedEvent(event);
         }
     }
 
