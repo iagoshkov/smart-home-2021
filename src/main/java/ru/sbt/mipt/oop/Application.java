@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.command.ProvisionalSensorCommandSender;
+import ru.sbt.mipt.oop.decorator.SecurityDecorator;
 import ru.sbt.mipt.oop.eventhandler.EventDoorHandler;
 import ru.sbt.mipt.oop.eventhandler.EventHallDoorHandler;
 import ru.sbt.mipt.oop.eventhandler.EventLightHandler;
@@ -23,7 +24,7 @@ public class Application {
     public static void main(String... args) {
         String filename = "smart-home-1.js";
         SmartHome smartHome = new HomeConditionGsonStorage(filename).readHome();
-        new Application(new EventsRegistrar(new EventRandomProvider(), Arrays.asList(new EventDoorHandler(smartHome), new EventLightHandler(smartHome), new EventHallDoorHandler(smartHome, new ProvisionalSensorCommandSender())))).handleEvents();
+        new Application(new EventsRegistrar(new EventRandomProvider(), Arrays.asList(new SecurityDecorator(new EventDoorHandler(smartHome), smartHome.getSignaling()), new SecurityDecorator(new EventLightHandler(smartHome), smartHome.getSignaling()), new SecurityDecorator(new EventHallDoorHandler(smartHome, new ProvisionalSensorCommandSender()), smartHome.getSignaling())))).handleEvents();
     }
 
     private void handleEvents() {
