@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.provider;
 
-import ru.sbt.mipt.oop.SensorEvent;
-import ru.sbt.mipt.oop.SensorEventType;
+import ru.sbt.mipt.oop.event.SensorEvent;
+import ru.sbt.mipt.oop.event.SensorEventType;
 
 public class EventRandomProvider implements EventProvider {
     @Override

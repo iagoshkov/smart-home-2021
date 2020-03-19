@@ -1,10 +1,11 @@
 package ru.sbt.mipt.oop.eventhandler;
 
-import ru.sbt.mipt.oop.SensorEvent;
-import ru.sbt.mipt.oop.SensorEventType;
+import ru.sbt.mipt.oop.event.SensorEvent;
+import ru.sbt.mipt.oop.event.SensorEventType;
 import ru.sbt.mipt.oop.objects.Light;
 import ru.sbt.mipt.oop.objects.Room;
 import ru.sbt.mipt.oop.objects.SmartHome;
+
 
 public class EventLightHandler implements EventHandler{
     private final SmartHome smartHome;
@@ -13,41 +14,28 @@ public class EventLightHandler implements EventHandler{
         this.smartHome = smartHome;
     }
 
-    private Light findLightByID(Room room, String id) {
-        if (room == null) return null;
-        for (Light light : room.getLights()) {
-            if (light.getId().equals(id)) {
-                return light;
-            }
-        }
-        return null;
-    }
-
-    private Room findRoomByLight(String id) {
-        for (Room room : smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
-                if (light.getId().equals(id)) {
-                    return room;
-                }
-            }
-        }
-        return null;
-    }
-
     private void handleLightOffEvent(SensorEvent event) {
-        Room room = findRoomByLight(event.getObjectId());
-        Light light = findLightByID(room, event.getObjectId());
-        if (light == null) return;
-        light.setOn(false);
-        System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
+        smartHome.execute(roomCandidate -> {
+            if (roomCandidate instanceof Room) {
+                ((Room) roomCandidate).execute(lightCandidate -> {
+                    if (lightCandidate instanceof Light && ((Light) lightCandidate).getId().equals(event.getObjectId())) {
+                        ((Light) lightCandidate).setOn(false);
+                        System.out.println("Light " + ((Light) lightCandidate).getId() + " in room " + ((Room) roomCandidate).getName() + " was turned off.");                    }
+                });
+            }
+        });
     }
 
     private void handleLightOnEvent(SensorEvent event) {
-        Room room = findRoomByLight(event.getObjectId());
-        Light light = findLightByID(room, event.getObjectId());
-        if (light == null) return;
-        light.setOn(true);
-        System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
+        smartHome.execute(roomCandidate -> {
+            if (roomCandidate instanceof Room) {
+                ((Room) roomCandidate).execute(lightCandidate -> {
+                    if (lightCandidate instanceof Light && ((Light) lightCandidate).getId().equals(event.getObjectId())) {
+                        ((Light) lightCandidate).setOn(true);
+                        System.out.println("Light " + ((Light) lightCandidate).getId() + " in room " + ((Room) roomCandidate).getName() + " was turned on.");                    }
+                });
+            }
+        });
     }
 
     @Override

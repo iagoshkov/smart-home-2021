@@ -1,7 +1,4 @@
-package ru.sbt.mipt.oop;
-
-import ru.sbt.mipt.oop.SensorEventType;
-import ru.sbt.mipt.oop.objects.SmartHome;
+package ru.sbt.mipt.oop.event;
 
 public class SensorEvent {
     private final String objectId;
