@@ -3,10 +3,11 @@ package ru.sbt.mipt.oop;
 import static ru.sbt.mipt.oop.SensorEventTypeDoor.DOOR_OPEN;
 
 public class DoorInformation {
-    private static void sendCommand(SensorCommand command) {
+    private void sendCommand(SensorCommand command) {
         System.out.println("Pretent we're sending command " + command);
     }
-    public static void printDoor(Event event, Door door, SmartHome smartHome, Room room){
+
+    public void toggleDoorLight(Event event, Door door, SmartHome smartHome, Room room){
         if (event.getEvent().getTypeDoor() == DOOR_OPEN) {
             door.setOpen(true);
             System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
