@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class JSON {
+public class JSON implements Data<String>{
     private String jsonStr;
 
     public JSON(){
@@ -14,11 +14,13 @@ public class JSON {
     public JSON(String addr) throws IOException {
         jsonStr = new String(Files.readAllBytes(Paths.get(addr)));
     }
-
-    public String getJSON() {
+    //getJSON
+    public String getData(){
         return jsonStr;
     }
-    public void setJSON(String addr) throws IOException {
+
+    //setJSON
+    public void writeData(String addr) throws IOException {
         jsonStr = new String(Files.readAllBytes(Paths.get(addr)));
     }
 }
