@@ -14,6 +14,7 @@ public class Event {
         this.event = _event;
     }
 
+
     public SensorEvent getEvent(){
         return this.event;
     }
