@@ -4,7 +4,7 @@ import ru.sbt.mipt.oop.event.SensorAlarmEvent;
 import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.event.SensorEventType;
 import ru.sbt.mipt.oop.objects.SmartHome;
-import ru.sbt.mipt.oop.signaling.ActivationException;
+import ru.sbt.mipt.oop.signaling.Signaling;
 
 public class EventSignalingHandler implements EventHandler {
     private final SmartHome smartHome;
@@ -15,13 +15,14 @@ public class EventSignalingHandler implements EventHandler {
 
     @Override
     public void handleEvent(SensorEvent event) {
+        if (smartHome.getSignaling(new Signaling()) == null) {
+            return;
+        }
         if (event instanceof SensorAlarmEvent) {
             if (event.getType() == SensorEventType.ALARM_ACTIVATE) {
-                try {
-                    smartHome.getSignaling().activateSignaling(((SensorAlarmEvent) event).getCode());
-                } catch (ActivationException ignored) { }
+                smartHome.getSignaling(new Signaling()).activateSignaling(((SensorAlarmEvent) event).getCode());
             } else if (event.getType() == SensorEventType.ALARM_DEACTIVATE) {
-                smartHome.getSignaling().deactivateSignaling(((SensorAlarmEvent) event).getCode());
+                smartHome.getSignaling(new Signaling()).deactivateSignaling(((SensorAlarmEvent) event).getCode());
             }
         }
     }

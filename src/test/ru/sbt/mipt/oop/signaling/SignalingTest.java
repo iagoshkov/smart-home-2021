@@ -7,33 +7,24 @@ import static org.junit.jupiter.api.Assertions.*;
 class SignalingTest {
 
     @Test
-    void activateNewSignaling() throws ActivationException {
+    void activateNewSignaling() {
         Signaling signaling = new Signaling();
         assertTrue(signaling.getStatus() instanceof DeactivatedStatus);
         String code = "123456";
         signaling.activateSignaling(code);
         assertTrue(signaling.getStatus() instanceof ActivatedStatus);
-        assertEquals(signaling.getCode(), code);
     }
 
     @Test
-    void activateActivatedSignaling() throws ActivationException {
+    void activateAlarmSignaling(){
         Signaling signaling = new Signaling();
-        String code = "123456";
-        signaling.activateSignaling(code);
-        assertThrows(ActivationException.class, () -> signaling.activateSignaling(code));
-    }
-
-    @Test
-    void activateAlarmSignaling() throws ActivationException {
-        Signaling signaling = new Signaling();
-        signaling.setStatus(new AlarmStatus(signaling));
+        signaling.setStatus(new AlarmStatus(signaling, ""));
         signaling.activateSignaling("12345");
         assertTrue(signaling.getStatus() instanceof AlarmStatus);
     }
 
     @Test
-    void correctDeactivateActivatedSignaling() throws ActivationException {
+    void correctDeactivateActivatedSignaling() {
         Signaling signaling = new Signaling();
         String code = "123456";
         signaling.activateSignaling(code);
@@ -42,7 +33,7 @@ class SignalingTest {
     }
 
     @Test
-    void incorrectDeactivateActivatedSignaling() throws ActivationException {
+    void incorrectDeactivateActivatedSignaling() {
         Signaling signaling = new Signaling();
         String code = "123456";
         String anotherCode = "abcd";
@@ -60,17 +51,17 @@ class SignalingTest {
     }
 
     @Test
-    void incorrectDeactivateAlarmSignaling() {
+    void incorrectDeactivatedSignaling() {
         Signaling signaling = new Signaling();
-        signaling.turnOnAlarm();
-        signaling.deactivateSignaling("abc");
+        signaling.activateSignaling("abc");
+        signaling.deactivateSignaling("abcd");
         assertTrue(signaling.getStatus() instanceof AlarmStatus);
     }
 
     @Test
     void correctDeactivateAlarmSignaling() {
         Signaling signaling = new Signaling();
-        signaling.setCode("abc");
+        signaling.setStatus(new AlarmStatus(signaling, "abc"));
         signaling.turnOnAlarm();
         signaling.deactivateSignaling("abc");
         assertTrue(signaling.getStatus() instanceof DeactivatedStatus);
@@ -80,6 +71,6 @@ class SignalingTest {
     void turnOnAlarm() {
         Signaling signaling = new Signaling();
         signaling.turnOnAlarm();
-        assertTrue(signaling.getStatus() instanceof AlarmStatus);
+        assertTrue(signaling.getStatus() instanceof DeactivatedStatus);
     }
 }

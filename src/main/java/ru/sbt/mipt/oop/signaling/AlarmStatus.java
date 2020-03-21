@@ -1,22 +1,26 @@
 package ru.sbt.mipt.oop.signaling;
 
-public class AlarmStatus extends Status {
-    AlarmStatus(Signaling signaling) {
-        super(signaling);
+public class AlarmStatus implements Status {
+    private final Signaling signaling;
+    private final String code;
+
+    public AlarmStatus(Signaling signaling, String code) {
+        this.signaling = signaling;
+        this.code = code;
     }
 
     @Override
-    void activateSignaling(String code) {
+    public void activateSignaling(String code) {
     }
 
     @Override
-    void deactivateSignaling(String code) {
-        if (signaling.getCode().equals(code)) {
+    public void deactivateSignaling(String code) {
+        if (this.code.equals(code)) {
             signaling.setStatus(new DeactivatedStatus(signaling));
         }
     }
 
     @Override
-    void turnOnAlarm() {
+    public void turnOnAlarm() {
     }
 }

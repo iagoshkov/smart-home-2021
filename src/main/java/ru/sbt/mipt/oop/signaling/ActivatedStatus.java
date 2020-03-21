@@ -1,26 +1,30 @@
 package ru.sbt.mipt.oop.signaling;
 
-public class ActivatedStatus extends Status {
-    public ActivatedStatus(Signaling signaling) {
-        super(signaling);
+public class ActivatedStatus implements Status{
+    private final Signaling signaling;
+    private final String code;
+
+    public ActivatedStatus(Signaling signaling, String code) {
+        this.signaling = signaling;
+        this.code = code;
     }
 
     @Override
-    void activateSignaling(String code) throws ActivationException {
-        throw new ActivationException("The signaling is already active!");
+    public void activateSignaling(String code){
+        System.out.println("The signaling was already activated!");
     }
 
     @Override
-    void deactivateSignaling(String code) {
-        if (signaling.getCode().equals(code)) {
+    public void deactivateSignaling(String code) {
+        if (this.code.equals(code)) {
             signaling.setStatus(new DeactivatedStatus(signaling));
         } else {
-            signaling.setStatus(new AlarmStatus(signaling));
+            signaling.setStatus(new AlarmStatus(signaling, code));
         }
     }
 
     @Override
-    void turnOnAlarm() {
-        signaling.setStatus(new AlarmStatus(signaling));
+    public void turnOnAlarm() {
+        signaling.setStatus(new AlarmStatus(signaling, code));
     }
 }

@@ -6,11 +6,12 @@ import ru.sbt.mipt.oop.eventhandler.EventDoorHandler;
 import ru.sbt.mipt.oop.eventhandler.EventHallDoorHandler;
 import ru.sbt.mipt.oop.eventhandler.EventLightHandler;
 import ru.sbt.mipt.oop.objects.SmartHome;
+import ru.sbt.mipt.oop.signaling.Signaling;
 import ru.sbt.mipt.oop.storage.HomeConditionGsonStorage;
-import ru.sbt.mipt.oop.provider.EventProvider;
 import ru.sbt.mipt.oop.provider.EventRandomProvider;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 
 public class Application {
@@ -24,7 +25,8 @@ public class Application {
     public static void main(String... args) {
         String filename = "smart-home-1.js";
         SmartHome smartHome = new HomeConditionGsonStorage(filename).readHome();
-        new Application(new EventsRegistrar(new EventRandomProvider(), Arrays.asList(new SecurityDecorator(new EventDoorHandler(smartHome), smartHome.getSignaling()), new SecurityDecorator(new EventLightHandler(smartHome), smartHome.getSignaling()), new SecurityDecorator(new EventHallDoorHandler(smartHome, new ProvisionalSensorCommandSender()), smartHome.getSignaling())))).handleEvents();
+        smartHome.addSignaling(new Signaling());
+        new Application(new EventsRegistrar(new EventRandomProvider(), Collections.singletonList(new SecurityDecorator(Arrays.asList(new EventDoorHandler(smartHome), new EventLightHandler(smartHome), new EventHallDoorHandler(smartHome, new ProvisionalSensorCommandSender())), smartHome.getSignaling(new Signaling()))))).handleEvents();
     }
 
     private void handleEvents() {

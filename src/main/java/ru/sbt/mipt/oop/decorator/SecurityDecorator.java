@@ -6,12 +6,14 @@ import ru.sbt.mipt.oop.signaling.ActivatedStatus;
 import ru.sbt.mipt.oop.signaling.AlarmStatus;
 import ru.sbt.mipt.oop.signaling.Signaling;
 
+import java.util.Collection;
+
 public class SecurityDecorator implements EventHandler{
-    private EventHandler eventHandler;
+    private Collection<EventHandler> eventHandlers;
     private Signaling signaling;
 
-    public SecurityDecorator(EventHandler eventHandler, Signaling signaling) {
-        this.eventHandler = eventHandler;
+    public SecurityDecorator(Collection<EventHandler> eventHandlers, Signaling signaling) {
+        this.eventHandlers = eventHandlers;
         this.signaling = signaling;
     }
 
@@ -24,6 +26,8 @@ public class SecurityDecorator implements EventHandler{
             System.out.println("Sending sms");
             return;
         }
-        eventHandler.handleEvent(event);
+        for (EventHandler eventHandler : eventHandlers) {
+            eventHandler.handleEvent(event);
+        }
     }
 }

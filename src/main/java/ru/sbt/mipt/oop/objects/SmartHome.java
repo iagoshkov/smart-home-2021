@@ -9,25 +9,26 @@ import java.util.Collection;
 
 public class SmartHome implements Actionable {
     private Collection<Room> rooms;
-
-    private Signaling signaling;
+    private Signaling signaling = null;
 
     public SmartHome() {
-        rooms = new ArrayList<>();
-        signaling = new Signaling();
+        this.rooms = new ArrayList<>();
     }
 
     public SmartHome(Collection<Room> rooms) {
         this.rooms = rooms;
-        signaling = new Signaling();
     }
 
     public void addRoom(Room room) {
         rooms.add(room);
     }
 
-    public Signaling getSignaling() {
-        return signaling;
+    public void addSignaling(Signaling signaling) {
+        this.signaling = signaling;
+    }
+
+    public Signaling getSignaling(Signaling signaling) {
+        return this.signaling;
     }
 
     @Override

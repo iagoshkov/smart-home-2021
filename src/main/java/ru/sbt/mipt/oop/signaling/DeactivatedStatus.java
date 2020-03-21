@@ -1,22 +1,22 @@
 package ru.sbt.mipt.oop.signaling;
 
-public class DeactivatedStatus extends Status {
-    DeactivatedStatus(Signaling signaling) {
-        super(signaling);
+public class DeactivatedStatus implements Status {
+    private final Signaling signaling;
+
+    public DeactivatedStatus(Signaling signaling) {
+        this.signaling = signaling;
     }
 
     @Override
-    void activateSignaling(String code) {
-        signaling.setCode(code);
-        signaling.setStatus(new ActivatedStatus(signaling));
+    public void activateSignaling(String code) {
+        signaling.setStatus(new ActivatedStatus(signaling, code));
     }
 
     @Override
-    void deactivateSignaling(String code) {
+    public void deactivateSignaling(String code) {
     }
 
     @Override
-    void turnOnAlarm() {
-        signaling.setStatus(new AlarmStatus(signaling));
+    public void turnOnAlarm() {
     }
 }
