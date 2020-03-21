@@ -14,6 +14,10 @@ public class JSON implements Data<String>{
     public JSON(String addr) throws IOException {
         jsonStr = new String(Files.readAllBytes(Paths.get(addr)));
     }
+
+    public void JSONLoader(String addr) throws IOException {
+        jsonStr = new String(Files.readAllBytes(Paths.get(addr)));
+    }
     //getJSON
     public String getData(){
         return jsonStr;
@@ -23,4 +27,5 @@ public class JSON implements Data<String>{
     public void writeData(String addr) throws IOException {
         jsonStr = new String(Files.readAllBytes(Paths.get(addr)));
     }
+
 }
