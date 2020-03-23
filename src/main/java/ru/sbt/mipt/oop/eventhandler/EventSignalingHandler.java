@@ -15,14 +15,14 @@ public class EventSignalingHandler implements EventHandler {
 
     @Override
     public void handleEvent(SensorEvent event) {
-        if (smartHome.getSignaling(new Signaling()) == null) {
+        if (smartHome.getSignaling() == null) {
             return;
         }
         if (event instanceof SensorAlarmEvent) {
             if (event.getType() == SensorEventType.ALARM_ACTIVATE) {
-                smartHome.getSignaling(new Signaling()).activateSignaling(((SensorAlarmEvent) event).getCode());
+                smartHome.getSignaling().activateSignaling(((SensorAlarmEvent) event).getCode());
             } else if (event.getType() == SensorEventType.ALARM_DEACTIVATE) {
-                smartHome.getSignaling(new Signaling()).deactivateSignaling(((SensorAlarmEvent) event).getCode());
+                smartHome.getSignaling().deactivateSignaling(((SensorAlarmEvent) event).getCode());
             }
         }
     }

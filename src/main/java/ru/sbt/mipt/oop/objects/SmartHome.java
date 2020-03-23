@@ -27,7 +27,7 @@ public class SmartHome implements Actionable {
         this.signaling = signaling;
     }
 
-    public Signaling getSignaling(Signaling signaling) {
+    public Signaling getSignaling() {
         return this.signaling;
     }
 
