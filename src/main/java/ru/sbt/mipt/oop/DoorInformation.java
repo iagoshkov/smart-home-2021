@@ -12,9 +12,8 @@ public class DoorInformation {
             System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
             // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
             // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-            HallDoorIterator hallDoorIterator = new HallDoorIterator(smartHome);
             HallDoorEventProcessor hallDoorEventProcessor = new HallDoorEventProcessor(smartHome);
-            hallDoorEventProcessor.processing(room);
+            hallDoorEventProcessor.processing(event);
         }
     }
 }
