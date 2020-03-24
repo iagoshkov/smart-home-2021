@@ -10,7 +10,7 @@ public class LightEventProcessorTest {
 
     @Test
     public void processing() throws IOException{
-        JSON tempJSON = new JSON("src/test/resources/sh_doors_open_lights_off.json");
+        JSONData tempJSON = new JSONData("src/test/resources/sh_doors_open_lights_off.json");
         Gson gson = new Gson();
         SmartHome mainSmartHome = gson.fromJson(tempJSON.getData(), SmartHome.class);
 
@@ -20,8 +20,7 @@ public class LightEventProcessorTest {
         tempJSON.JSONLoader("src/test/resources/unchanging_sensor_events.json");
         SensorEvent[] sensorEvents =  gson.fromJson(tempJSON.getData(), SensorEvent[].class);
 
-        LightIterator lightIterator = new LightIterator(testSmartHome);
-        LightEventProcessor lightEventProcessor = new LightEventProcessor(testSmartHome, lightIterator);
+        LightEventProcessor lightEventProcessor = new LightEventProcessor(testSmartHome);
         for (SensorEvent event : sensorEvents) {
             lightEventProcessor.processing(new Event(event));
         }
