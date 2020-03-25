@@ -1,11 +1,13 @@
 package ru.sbt.mipt.oop;
 
-public class HallDoorClosedEventHandler implements SensorEventHandler, CommandSender {
+public class HallDoorClosedEventHandler implements SensorEventHandler {
     private final SmartHome smartHome;
     private final Logger logger;
+    private final CommandSender commandSender;
 
-    public HallDoorClosedEventHandler(SmartHome smartHome, Logger logger) {
+    public HallDoorClosedEventHandler(SmartHome smartHome, CommandSender commandSender, Logger logger) {
         this.smartHome = smartHome;
+        this.commandSender = commandSender;
         this.logger = logger;
     }
 
@@ -52,6 +54,6 @@ public class HallDoorClosedEventHandler implements SensorEventHandler, CommandSe
     private void turnOffLight(Light light) {
         light.setOn(false);
         SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-        sendCommand(command);
+        commandSender.sendCommand(command);
     }
 }
