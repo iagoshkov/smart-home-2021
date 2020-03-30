@@ -77,14 +77,12 @@ public class SmartHomeConfiguration {
     }
 
     @Bean
-    public SensorEventsManager sensorEventsManager(SmartHome smartHome, SensorCommandSender commandSender) {
+    public SensorEventsManager sensorEventsManager(SmartHome smartHome, List<EventHandler> eventHandlers) {
         SensorEventsManager sensorEventsManager = new SensorEventsManager();
         sensorEventsManager.registerEventHandler(
                 new SensorEventHandlerAdapter(
                         new SecurityDecorator(
-                                eventHandlers(eventDoorHandler(smartHome),
-                                              eventLightHandler(smartHome),
-                                              eventHallDoorHandler(smartHome, commandSender)),
+                                eventHandlers,
                                 smartHome.getSignaling()),
                         convertType()
                 )
