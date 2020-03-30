@@ -37,16 +37,32 @@ public class SmartHomeConfiguration {
         return smartHome;
     }
 
-    @Bean SensorCommandSender commandSender() {
+    @Bean
+    SensorCommandSender commandSender() {
         return new ProvisionalSensorCommandSender();
     }
 
     @Bean
-    public List<EventHandler> eventHandlers(SmartHome smartHome, SensorCommandSender commandSender) {
+    public EventHandler eventDoorHandler(SmartHome smartHome) {
+        return new EventDoorHandler(smartHome);
+    }
+
+    @Bean
+    public EventHandler eventLightHandler(SmartHome smartHome) {
+        return new EventLightHandler(smartHome);
+    }
+
+    @Bean
+    public EventHandler eventHallDoorHandler(SmartHome smartHome, SensorCommandSender commandSender) {
+        return new EventHallDoorHandler(smartHome, commandSender);
+    }
+
+    @Bean
+    public List<EventHandler> eventHandlers(EventHandler eventDoorHandler, EventHandler eventLightHandler, EventHandler eventHallDoorHandler) {
         return Arrays.asList(
-                new EventDoorHandler(smartHome),
-                new EventLightHandler(smartHome),
-                new EventHallDoorHandler(smartHome, commandSender)
+                eventDoorHandler,
+                eventLightHandler,
+                eventHallDoorHandler
         );
     }
 
@@ -63,7 +79,16 @@ public class SmartHomeConfiguration {
     @Bean
     public SensorEventsManager sensorEventsManager(SmartHome smartHome, SensorCommandSender commandSender) {
         SensorEventsManager sensorEventsManager = new SensorEventsManager();
-        sensorEventsManager.registerEventHandler(new SensorEventHandlerAdapter(new SecurityDecorator(eventHandlers(smartHome, commandSender), smartHome.getSignaling()), convertType()));
+        sensorEventsManager.registerEventHandler(
+                new SensorEventHandlerAdapter(
+                        new SecurityDecorator(
+                                eventHandlers(eventDoorHandler(smartHome),
+                                              eventLightHandler(smartHome),
+                                              eventHallDoorHandler(smartHome, commandSender)),
+                                smartHome.getSignaling()),
+                        convertType()
+                )
+        );
         return sensorEventsManager;
     }
 }
