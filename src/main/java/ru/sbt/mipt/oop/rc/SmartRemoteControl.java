@@ -22,4 +22,8 @@ public class SmartRemoteControl implements RemoteControl {
             buttonCodeForCommandMap.put(buttonCode, cmd);
         }
     }
+
+    public Command get(String buttonCode) {
+        return buttonCodeForCommandMap.get(buttonCode);
+    }
 }

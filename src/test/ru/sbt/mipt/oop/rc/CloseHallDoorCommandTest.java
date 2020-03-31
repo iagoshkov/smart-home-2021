@@ -1,23 +1,25 @@
 package ru.sbt.mipt.oop.rc;
 
+import org.junit.jupiter.api.Test;
+import ru.sbt.mipt.oop.HomeBuilder;
 import ru.sbt.mipt.oop.objects.Door;
 import ru.sbt.mipt.oop.objects.Room;
 import ru.sbt.mipt.oop.objects.SmartHome;
 
-public class CloseHallDoorCommand implements Command {
-    private final SmartHome smartHome;
+import static org.junit.jupiter.api.Assertions.*;
 
-    public CloseHallDoorCommand(SmartHome smartHome) {
-        this.smartHome = smartHome;
-    }
+class CloseHallDoorCommandTest {
 
-    @Override
-    public void execute() {
+    @Test
+    void execute() {
+        SmartHome smartHome = new HomeBuilder().getSmartHome();
+        Command cmd = new CloseHallDoorCommand(smartHome);
+        cmd.execute();
         smartHome.execute(room -> {
             if (room instanceof Room && ((Room) room).getName().equals("hall")) {
                 ((Room) room).execute(door -> {
                     if (door instanceof Door) {
-                        ((Door) door).setOpen(false);
+                        assertFalse(((Door) door).isOpen());
                     }
                 });
             }

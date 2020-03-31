@@ -9,11 +9,12 @@ public class TurnOnLightCommand implements Command {
     public TurnOnLightCommand(SmartHome smartHome) {
         this.smartHome = smartHome;
     }
+
     @Override
     public void execute() {
         smartHome.execute(light -> {
             if (light instanceof Light) {
-                ((Light) light).setOn(false);
+                ((Light) light).setOn(true);
             }
         });
     }
