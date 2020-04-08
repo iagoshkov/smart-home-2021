@@ -1,3 +1,26 @@
+# Задание
+Почитать про шаблоны
+- Стратегия https://refactoring.guru/ru/design-patterns/strategy 
+- Итератор https://refactoring.guru/ru/design-patterns/iterator
+- Композит https://refactoring.guru/ru/design-patterns/composite
+
+Написать по два юнит-теста для каждого из получившихся обработчиков событий внешнего мира (DoorEventProcessor, LightEventProcessor, HallDoorEventProcessor)
+Применить шаблоны iterator + composite для реализации обхода структуры дома и выполнения действий над каждым элементом дома (заменить циклы по Room/Door/Lights в обработчиках событий). Покрыть всё юнит-тестами.
+По сигнатуре должно получиться примерно так.
+```java
+public class SmartHome implements Actionable {
+…
+	public void execute(Action action) { // выполнить действие (Action) над каждым элементом дома
+…
+	}
+...
+}
+
+public class Room implements Actionable { … } // и т.д.
+```
+
+
+
 # Smart Home
 
 The project implements a "smart home". The house has sensors which are connected to the central server. Sensors send 
