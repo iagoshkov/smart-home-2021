@@ -28,7 +28,7 @@ public class Application {
     }
     public static void main(String... args) throws IOException {
         // считываем состояние дома из файла
-        SmartHome smartHome = homeReader.read("home.json");
+        SmartHome smartHome = homeReader.read("smart-home-1.js");
         smartHome.setAlarm(new Alarm(2));
 
         // начинаем цикл обработки событий
