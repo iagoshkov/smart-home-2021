@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop.home_readers;
 
 import com.google.gson.Gson;
+import ru.sbt.mipt.oop.data_reader.JSONData;
 import ru.sbt.mipt.oop.home_components.SmartHome;
 
 import java.io.IOException;
@@ -11,8 +12,9 @@ public class JSONHomeReader implements HomeReader {
 
     @Override
     public SmartHome read(String addr) throws IOException {
+        System.out.println("OK");
+        JSONData tempJSON = new JSONData(addr);
         Gson gson = new Gson();
-        String json = new String(Files.readAllBytes(Paths.get(addr)));
-        return gson.fromJson(json, SmartHome.class);
+        return gson.fromJson(tempJSON.getData(), SmartHome.class);
     }
 }
