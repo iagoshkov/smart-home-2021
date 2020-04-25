@@ -19,10 +19,11 @@ import ru.sbt.mipt.oop.processors.*;
 import ru.sbt.mipt.oop.events.SensorEvent;
 import ru.sbt.mipt.oop.remote.RemoteController;
 import ru.sbt.mipt.oop.smart_home.SmartHomeHandler;
+import ru.sbt.mipt.oop.home_readers.JSONHomeReader;
 
 public class Application {
     private static ControlService controlService;
-    public static HomeReader homeReader;
+    public static HomeReader homeReader = new JSONHomeReader();
     public Application(ControlService controlService){
         this.controlService = controlService;
     }
