@@ -22,11 +22,13 @@ import ru.sbt.mipt.oop.smart_home.SmartHomeHandler;
 
 public class Application {
     private static ControlService controlService;
+    public HomeReader homeReader; 
     public Application(ControlService controlService){
         this.controlService = controlService;
     }
     public static void main(String... args) throws IOException {
         // считываем состояние дома из файла
+        SmartHome smartHome = homeReader.read("home.json");
         JSONData tempJSON = new JSONData("smart-home-1.js");
         Gson gson = new Gson();
         SmartHome smartHome = gson.fromJson(tempJSON.getData(), SmartHome.class);
