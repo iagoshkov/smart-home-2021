@@ -11,7 +11,6 @@ public class JSONHomeReader implements HomeReader {
 
     @Override
     public SmartHome read(String addr){
-        System.out.println("OK");
         JSONData tempJSON = new JSONData(addr);
         Gson gson = new Gson();
         return gson.fromJson(tempJSON.getData(), SmartHome.class);
