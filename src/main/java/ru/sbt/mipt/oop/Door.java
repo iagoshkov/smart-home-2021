@@ -1,16 +1,30 @@
 package ru.sbt.mipt.oop;
 
-public class Door {
-    private final String id;
+public class Door extends SmartDevice{
     private boolean isOpen;
 
-    public Door(boolean isOpen, String id) {
+    public Door(String id, boolean isOpen, Room location) {
+        super(id, location, SmartDeviceType.DOOR);
         this.isOpen = isOpen;
-        this.id = id;
     }
 
+    @Override
     public String getId() {
         return id;
+    }
+
+    @Override
+    public Room getLocation() {
+        return location;
+    }
+
+    @Override
+    public SmartDeviceType getType() {
+        return type;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
     }
 
     public void setOpen(boolean open) {

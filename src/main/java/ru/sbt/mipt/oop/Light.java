@@ -1,20 +1,30 @@
 package ru.sbt.mipt.oop;
 
-public class Light {
+public class Light extends SmartDevice {
     private boolean isOn;
-    private final String id;
 
-    public Light(String id, boolean isOn) {
-        this.id = id;
+    public Light(String id, boolean isOn, Room location) throws IllegalArgumentException {
+        super(id, location, SmartDeviceType.LIGHT);
         this.isOn = isOn;
+    }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public Room getLocation() {
+        return location;
+    }
+
+    @Override
+    public SmartDeviceType getType() {
+        return type;
     }
 
     public boolean isOn() {
         return isOn;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public void setOn(boolean on) {
