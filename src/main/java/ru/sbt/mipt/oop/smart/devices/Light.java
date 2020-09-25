@@ -10,21 +10,6 @@ public class Light extends SmartDevice {
         this.isOn = isOn;
     }
 
-    @Override
-    public String getId() {
-        return id;
-    }
-
-    @Override
-    public Room getLocation() {
-        return location;
-    }
-
-    @Override
-    public SmartDeviceType getType() {
-        return type;
-    }
-
     public boolean isOn() {
         return isOn;
     }

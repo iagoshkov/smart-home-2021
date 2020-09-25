@@ -17,7 +17,7 @@ public abstract class SmartDevice {
         this.type = type;
     }
 
-    public abstract String getId();
-    public abstract Room getLocation();
-    public abstract SmartDeviceType getType();
+    public String getId() { return id; }
+    public Room getLocation() { return location; }
+    public SmartDeviceType getType() { return type; }
 }

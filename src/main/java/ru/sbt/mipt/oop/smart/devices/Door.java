@@ -10,21 +10,6 @@ public class Door extends SmartDevice {
         this.isOpen = isOpen;
     }
 
-    @Override
-    public String getId() {
-        return id;
-    }
-
-    @Override
-    public Room getLocation() {
-        return location;
-    }
-
-    @Override
-    public SmartDeviceType getType() {
-        return type;
-    }
-
     public boolean isOpen() {
         return isOpen;
     }
