@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.smart.home;
 
-import ru.sbt.mipt.oop.smart.devices.Light;
+import ru.sbt.mipt.oop.smart.actions.ActionLightOff;
 import ru.sbt.mipt.oop.smart.devices.SmartDevice;
 import ru.sbt.mipt.oop.smart.devices.SmartDeviceType;
 
@@ -28,6 +28,6 @@ public class SmartHome {
     public void turnOffAllLights() {
         devices.entrySet().stream()
                 .filter(d -> d.getValue().getType().equals(SmartDeviceType.LIGHT))
-                .forEach(d -> ((Light) d.getValue()).setOn(false));
+                .forEach(d -> new ActionLightOff().act(d.getValue()));
     }
 }

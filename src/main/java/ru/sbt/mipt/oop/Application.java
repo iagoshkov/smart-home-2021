@@ -2,10 +2,7 @@ package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.events.SensorEvent;
 import ru.sbt.mipt.oop.events.SensorEventType;
-import ru.sbt.mipt.oop.smart.devices.Door;
-import ru.sbt.mipt.oop.smart.devices.Light;
 import ru.sbt.mipt.oop.smart.devices.SmartDevice;
-import ru.sbt.mipt.oop.smart.devices.SmartDeviceType;
 import ru.sbt.mipt.oop.smart.home.SmartHome;
 import ru.sbt.mipt.oop.smart.home.SmartHomeReaderWriter;
 
@@ -41,55 +38,12 @@ public class Application {
                 continue;
             }
 
-            executeCommand(event.getType(), device);
-        }
-    }
+            event.getType().getAction().act(device);
 
-    private static void executeCommand(SensorEventType eventType, SmartDevice device) {
-        switch (eventType) {
-            case LIGHT_ON:
-                if (device.getType() != SmartDeviceType.LIGHT) {
-                    System.out.printf("The device type '%s' does not match the event action '%s'%n", device.getType().toString(), eventType.toString());
-                    break;
-                }
-                ((Light) device).setOn(true);
-                System.out.println("Light " + device.getId() + " in room " + device.getLocation().getName() + " was turned on");
-                break;
-
-            case LIGHT_OFF:
-                if (device.getType() != SmartDeviceType.LIGHT) {
-                    System.out.printf("The device type '%s' does not match the event action '%s'%n", device.getType().toString(), eventType.toString());
-                    break;
-                }
-                ((Light) device).setOn(false);
-                System.out.println("Light " + device.getId() + " in room " + device.getLocation().getName() + " was turned off");
-                break;
-
-            case DOOR_OPEN:
-                if (device.getType() != SmartDeviceType.DOOR) {
-                    System.out.printf("The device type '%s' does not match the event action '%s'%n", device.getType().toString(), eventType.toString());
-                    break;
-                }
-                ((Door) device).setOpen(true);
-                System.out.println("Door " + device.getId() + " in room " + device.getLocation().getName() + " was opened");
-                break;
-
-            case DOOR_CLOSED:
-                if (device.getType() != SmartDeviceType.DOOR) {
-                    System.out.printf("The device type '%s' does not match the event action '%s'%n", device.getType().toString(), eventType.toString());
-                    break;
-                }
-                ((Door) device).setOpen(false);
-                String roomName = device.getLocation().getName();
-                System.out.println("Door " + device.getId() + " in room " + roomName + " was closed");
-                if (roomName.equals("hall")) {
-                    smartHome.turnOffAllLights();
-                    System.out.println("All the lights were off");
-                }
-                break;
-
-            default:
-                throw new IllegalStateException("Unexpected value: " + eventType);
+            if (event.getType() == SensorEventType.DOOR_CLOSED && device.getLocation().getName().equals("hall")) {
+                smartHome.turnOffAllLights();
+                System.out.println("All the lights were off");
+            }
         }
     }
 

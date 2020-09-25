@@ -1,7 +1,7 @@
 {
   "devices": {
     "0": {
-      "type": "Light",
+      "deviceClass": "Light",
       "properties": {
         "isOn": false,
         "id": "0",
@@ -12,7 +12,7 @@
       }
     },
     "1": {
-      "type": "Light",
+      "deviceClass": "Light",
       "properties": {
         "isOn": true,
         "id": "1",
@@ -23,7 +23,7 @@
       }
     },
     "2": {
-      "type": "Light",
+      "deviceClass": "Light",
       "properties": {
         "isOn": false,
         "id": "2",
@@ -34,7 +34,7 @@
       }
     },
     "3": {
-      "type": "Light",
+      "deviceClass": "Light",
       "properties": {
         "isOn": true,
         "id": "3",
@@ -45,7 +45,7 @@
       }
     },
     "4": {
-      "type": "Light",
+      "deviceClass": "Light",
       "properties": {
         "isOn": true,
         "id": "4",
@@ -56,7 +56,7 @@
       }
     },
     "5": {
-      "type": "Door",
+      "deviceClass": "Door",
       "properties": {
         "isOpen": true,
         "id": "5",
@@ -67,7 +67,7 @@
       }
     },
     "6": {
-      "type": "Door",
+      "deviceClass": "Door",
       "properties": {
         "isOpen": true,
         "id": "6",
@@ -78,7 +78,7 @@
       }
     },
     "7": {
-      "type": "Door",
+      "deviceClass": "Door",
       "properties": {
         "isOpen": true,
         "id": "7",
@@ -89,7 +89,7 @@
       }
     },
     "8": {
-      "type": "Door",
+      "deviceClass": "Door",
       "properties": {
         "isOpen": true,
         "id": "8",
@@ -100,7 +100,7 @@
       }
     },
     "9": {
-      "type": "Door",
+      "deviceClass": "Door",
       "properties": {
         "isOpen": true,
         "id": "9",
