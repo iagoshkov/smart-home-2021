@@ -1,4 +1,6 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.smart.devices;
+
+import ru.sbt.mipt.oop.smart.home.Room;
 
 public abstract class SmartDevice {
     protected final String id;

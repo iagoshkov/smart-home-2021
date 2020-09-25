@@ -1,5 +1,11 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.smart.devices.Door;
+import ru.sbt.mipt.oop.smart.devices.Light;
+import ru.sbt.mipt.oop.smart.home.Room;
+import ru.sbt.mipt.oop.smart.home.SmartHome;
+import ru.sbt.mipt.oop.smart.home.SmartHomeReaderWriter;
+
 import java.io.IOException;
 
 public class HomeBuilder {

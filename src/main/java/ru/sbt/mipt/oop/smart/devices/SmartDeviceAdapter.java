@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.smart.devices;
 
 import com.google.gson.*;
 
@@ -22,7 +22,7 @@ public class SmartDeviceAdapter implements JsonSerializer<SmartDevice>, JsonDese
         JsonElement element = jsonObject.get("properties");
 
         try {
-            return context.deserialize(element, Class.forName("ru.sbt.mipt.oop." + type));
+            return context.deserialize(element, Class.forName("ru.sbt.mipt.oop.smart.devices." + type));
         } catch (ClassNotFoundException cnfe) {
             throw new JsonParseException("Unknown element type: " + type, cnfe);
         }

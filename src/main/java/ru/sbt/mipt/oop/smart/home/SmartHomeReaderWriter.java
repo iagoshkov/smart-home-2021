@@ -1,7 +1,9 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.smart.home;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import ru.sbt.mipt.oop.smart.devices.SmartDevice;
+import ru.sbt.mipt.oop.smart.devices.SmartDeviceAdapter;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

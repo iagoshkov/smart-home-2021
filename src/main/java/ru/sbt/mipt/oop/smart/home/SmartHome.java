@@ -1,4 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.smart.home;
+
+import ru.sbt.mipt.oop.smart.devices.Light;
+import ru.sbt.mipt.oop.smart.devices.SmartDevice;
+import ru.sbt.mipt.oop.smart.devices.SmartDeviceType;
 
 import java.util.*;
 

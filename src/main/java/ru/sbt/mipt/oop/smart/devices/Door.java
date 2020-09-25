@@ -1,6 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.smart.devices;
 
-public class Door extends SmartDevice{
+import ru.sbt.mipt.oop.smart.home.Room;
+
+public class Door extends SmartDevice {
     private boolean isOpen;
 
     public Door(String id, boolean isOpen, Room location) {
