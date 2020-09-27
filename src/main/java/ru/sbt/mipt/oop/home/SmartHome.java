@@ -1,13 +1,13 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.home;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHome {
+
     Collection<Room> rooms;
 
-    public SmartHome() {
-        rooms = new ArrayList<>();
+    public Collection<Room> getRooms() {
+        return rooms;
     }
 
     public SmartHome(Collection<Room> rooms) {
@@ -18,7 +18,4 @@ public class SmartHome {
         rooms.add(room);
     }
 
-    public Collection<Room> getRooms() {
-        return rooms;
-    }
 }

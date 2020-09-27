@@ -1,8 +1,12 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.home;
+
+import ru.sbt.mipt.oop.door.Door;
+import ru.sbt.mipt.oop.light.Light;
 
 import java.util.Collection;
 
 public class Room {
+
     private Collection<Light> lights;
     private Collection<Door> doors;
     private String name;
@@ -24,4 +28,5 @@ public class Room {
     public String getName() {
         return name;
     }
+
 }

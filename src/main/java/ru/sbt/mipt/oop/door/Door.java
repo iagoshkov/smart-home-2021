@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.door;
 
 public class Door {
     private final String id;
@@ -13,7 +13,7 @@ public class Door {
         return id;
     }
 
-    public void setOpen(boolean open) {
-        isOpen = open;
-    }
+//    public void setOpen(boolean open) {
+//        isOpen = open;
+//    }
 }

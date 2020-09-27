@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.light;
 
 public class Light {
     private boolean isOn;
@@ -17,7 +17,7 @@ public class Light {
         return id;
     }
 
-    public void setOn(boolean on) {
-        isOn = on;
-    }
+//    public void setOn(boolean on) {
+//        isOn = on;
+//    }
 }
