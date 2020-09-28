@@ -4,7 +4,7 @@ public class Door {
     private final String id;
     private boolean isOpen;
 
-    public Door(boolean isOpen, String id) {
+    public Door(String id, boolean isOpen) {
         this.isOpen = isOpen;
         this.id = id;
     }

@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop;
 
 public class SensorCommand {
+
     private final CommandType type;
     private final String objectId;
 
@@ -15,5 +16,9 @@ public class SensorCommand {
                 "type=" + type +
                 ", objectId='" + objectId + '\'' +
                 '}';
+    }
+
+    public static void sendCommand(SensorCommand command) {
+        System.out.println("Pretent we're sending command " + command);
     }
 }
