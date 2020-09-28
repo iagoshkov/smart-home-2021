@@ -43,7 +43,8 @@ public class SmartHome {
                     if (event.getType() == DOOR_OPEN) {
                         door.setOpen(true);
                         System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
-                    } else {
+                    }
+                    if (event.getType() == DOOR_CLOSED) {
                         door.setOpen(false);
                         System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
                         // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
@@ -64,7 +65,8 @@ public class SmartHome {
                     if (event.getType() == LIGHT_ON) {
                         light.setOn(true);
                         System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
-                    } else {
+                    }
+                    if (event.getType() == LIGHT_OFF) {
                         light.setOn(false);
                         System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
                     }
