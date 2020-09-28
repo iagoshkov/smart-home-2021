@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collection;
 
 public class HomeBuilder {
 
@@ -25,14 +26,25 @@ public class HomeBuilder {
         Room hall = new Room(Arrays.asList(new Light("7", false), new Light("8", false), new Light("9", false)),
                 Arrays.asList(new Door(false, "4")),
                 "hall");
-        SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
+        saveConfiguration(Arrays.asList(kitchen, bathroom, bedroom, hall), "output.js");
+    }
+
+    public static void saveConfiguration(Collection<Room> roomArrays, String filepath) throws IOException {
+        SmartHome smartHome = new SmartHome(roomArrays);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String jsonString = gson.toJson(smartHome);
         System.out.println(jsonString);
-        Path path = Paths.get("output.js");
+        Path path = Paths.get(filepath);
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(jsonString);
         }
+    }
+
+    public static SmartHome loadConfiguration(String filepath) throws IOException {
+        Gson gson = new Gson();
+        String json = new String(Files.readAllBytes(Paths.get(filepath)));
+        SmartHome smartHome = gson.fromJson(json, SmartHome.class);
+        return smartHome;
     }
 
 }
