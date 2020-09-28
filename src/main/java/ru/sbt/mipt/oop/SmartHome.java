@@ -26,7 +26,7 @@ public class SmartHome {
 
     public void processEvent(SensorEvent event) {
         System.out.println("Got event: " + event);
-        if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
+        if (event.isLightType()) {
             // событие от источника света
             for (Room room : this.getRooms()) {
                 for (Light light : room.getLights()) {
@@ -42,7 +42,7 @@ public class SmartHome {
                 }
             }
         }
-        if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
+        if (event.isDoorType()) {
             // событие от двери
             for (Room room : this.getRooms()) {
                 for (Door door : room.getDoors()) {
