@@ -13,7 +13,11 @@ public class Door {
         return id;
     }
 
-    public void setOpen(boolean open) {
-        isOpen = open;
+    public void setOpen() {
+        isOpen = true;
+    }
+
+    public void setClosed() {
+        isOpen = false;
     }
 }
