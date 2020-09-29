@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.devices;
 
 public class Light {
     private boolean isOn;
@@ -9,15 +9,19 @@ public class Light {
         this.isOn = isOn;
     }
 
-    public boolean isOn() {
-        return isOn;
-    }
-
     public String getId() {
         return id;
     }
 
-    public void setOn(boolean on) {
-        isOn = on;
+    public boolean isOn() {
+        return isOn;
+    }
+
+    public void turnOn() {
+        isOn = true;
+    }
+
+    public void turnOff() {
+        isOn = false;
     }
 }
