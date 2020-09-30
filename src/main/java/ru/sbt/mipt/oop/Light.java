@@ -1,7 +1,5 @@
 package ru.sbt.mipt.oop;
 
-import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
-
 public class Light {
     private boolean isOn;
     private final String id;
@@ -21,17 +19,5 @@ public class Light {
 
     public void setOn(boolean on) {
         isOn = on;
-    }
-
-    public void handleEvent(SensorEvent event, String roomName) {
-        if (this.getId().equals(event.getObjectId())) {
-            if (event.getType() == LIGHT_ON) {
-                this.setOn(true);
-                System.out.println("Light " + this.getId() + " in room " + roomName + " was turned on.");
-            } else {
-                this.setOn(false);
-                System.out.println("Light " + this.getId() + " in room " + roomName + " was turned off.");
-            }
-        }
     }
 }
