@@ -1,80 +1,61 @@
 package ru.sbt.mipt.oop;
 
-import com.google.gson.Gson;
-
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import static ru.sbt.mipt.oop.SensorEventType.*;
+import ru.sbt.mipt.oop.events.EventManager;
+import ru.sbt.mipt.oop.events.SensorEvent;
+import ru.sbt.mipt.oop.events.SensorEventType;
+import ru.sbt.mipt.oop.smart.devices.SmartDevice;
+import ru.sbt.mipt.oop.smart.home.SmartHome;
+import ru.sbt.mipt.oop.smart.home.utils.SmartHomeJsonReaderWriter;
+import ru.sbt.mipt.oop.smart.home.utils.SmartHomeReaderWriter;
 
 public class Application {
+    private final SmartHomeReaderWriter smartHomeReaderWriter;
+    private final EventManager eventManager;
+    private SmartHome smartHome;
 
-    public static void main(String... args) throws IOException {
-        // считываем состояние дома из файла
-        Gson gson = new Gson();
-        String json = new String(Files.readAllBytes(Paths.get("smart-home-1.js")));
-        SmartHome smartHome = gson.fromJson(json, SmartHome.class);
-        // начинаем цикл обработки событий
-        SensorEvent event = getNextSensorEvent();
-        while (event != null) {
-            System.out.println("Got event: " + event);
-            if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
-                // событие от источника света
-                for (Room room : smartHome.getRooms()) {
-                    for (Light light : room.getLights()) {
-                        if (light.getId().equals(event.getObjectId())) {
-                            if (event.getType() == LIGHT_ON) {
-                                light.setOn(true);
-                                System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
-                            } else {
-                                light.setOn(false);
-                                System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
-                            }
-                        }
-                    }
-                }
-            }
-            if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
-                // событие от двери
-                for (Room room : smartHome.getRooms()) {
-                    for (Door door : room.getDoors()) {
-                        if (door.getId().equals(event.getObjectId())) {
-                            if (event.getType() == DOOR_OPEN) {
-                                door.setOpen(true);
-                                System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
-                            } else {
-                                door.setOpen(false);
-                                System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
-                                // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
-                                // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-                                if (room.getName().equals("hall")) {
-                                    for (Room homeRoom : smartHome.getRooms()) {
-                                        for (Light light : homeRoom.getLights()) {
-                                            light.setOn(false);
-                                            SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                                            sendCommand(command);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            event = getNextSensorEvent();
+    public Application(SmartHomeReaderWriter smartHomeReaderWriter, EventManager eventManager) {
+        this.smartHomeReaderWriter = smartHomeReaderWriter;
+        this.eventManager = eventManager;
+    }
+
+    public static void main(String... args) {
+        SmartHomeReaderWriter smartHomeReaderWriter = new SmartHomeJsonReaderWriter(
+                Constants.INPUT_SMART_HOME_JSON_FILE_NAME, Constants.OUTPUT_SMART_HOME_JSON_FILE_NAME);
+        EventManager eventManager = new EventManager();
+        Application application = new Application(smartHomeReaderWriter, eventManager);
+
+        application.start();
+    }
+
+    public void start() {
+        try {
+            smartHome = smartHomeReaderWriter.loadSmartHome();
+        } catch (RuntimeException e) {
+            System.out.println("Failed to initialize smart home");
+            e.printStackTrace();
+            return;
         }
+        run();
     }
 
-    private static void sendCommand(SensorCommand command) {
-        System.out.println("Pretent we're sending command " + command);
-    }
+    private void run() {
+        while(true) {
+            SensorEvent event = eventManager.getNextSensorEvent();
+            if (event == null) return;
 
-    private static SensorEvent getNextSensorEvent() {
-        // pretend like we're getting the events from physical world, but here we're going to just generate some random events
-        if (Math.random() < 0.05) return null; // null means end of event stream
-        SensorEventType sensorEventType = SensorEventType.values()[(int) (4 * Math.random())];
-        String objectId = "" + ((int) (10 * Math.random()));
-        return new SensorEvent(sensorEventType, objectId);
+            System.out.println("Got event: " + event);
+            SmartDevice device = smartHome.getDevice(event.getObjectId());
+
+            if (device == null) {
+                System.out.printf("Device id '%s' is not exist%n", event.getObjectId());
+                continue;
+            }
+
+            eventManager.executeEvent(event.getType(), device);
+
+            if (event.getType() == SensorEventType.DOOR_CLOSED && device.getLocation().getLocationName().equals("hall")) {
+                eventManager.executeEvent(SensorEventType.TURNOFF_ALL_LIGHTS_IN_SMART_HOME, smartHome);
+            }
+        }
     }
 }
