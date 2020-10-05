@@ -4,16 +4,18 @@ import ru.sbt.mipt.oop.home.SmartHome;
 
 import static ru.sbt.mipt.oop.event_handlers.SensorEventType.*;
 
-public class GeneralEventHandler {
+public class EventClassifier {
+
     private SensorEvent event;
     private SmartHome smartHome;
 
-    public GeneralEventHandler(SensorEvent event, SmartHome smartHome) {
+    public EventClassifier(SensorEvent event, SmartHome smartHome) {
         this.event = event;
         this.smartHome = smartHome;
     }
 
-    public SmartHome applyEvent(){
+    public SmartHome returnSmartHomeAfterClassifiedEvent(SmartHome smartHome, SensorEvent event) {
+
         if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
             // событие от источника света
             LightEventHandler lightEventHandler = new LightEventHandler(event, smartHome);
@@ -24,8 +26,6 @@ public class GeneralEventHandler {
             DoorEventHandler doorEventHandler = new DoorEventHandler(event, smartHome);
             smartHome = doorEventHandler.handleDoorEvent();
         }
-
         return smartHome;
     }
-
 }

@@ -21,11 +21,9 @@ public class DoorEventHandler {
             for (Door door : room.getDoors()) {
                 if (door.getId().equals(event.getObjectId())) {
                     if (event.getType() == DOOR_OPEN) {
-                        OpenDoorEventHandler openDoorEventHandler = new OpenDoorEventHandler(door, room, smartHome);
-                        door = openDoorEventHandler.handleOpenDoorEvent();
+                        door.setOpen(true);
                     } else {
-                        CloseDoorEventHandler closeDoorEventHandler = new CloseDoorEventHandler(door,room, smartHome);
-                        door = closeDoorEventHandler.handleCloseDoorEvent();
+                        door.setOpen(false);
                     }
                 }
             }
