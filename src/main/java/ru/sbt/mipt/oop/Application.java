@@ -1,38 +1,37 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.events.SensorEvent;
+import ru.sbt.mipt.oop.events.SensorEventGenerator;
+import ru.sbt.mipt.oop.init.HomeLoader;
+import ru.sbt.mipt.oop.init.JsonHomeLoader;
+
+import java.io.FileInputStream;
 import java.io.IOException;
 
-import static ru.sbt.mipt.oop.SensorEventType.*;
-
 public class Application {
+    private static SmartHome smartHome;
+    private static HomeLoader homeLoader;
+
+    public Application(HomeLoader homeLoader) {
+        this.homeLoader = homeLoader;
+    }
 
     public static void main(String... args) throws IOException {
+        HomeLoader homeLoader = new JsonHomeLoader();
+        Application application = new Application(homeLoader);
+        application.run();
+    }
+
+    private void run() {
         // считываем состояние дома из файла
         try {
-            SmartHome smartHome = HomeBuilder.loadFromJson("smart-home-1.js");
-            // начинаем цикл обработки событий
-            SensorEvent event = SensorEventGenerator.getNextSensorEvent();
-            while (event != null) {
-                event = processEvent(smartHome, event);
-            }
+            SmartHome smartHome = homeLoader.load(new FileInputStream("smart-home-1.js"));
+            Engine engine = new SmartHomeEngine(smartHome);
+            engine.start();
 
         } catch (IOException e) {
             System.out.println("Error while loading from JSON");
         }
-    }
-
-    private static SensorEvent processEvent(SmartHome smartHome, SensorEvent event) {
-        System.out.println("Got event: " + event);
-        if (event.getType().isLightEvent()) {
-            // событие от источника света
-            smartHome.processLightEvent(event);
-        }
-        if (event.getType().isDoorEvent()) {
-            // событие от двери
-            smartHome.processDoorEvent(event);
-        }
-        event = SensorEventGenerator.getNextSensorEvent();
-        return event;
     }
 
 

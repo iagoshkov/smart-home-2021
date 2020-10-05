@@ -1,6 +1,8 @@
 package ru.sbt.mipt.oop;
 
-import java.util.Arrays;
+import ru.sbt.mipt.oop.elements.Door;
+import ru.sbt.mipt.oop.elements.Light;
+import ru.sbt.mipt.oop.elements.Room;
 
 public class RoomFactory {
     public static Room getKitchen() {
