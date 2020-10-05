@@ -3,15 +3,12 @@ package ru.sbt.mipt.oop.event_handlers;
 import ru.sbt.mipt.oop.home.Room;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.light.Light;
-import ru.sbt.mipt.oop.light.TurnedOffLight;
-import ru.sbt.mipt.oop.light.TurnedOnLight;
-
 import static ru.sbt.mipt.oop.event_handlers.SensorEventType.LIGHT_ON;
 
 public class LightEventHandler {
 
-    private SensorEvent event;
-    private SmartHome smartHome;
+    private final SensorEvent event;
+    private final SmartHome smartHome;
 
     public LightEventHandler(SensorEvent event, SmartHome smartHome) {
         this.event = event;

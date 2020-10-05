@@ -2,9 +2,6 @@ package ru.sbt.mipt.oop;
 
 import com.google.gson.Gson;
 import ru.sbt.mipt.oop.event_handlers.EventProcessor;
-import ru.sbt.mipt.oop.event_handlers.GeneralEventHandler;
-import ru.sbt.mipt.oop.event_handlers.SensorEvent;
-import ru.sbt.mipt.oop.event_handlers.SensorEventType;
 import ru.sbt.mipt.oop.home.SmartHome;
 
 import java.io.IOException;

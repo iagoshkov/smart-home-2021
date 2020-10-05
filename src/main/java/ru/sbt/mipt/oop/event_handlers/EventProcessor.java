@@ -1,6 +1,5 @@
 package ru.sbt.mipt.oop.event_handlers;
 
-import jdk.internal.event.Event;
 import ru.sbt.mipt.oop.home.SmartHome;
 
 public class EventProcessor {
