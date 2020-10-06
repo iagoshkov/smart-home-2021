@@ -1,7 +1,5 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.actions.HomeComponent;
-
 public class Door implements HomeComponent {
     private final String id;
     private boolean isOpen;

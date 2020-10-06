@@ -1,7 +1,5 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.actions.HomeComponent;
-
 public class Light implements HomeComponent {
     private boolean isOn;
     private final String id;
