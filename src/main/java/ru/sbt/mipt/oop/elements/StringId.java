@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.elements;
 
-public class StringId implements DeviceId {
+public class StringId implements ComponentId {
     private String id;
 
     public StringId(String id) {

@@ -1,6 +1,8 @@
 package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.elements.Room;
+import ru.sbt.mipt.oop.elements.RoomFactory;
+import ru.sbt.mipt.oop.elements.SmartHome;
 import ru.sbt.mipt.oop.init.HomeLoader;
 import ru.sbt.mipt.oop.init.JsonHomeLoader;
 
