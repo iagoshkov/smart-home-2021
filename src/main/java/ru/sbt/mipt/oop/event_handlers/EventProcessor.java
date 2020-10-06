@@ -11,12 +11,13 @@ public class EventProcessor {
     }
 
     public void processEvent(){
-        SensorEvent event = getNextSensorEvent();
+        EventGenerator eventGenerator = new EventGenerator();
+        SensorEvent event = eventGenerator.makeEvent();
+        EventSolverImplementation eventSolverImplementation = new EventSolverImplementation();
         while (event != null) {
             System.out.println("Got event: " + event);
-            GeneralEventHandler generalEventHandler = new GeneralEventHandler(event,smartHome);
-            smartHome = generalEventHandler.applyEvent();
-            event = getNextSensorEvent();
+            eventSolverImplementation.solveEvent(smartHome, event);
+            event = eventGenerator.makeEvent();
         }
     }
 
