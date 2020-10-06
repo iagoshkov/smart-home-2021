@@ -7,7 +7,9 @@ public class LightOnAction implements Action{
     @Override
     public void act(HomeComponent homeComponent) {
         if(homeComponent instanceof Light) {
-
+            Light light = (Light) homeComponent;
+            light.setOn();
+            System.out.println("Light " + light.getId() + " was turned on.");
         }
     }
 }

@@ -7,7 +7,9 @@ public class DoorCloseAction implements Action{
     @Override
     public void act(HomeComponent homeComponent) {
         if(homeComponent instanceof Door) {
-
+            Door door = (Door) homeComponent;
+            door.setClosed();
+            System.out.println("Door " + door.getId() + " was closed.");
         }
     }
 }
