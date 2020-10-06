@@ -3,24 +3,39 @@ package ru.sbt.mipt.oop;
 import java.io.IOException;
 
 public class Application {
+    private final SmartHomeReaderWriter smartHomeReaderWriter;
+    private final EventManager eventManager;
+    private SmartHome smartHome;
+
+    public Application(SmartHomeReaderWriter smartHomeReaderWriter, EventManager eventManager) {
+        this.smartHomeReaderWriter = smartHomeReaderWriter;
+        this.eventManager = eventManager;
+    }
 
     public static void main(String... args) throws IOException {
         // считываем состояние дома из файла
-        SmartHome smartHome = HomeBuilder.loadConfiguration("smart-home-1.js");
+        SmartHomeJsonReaderWriter smartHomeReaderWriter = new SmartHomeJsonReaderWriter("smart-home-1.js", "output.js");
+        EventManager eventManager = new EventManager();
+        Application application = new Application(smartHomeReaderWriter, eventManager);
 
-        // начинаем цикл обработки событий
-        SensorEvent event = getNextSensorEvent();
-        while (event != null) {
+        application.run();
+
+    }
+
+    public void run() throws IOException {
+        SensorEvent event;
+        SmartHome smartHome = smartHomeReaderWriter.loadSmartHome();
+
+        while (true) {
+            // начинаем цикл обработки событий
+            event = eventManager.getNextSensorEvent();
+
+            if (event == null) {
+                return;
+            }
             smartHome.processEvent(event);
-            event = getNextSensorEvent();
         }
     }
 
-    private static SensorEvent getNextSensorEvent() {
-        // pretend like we're getting the events from physical world, but here we're going to just generate some random events
-        if (Math.random() < 0.05) return null; // null means end of event stream
-        SensorEventType sensorEventType = SensorEventType.values()[(int) (4 * Math.random())];
-        String objectId = "" + ((int) (10 * Math.random()));
-        return new SensorEvent(sensorEventType, objectId);
-    }
+
 }
