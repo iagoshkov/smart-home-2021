@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class SmartHome implements HomeComponentComposite {
+public class SmartHome implements HomeComponent, HomeComponentComposite {
     private Collection<Room> rooms;
 
     public SmartHome() {
@@ -72,9 +72,8 @@ public class SmartHome implements HomeComponentComposite {
 
     public Event apply(Event event, Action action) {
         Event newEvent = rooms.stream()
-                .map((HomeComponent r) -> r.apply(event, action))
-                .filter((Event e) -> (e.getType() instanceof HallDoorEventType))
-                .findFirst().orElse(null);
+                .map((Room r) -> {return r.apply(event, action);} )
+                .filter((Event e) -> (e.getType() instanceof HallDoorEventType)).collect(Collectors.toList()).get(0);
         if (newEvent != null) {
             return newEvent;
         }

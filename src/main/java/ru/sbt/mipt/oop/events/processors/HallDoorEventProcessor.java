@@ -10,7 +10,7 @@ import static ru.sbt.mipt.oop.events.typedefs.HallDoorEventType.LIGHTS_ON;
 public class HallDoorEventProcessor implements EventProcessor {
     @Override
     public Event processEvent(SmartHome smartHome, Event event) {
-        smartHome.apply(event, (HomeComponent c) -> ((Light)c).setActive(event.getType() == LIGHTS_ON));
+        smartHome.apply(event, (HomeComponent c) -> ((Light)c).setOn(event.getType() == LIGHTS_ON));
         return event;
     }
 }

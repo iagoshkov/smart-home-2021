@@ -9,7 +9,7 @@ import static ru.sbt.mipt.oop.events.typedefs.LightEventType.LIGHT_ON;
 
 public class LightEventProcessor implements EventProcessor {
     public Event processEvent(SmartHome smartHome, Event event) {
-        smartHome.apply(event, (HomeComponent c) -> ((Light)c).setActive(event.getType() == LIGHT_ON));
+        smartHome.apply(event, (HomeComponent c) -> ((Light)c).setOn(event.getType() == LIGHT_ON));
         return event;
     }
 }

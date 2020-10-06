@@ -23,8 +23,11 @@ public class Door implements HomeComponent {
         this.isOpen = isOpen;
     }
 
+    public boolean isOpen() {
+        return isOpen;
+    }
 
-    public void setActive(boolean open) {
+    public void setOpen(boolean open) {
         isOpen = open;
         System.out.println("Door " + id + " was " + (open ? "opened" : "closed"));
     }

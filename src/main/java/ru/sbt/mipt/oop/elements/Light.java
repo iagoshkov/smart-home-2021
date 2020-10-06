@@ -18,7 +18,7 @@ public class Light implements HomeComponent {
         return isOn;
     }
 
-    public void setActive(boolean on) {
+    public void setOn(boolean on) {
         isOn = on;
         System.out.println("Light " + id + " was turned " + (on ? "on" : "off"));
     }

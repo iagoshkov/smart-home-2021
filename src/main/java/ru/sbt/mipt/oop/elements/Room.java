@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Room implements HomeComponentComposite {
+public class Room implements HomeComponent, HomeComponentComposite {
 
     private Collection<Light> lights;
     private Collection<Door> doors;
@@ -75,7 +75,7 @@ public class Room implements HomeComponentComposite {
 
     @Override
     public ComponentId getId() {
-        return new StringId("Room" + name);
+        return new StringId("Room " + name);
     }
 
     @Override
@@ -93,9 +93,9 @@ public class Room implements HomeComponentComposite {
                 }
             }
         } else if (event.getType() instanceof LightEventType) {
-            lights.stream().filter((HomeComponent c) -> (c.getId().equals(inputEvent.getObjectId()))).forEach(action::accept);
+            lights.stream().filter((HomeComponent c) -> (c.getId().equals(inputEvent.getObjectId()))).forEach(action);
         } else if (event.getType() instanceof HallDoorEventType) {
-            lights.stream().map((HomeComponent c) -> (c.apply(inputEvent, action::accept)));
+            lights.forEach((HomeComponent c) -> c.apply(inputEvent, action));
         }
         return event;
     }
