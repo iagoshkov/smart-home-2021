@@ -1,7 +1,8 @@
 package ru.sbt.mipt.oop.elements;
 
 import ru.sbt.mipt.oop.actions.Action;
-import ru.sbt.mipt.oop.actions.ActionType;
+import ru.sbt.mipt.oop.events.Event;
+import ru.sbt.mipt.oop.events.typedefs.DoorEventType;
 
 public class Door implements HomeComponent {
     private ComponentId id;
@@ -25,6 +26,7 @@ public class Door implements HomeComponent {
 
     public void setActive(boolean open) {
         isOpen = open;
+        System.out.println("Door " + id + " was " + (open ? "opened" : "closed"));
     }
 
     @Override
@@ -33,10 +35,10 @@ public class Door implements HomeComponent {
     }
 
     @Override
-    public Action apply(Action action, ComponentId component) {
-        if (action.getType() == ActionType.DOOR || component.equals(this.id)) {
-            action.execute(this);
+    public Event apply(Event event, Action action) {
+        if (event.getType() instanceof DoorEventType || event.getObjectId().equals(this.id)) {
+            action.accept(this);
         }
-        return action;
+        return event;
     }
 }

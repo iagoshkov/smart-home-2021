@@ -1,7 +1,9 @@
 package ru.sbt.mipt.oop.elements;
 
 import ru.sbt.mipt.oop.actions.Action;
-import ru.sbt.mipt.oop.actions.ActionType;
+import ru.sbt.mipt.oop.events.Event;
+import ru.sbt.mipt.oop.events.typedefs.HallDoorEventType;
+import ru.sbt.mipt.oop.events.typedefs.LightEventType;
 
 public class Light implements HomeComponent {
     private ComponentId id;
@@ -18,6 +20,7 @@ public class Light implements HomeComponent {
 
     public void setActive(boolean on) {
         isOn = on;
+        System.out.println("Light " + id + " was turned " + (on ? "on" : "off"));
     }
 
     @Override
@@ -31,10 +34,10 @@ public class Light implements HomeComponent {
     }
 
     @Override
-    public Action apply(Action action, ComponentId component) {
-        if ((action.getType() == ActionType.HALL) || ((action.getType() == ActionType.LIGHT) && component.equals(this.id))) {
-            action.execute(this);
+    public Event apply(Event event, Action action) {
+        if ((event.getType() instanceof HallDoorEventType) || ((event.getType() instanceof LightEventType) && event.getObjectId().equals(this.id))) {
+            action.accept(this);
         }
-        return action;
+        return event;
     }
 }

@@ -1,14 +1,15 @@
 package ru.sbt.mipt.oop.elements;
 
 import ru.sbt.mipt.oop.actions.Action;
-import ru.sbt.mipt.oop.actions.ActionType;
+import ru.sbt.mipt.oop.events.Event;
+import ru.sbt.mipt.oop.events.typedefs.HallDoorEventType;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class SmartHome implements HomeComponentComposite {
-    Collection<Room> rooms;
+    private Collection<Room> rooms;
 
     public SmartHome() {
         rooms = new ArrayList<>();
@@ -51,6 +52,14 @@ public class SmartHome implements HomeComponentComposite {
                 .orElse(null);
     }
 
+    public int getElementCount(ElementType type) {
+        if (type == HomeElementType.ROOM) {
+            return rooms.size();
+        } else {
+            return rooms.stream().mapToInt((Room r) -> r.getElementCount(type)).reduce(Integer::sum).orElse(0);
+        }
+    }
+
     @Override
     public ElementType getType() {
         return HomeElementType.SMART_HOME;
@@ -61,11 +70,14 @@ public class SmartHome implements HomeComponentComposite {
         return new StringId("HOME");
     }
 
-    public Action apply(Action action, ComponentId component) {
-        Action newAction = rooms.stream()
-                .map((HomeComponent r) -> r.apply(action, component))
-                .filter((Action a) -> (a.getType().equals(ActionType.HALL)))
+    public Event apply(Event event, Action action) {
+        Event newEvent = rooms.stream()
+                .map((HomeComponent r) -> r.apply(event, action))
+                .filter((Event e) -> (e.getType() instanceof HallDoorEventType))
                 .findFirst().orElse(null);
-        return newAction;
+        if (newEvent != null) {
+            return newEvent;
+        }
+        return event;
     }
 }

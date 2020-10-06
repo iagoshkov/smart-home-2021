@@ -1,9 +1,17 @@
 package ru.sbt.mipt.oop.elements;
 
 import ru.sbt.mipt.oop.actions.*;
+import ru.sbt.mipt.oop.commands.CommandType;
+import ru.sbt.mipt.oop.commands.SimpleSensorCommand;
+import ru.sbt.mipt.oop.events.Event;
+import ru.sbt.mipt.oop.events.HallDoorEvent;
+import ru.sbt.mipt.oop.events.typedefs.DoorEventType;
+import ru.sbt.mipt.oop.events.typedefs.HallDoorEventType;
+import ru.sbt.mipt.oop.events.typedefs.LightEventType;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Room implements HomeComponentComposite {
 
@@ -45,6 +53,16 @@ public class Room implements HomeComponentComposite {
         return null;
     }
 
+    public int getElementCount(ElementType type) {
+        if (type == HomeElementType.DOOR) {
+            return ( doors == null ? 0 : doors.size());
+        }
+        if (type == HomeElementType.LIGHT) {
+            return ( lights == null ? 0 : lights.size());
+        }
+        return 0;
+    }
+
     public String getName() {
         return name;
     }
@@ -61,18 +79,24 @@ public class Room implements HomeComponentComposite {
     }
 
     @Override
-    public Action apply(Action action, ComponentId component) {
-        if (action.getType() == ActionType.DOOR) {
-            doors.stream().filter((HomeComponent c) -> (c.getId().equals(component))).forEach(action::execute);
-            if (this.name.equals("hall") && !((DoorAction) action).isShouldOpen()) {
-                action = new HallAction(false);
+    public Event apply(Event event, Action action) {
+        Event inputEvent = event;
+        if (inputEvent.getType() instanceof DoorEventType) {
+            Collection<Door> doorsWithId = doors.stream()
+                    .filter((HomeComponent c) -> (c.getId().equals(inputEvent.getObjectId())))
+                    .collect(Collectors.toList());
+            boolean hasDoor = (doorsWithId.size() > 0);
+            if (hasDoor) {
+                doorsWithId.forEach((Door d) -> d.apply(inputEvent, action));
+                if (this.name.equals("hall") && (event.getType() == DoorEventType.DOOR_CLOSED)) {
+                    event = new HallDoorEvent(HallDoorEventType.LIGHTS_OFF, this.getId(), new SimpleSensorCommand(CommandType.LIGHT_OFF, getId()));
+                }
             }
-        } else if (action.getType() == ActionType.LIGHT) {
-            lights.stream().filter((HomeComponent c) -> (c.getId().equals(component))).forEach(action::execute);
-        } else if (action.getType() == ActionType.HALL) {
-            Action finalAction = action;
-            lights.stream().map((HomeComponent c) -> (c.apply(finalAction, this.getId())));
+        } else if (event.getType() instanceof LightEventType) {
+            lights.stream().filter((HomeComponent c) -> (c.getId().equals(inputEvent.getObjectId()))).forEach(action::accept);
+        } else if (event.getType() instanceof HallDoorEventType) {
+            lights.stream().map((HomeComponent c) -> (c.apply(inputEvent, action::accept)));
         }
-        return action;
+        return event;
     }
 }
