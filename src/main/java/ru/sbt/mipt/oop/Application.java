@@ -5,7 +5,6 @@ import java.io.IOException;
 public class Application {
     private final SmartHomeReaderWriter smartHomeReaderWriter;
     private final EventManager eventManager;
-    private SmartHome smartHome;
 
     public Application(SmartHomeReaderWriter smartHomeReaderWriter, EventManager eventManager) {
         this.smartHomeReaderWriter = smartHomeReaderWriter;
@@ -26,6 +25,8 @@ public class Application {
         SensorEvent event;
         SmartHome smartHome = smartHomeReaderWriter.loadSmartHome();
 
+        eventManager.setSmartHome(smartHome);
+
         while (true) {
             // начинаем цикл обработки событий
             event = eventManager.getNextSensorEvent();
@@ -33,7 +34,7 @@ public class Application {
             if (event == null) {
                 return;
             }
-            smartHome.processEvent(event);
+            eventManager.processEvent(event);
         }
     }
 
