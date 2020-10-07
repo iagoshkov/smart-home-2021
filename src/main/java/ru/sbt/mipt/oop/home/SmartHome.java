@@ -1,11 +1,13 @@
 package ru.sbt.mipt.oop.home;
 
+import ru.sbt.mipt.oop.Action;
+import ru.sbt.mipt.oop.Actionable;
 import ru.sbt.mipt.oop.event_handlers.ClosedHallDoorEvent;
 import ru.sbt.mipt.oop.event_handlers.SensorEvent;
 
 import java.util.Collection;
 
-public class SmartHome {
+public class SmartHome implements Actionable {
 
     Collection<Room> rooms;
 
@@ -36,5 +38,11 @@ public class SmartHome {
                 room.handleDoorEvent(event);
             }
         }
+    }
+
+    @Override
+    public void execute(Action action) {
+        rooms.forEach(room -> room.execute(action));
+        action.accept(this);
     }
 }

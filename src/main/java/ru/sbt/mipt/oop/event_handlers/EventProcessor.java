@@ -2,7 +2,11 @@ package ru.sbt.mipt.oop.event_handlers;
 
 import ru.sbt.mipt.oop.home.SmartHome;
 
-public class EventProcessor {
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
+public class EventProcessor implements Iterator<SensorEvent>{
 
     SmartHome smartHome;
 
@@ -12,12 +16,12 @@ public class EventProcessor {
 
     public void processEvent(){
         EventGenerator eventGenerator = new EventGenerator();
-        SensorEvent event = eventGenerator.makeEvent();
+        SensorEvent event = eventGenerator.next();
         EventSolverImplementation eventSolverImplementation = new EventSolverImplementation();
         while (event != null) {
             System.out.println("Got event: " + event);
             eventSolverImplementation.solveEvent(smartHome, event);
-            event = eventGenerator.makeEvent();
+            event = eventGenerator.next();
         }
     }
 
@@ -27,6 +31,16 @@ public class EventProcessor {
         SensorEventType sensorEventType = SensorEventType.values()[(int) (4 * Math.random())];
         String objectId = "" + ((int) (10 * Math.random()));
         return new SensorEvent(sensorEventType, objectId);
+    }
+
+    @Override
+    public boolean hasNext() {
+        return false;
+    }
+
+    @Override
+    public SensorEvent next() {
+        return getNextSensorEvent();
     }
 }
 
