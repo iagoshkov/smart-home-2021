@@ -13,8 +13,7 @@ public class Application {
 
     public static void main(String... args) throws IOException {
         // считываем состояние дома из файла
-//        SmartHomeJsonReaderWriter smartHomeReaderWriter = new SmartHomeJsonReaderWriter("smart-home-1.js", "output.js");
-        SmartHomeJsonReaderWriter smartHomeReaderWriter = new SmartHomeJsonReaderWriter("output.js", "output.js");
+        SmartHomeJsonReaderWriter smartHomeReaderWriter = new SmartHomeJsonReaderWriter("smart-home-1.js", "output.js");
         EventManager eventManager = new EventManager();
         Application application = new Application(smartHomeReaderWriter, eventManager);
 
