@@ -4,12 +4,20 @@ import ru.sbt.mipt.oop.HomeComponent;
 import ru.sbt.mipt.oop.Light;
 
 public class LightOffAction implements Action{
+    private final String objectId;
+
+    public LightOffAction(String objectId) {
+        this.objectId = objectId;
+    }
+
     @Override
     public void act(HomeComponent homeComponent) {
         if(homeComponent instanceof Light) {
-            Light light = (Light) homeComponent;
-            light.setOff();
-            System.out.println("Light " + light.getId() + " was turned off.");
+            if (homeComponent.getId().equals(objectId)) {
+                Light light = (Light) homeComponent;
+                light.setOff();
+                System.out.println("Light " + light.getId() + " was turned off.");
+            }
         }
     }
 }

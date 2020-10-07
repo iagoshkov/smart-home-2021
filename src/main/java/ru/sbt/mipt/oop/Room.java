@@ -1,27 +1,31 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.actions.Action;
+import ru.sbt.mipt.oop.actions.Actionable;
+
 import java.util.Collection;
 
-public class Room {
-    private Collection<Light> lights;
-    private Collection<Door> doors;
+public class Room implements Actionable {
+    private Collection<HomeComponent> components;
     private String name;
 
-    public Room(Collection<Light> lights, Collection<Door> doors, String name) {
-        this.lights = lights;
-        this.doors = doors;
+    public Room(Collection<HomeComponent> components, String name) {
+        this.components = components;
         this.name = name;
     }
 
-    public Collection<Light> getLights() {
-        return lights;
-    }
-
-    public Collection<Door> getDoors() {
-        return doors;
+    public Collection<HomeComponent> getComponents() {
+        return components;
     }
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public void execute(Action action) {
+        for (HomeComponent component : components) {
+            action.act(component);
+        }
     }
 }
