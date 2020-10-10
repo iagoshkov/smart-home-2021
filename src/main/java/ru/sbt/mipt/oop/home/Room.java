@@ -10,9 +10,11 @@ import java.util.Collection;
 
 public class Room {
 
-    private Collection<Light> lights;
-    private Collection<Door> doors;
-    private String name;
+    private final Collection<Light> lights;
+    private final Collection<Door> doors;
+    private final String name;
+    private final LightEventHandler lightEventHandler = new LightEventHandler();
+    private final DoorEventHandler doorEventHandler = new DoorEventHandler();
 
     public Room(Collection<Light> lights, Collection<Door> doors, String name) {
         this.lights = lights;
@@ -33,12 +35,10 @@ public class Room {
     }
 
     public void handleLightEvent(SensorEvent event, SmartHome smartHome) {
-        LightEventHandler lightEventHandler = new LightEventHandler();
         lightEventHandler.handleLightEvent(event, this);
     }
 
     public void handleDoorEvent(SensorEvent event, SmartHome smartHome) {
-        DoorEventHandler doorEventHandler = new DoorEventHandler();
         doorEventHandler.handleDoorEvent(event, smartHome, this);
     }
 }
