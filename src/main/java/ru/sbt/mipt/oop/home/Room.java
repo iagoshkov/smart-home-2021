@@ -32,32 +32,13 @@ public class Room {
         return name;
     }
 
-    public void handleLightEvent(SensorEvent event) {
-        for (Light light : this.getLights()) {
-            if (light.getId().equals(event.getObjectId())) {
-                LightEventHandler lightEventHandler = new LightEventHandler(event, light);
-                lightEventHandler.handleLightEvent();
-                if (event.getType().toString().equals("LIGHT_ON")) {
-                    System.out.println("Light " + light.getId() + " in room " + this.getName() + " was turned on.");
-                } else {
-                    System.out.println("Light " + light.getId() + " in room " + this.getName() + " was turned off.");
-                }
-            }
-        }
+    public void handleLightEvent(SensorEvent event, SmartHome smartHome) {
+        LightEventHandler lightEventHandler = new LightEventHandler();
+        lightEventHandler.handleLightEvent(event, this);
     }
 
-    public void handleDoorEvent(SensorEvent event) {
-        for (Door door:this.getDoors()){
-            if (door.getId().equals(event.getObjectId())){
-                    DoorEventHandler doorEventHandler = new DoorEventHandler(event, door);
-                    doorEventHandler.handleDoorEvent();
-                    if (event.getType().toString().equals("DOOR_OPEN")) {
-                        System.out.println("Door " + door.getId() + " in room " + this.getName() + " was opened.");
-                    } else {
-                        System.out.println("Door " + door.getId() + " in room " + this.getName() + " was closed.");
-                    }
-            }
-        }
+    public void handleDoorEvent(SensorEvent event, SmartHome smartHome) {
+        DoorEventHandler doorEventHandler = new DoorEventHandler();
+        doorEventHandler.handleDoorEvent(event, smartHome, this);
     }
-
 }

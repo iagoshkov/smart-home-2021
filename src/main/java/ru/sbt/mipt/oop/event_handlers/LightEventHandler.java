@@ -7,23 +7,17 @@ import static ru.sbt.mipt.oop.event_handlers.SensorEventType.LIGHT_ON;
 
 public class LightEventHandler {
 
-    private final SensorEvent event;
-    private final Light light;
-
-    public LightEventHandler(SensorEvent event, Light light) {
-        this.event = event;
-        this.light = light;
-    }
-
-    public void handleLightEvent() {
-        if (light.getId().equals(event.getObjectId())) {
-            if (event.getType() == LIGHT_ON) {
-                light.setOn(true);
-                    } else {
-                        light.setOn(false);
-                    }
+    public void handleLightEvent(SensorEvent event, Room room) {
+        for (Light light : room.getLights()) {
+            if (light.getId().equals(event.getObjectId())) {
+                if (event.getType() == LIGHT_ON) {
+                    light.setOn(true);
+                    System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
+                } else {
+                    light.setOn(false);
+                    System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
+                }
+            }
         }
     }
-
 }
-

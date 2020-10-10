@@ -7,23 +7,31 @@ import ru.sbt.mipt.oop.door.Door;
 import static ru.sbt.mipt.oop.event_handlers.SensorEventType.DOOR_OPEN;
 
 public class DoorEventHandler {
-    private final SensorEvent event;
-    private final Door door;
 
-    public DoorEventHandler(SensorEvent event, Door door) {
-        this.event = event;
-        this.door = door;
+    public DoorEventHandler() {
     }
 
-    public void handleDoorEvent() {
+    public void handleDoorEvent(SensorEvent event, SmartHome smartHome, Room room) {
 
-        if (door.getId().equals(event.getObjectId())) {
-            if (event.getType() == DOOR_OPEN) {
-                door.setOpen(true);
-            } else {
-                    door.setOpen(false);
+        for (Door door : room.getDoors()) {
+            if (door.getId().equals(event.getObjectId())) {
+                if (door.getId().equals(event.getObjectId())) {
+                    if (event.getType() == DOOR_OPEN) {
+                        door.setOpen(true);
+                        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
+                    } else {
+                        if (room.getName().equals("hall")) {
+                            ClosedHallDoorEvent closedHallDoorEvent = new ClosedHallDoorEvent();
+                            closedHallDoorEvent.hallDoorClosed(smartHome);
+                        } else {
+                            door.setOpen(false);
+                            System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
+                        }
+
+                    }
                 }
             }
         }
     }
+}
 

@@ -23,18 +23,12 @@ public class SmartHome {
 
     public void handleLightEvent(SensorEvent event) {
         for (Room room : this.getRooms()) {
-            room.handleLightEvent(event);
+            room.handleLightEvent(event, this);
         }
     }
     public void handleDoorEvent(SensorEvent event) {
         for (Room room : this.getRooms()) {
-            if (room.getName().equals("hall")){
-                ClosedHallDoorEvent closedHallDoorEvent = new ClosedHallDoorEvent();
-                closedHallDoorEvent.hallDoorClosed(this);
-                room.handleDoorEvent(event);
-            } else {
-                room.handleDoorEvent(event);
-            }
+            room.handleDoorEvent(event, this);
         }
     }
 }
