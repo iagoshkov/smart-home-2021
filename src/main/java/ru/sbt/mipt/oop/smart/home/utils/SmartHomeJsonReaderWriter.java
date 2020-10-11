@@ -22,33 +22,28 @@ public class SmartHomeJsonReaderWriter implements SmartHomeReaderWriter {
     }
 
     @Override
-    public SmartHome loadSmartHome() throws RuntimeException {
+    public SmartHome loadSmartHome() throws IOException {
         Gson gson = createGson();
         String json;
 
-        try {
-            json = new String(Files.readAllBytes(Paths.get(inputFilename)));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        json = new String(Files.readAllBytes(Paths.get(inputFilename)));
 
         return gson.fromJson(json, SmartHome.class);
     }
 
     @Override
-    public void saveSmartHome(SmartHome smartHome) throws RuntimeException {
+    public void saveSmartHome(SmartHome smartHome) throws IOException {
         Gson gson = createGson();
         String jsonString = gson.toJson(smartHome);
         Path path = Paths.get(outputFilename);
 
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(jsonString);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
     private Gson createGson() {
         return (new GsonBuilder()).registerTypeAdapter(SmartDevice.class, new SmartDeviceAdapter()).setPrettyPrinting().create();
+        //return (new GsonBuilder()).setPrettyPrinting().create();
     }
 }

@@ -1,9 +1,5 @@
 package ru.sbt.mipt.oop.smart.devices;
 
-import ru.sbt.mipt.oop.smart.home.locations.Location;
-
-public interface SmartDevice extends Actionable {
+public interface SmartDevice {
     String getId();
-    Location getLocation();
-    SmartDeviceType getType();
 }

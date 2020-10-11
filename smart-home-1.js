@@ -1,117 +1,136 @@
 {
-  "id": "0",
-  "name": "Smart home",
-  "type": "SMART_HOME",
-  "devices": {
-    "1": {
-      "deviceClass": "Light",
-      "properties": {
-        "id": "1",
-        "location": {
-          "name": "bathroom"
+  "rooms": [
+    {
+      "name": "bathroom",
+      "devices": [
+        {
+          "deviceClass": "Light",
+          "properties": {
+            "id": "1",
+            "isOn": false
+          }
         },
-        "type": "LIGHT",
-        "isOn": false
-      }
+        {
+          "deviceClass": "Door",
+          "properties": {
+            "id": "12",
+            "isOpen": false
+          }
+        },
+        {
+          "deviceClass": "Light",
+          "properties": {
+            "id": "2",
+            "isOn": false
+          }
+        },
+        {
+          "deviceClass": "Door",
+          "properties": {
+            "id": "11",
+            "isOpen": false
+          }
+        }
+      ]
     },
-    "2": {
-      "deviceClass": "Light",
-      "properties": {
-        "id": "2",
-        "location": {
-          "name": "hall"
+    {
+      "name": "hall",
+      "devices": [
+        {
+          "deviceClass": "Light",
+          "properties": {
+            "id": "4",
+            "isOn": false
+          }
         },
-        "type": "LIGHT",
-        "isOn": true
-      }
+        {
+          "deviceClass": "Door",
+          "properties": {
+            "id": "13",
+            "isOpen": false
+          }
+        },
+        {
+          "deviceClass": "Light",
+          "properties": {
+            "id": "3",
+            "isOn": false
+          }
+        },
+        {
+          "deviceClass": "Door",
+          "properties": {
+            "id": "14",
+            "isOpen": false
+          }
+        }
+      ]
     },
-    "3": {
-      "deviceClass": "Light",
-      "properties": {
-        "id": "3",
-        "location": {
-          "name": "hall"
+    {
+      "name": "bedroom",
+      "devices": [
+        {
+          "deviceClass": "Light",
+          "properties": {
+            "id": "7",
+            "isOn": false
+          }
         },
-        "type": "LIGHT",
-        "isOn": false
-      }
+        {
+          "deviceClass": "Door",
+          "properties": {
+            "id": "18",
+            "isOpen": false
+          }
+        },
+        {
+          "deviceClass": "Light",
+          "properties": {
+            "id": "8",
+            "isOn": false
+          }
+        },
+        {
+          "deviceClass": "Door",
+          "properties": {
+            "id": "17",
+            "isOpen": false
+          }
+        }
+      ]
     },
-    "4": {
-      "deviceClass": "Light",
-      "properties": {
-        "id": "4",
-        "location": {
-          "name": "kitchen"
+    {
+      "name": "kitchen",
+      "devices": [
+        {
+          "deviceClass": "Light",
+          "properties": {
+            "id": "5",
+            "isOn": false
+          }
         },
-        "type": "LIGHT",
-        "isOn": true
-      }
-    },
-    "5": {
-      "deviceClass": "Light",
-      "properties": {
-        "id": "5",
-        "location": {
-          "name": "kitchen"
+        {
+          "deviceClass": "Door",
+          "properties": {
+            "id": "16",
+            "isOpen": false
+          }
         },
-        "type": "LIGHT",
-        "isOn": true
-      }
-    },
-    "6": {
-      "deviceClass": "Door",
-      "properties": {
-        "id": "6",
-        "location": {
-          "name": "bedroom"
+        {
+          "deviceClass": "Door",
+          "properties": {
+            "id": "15",
+            "isOpen": false
+          }
         },
-        "type": "DOOR",
-        "isOpen": true
-      }
-    },
-    "7": {
-      "deviceClass": "Door",
-      "properties": {
-        "id": "7",
-        "location": {
-          "name": "hall"
-        },
-        "type": "DOOR",
-        "isOpen": true
-      }
-    },
-    "8": {
-      "deviceClass": "Door",
-      "properties": {
-        "id": "8",
-        "location": {
-          "name": "hall"
-        },
-        "type": "DOOR",
-        "isOpen": true
-      }
-    },
-    "9": {
-      "deviceClass": "Door",
-      "properties": {
-        "id": "9",
-        "location": {
-          "name": "kitchen"
-        },
-        "type": "DOOR",
-        "isOpen": true
-      }
-    },
-    "10": {
-      "deviceClass": "Door",
-      "properties": {
-        "id": "10",
-        "location": {
-          "name": "bedroom"
-        },
-        "type": "DOOR",
-        "isOpen": true
-      }
+        {
+          "deviceClass": "Light",
+          "properties": {
+            "id": "6",
+            "isOn": false
+          }
+        }
+      ]
     }
-  }
+  ]
 }
