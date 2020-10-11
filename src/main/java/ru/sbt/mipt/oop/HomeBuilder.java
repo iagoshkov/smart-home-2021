@@ -1,5 +1,6 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.smart.devices.Alarm;
 import ru.sbt.mipt.oop.smart.devices.Door;
 import ru.sbt.mipt.oop.smart.devices.Light;
 import ru.sbt.mipt.oop.smart.home.Room;
@@ -43,7 +44,7 @@ public class HomeBuilder {
         roomsList.add(kitchen);
         roomsList.add(bedroom);
 
-        SmartHome smartHome = new SmartHome(roomsList);
+        SmartHome smartHome = new SmartHome(new Alarm("99", Constants.ALARM_PASSWORD), roomsList);
 
         try {
             SmartHomeReaderWriter smartHomeReaderWriter = new SmartHomeJsonReaderWriter(

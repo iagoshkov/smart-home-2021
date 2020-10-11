@@ -30,6 +30,10 @@ public class EventProcessor {
                 return new ActionLightOff(deviceId);
             case LIGHT_ON:
                 return new ActionLightOn(deviceId);
+            case ALARM_ACTIVATE:
+                return new ActionAlarmActivate(type.getCode());
+            case ALARM_DEACTIVATE:
+                return new ActionAlarmDeactivate(type.getCode());
             default:
                 return null;
         }
