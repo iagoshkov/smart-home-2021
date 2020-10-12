@@ -1,9 +1,11 @@
 package ru.sbt.mipt.oop.events.processors;
 
+import ru.sbt.mipt.oop.Application;
 import ru.sbt.mipt.oop.elements.HomeElementType;
 import ru.sbt.mipt.oop.elements.SmartHome;
 import ru.sbt.mipt.oop.elements.StringId;
 import ru.sbt.mipt.oop.events.*;
+import ru.sbt.mipt.oop.events.typedefs.AlarmEventType;
 import ru.sbt.mipt.oop.events.typedefs.DoorEventType;
 import ru.sbt.mipt.oop.events.typedefs.EventType;
 import ru.sbt.mipt.oop.events.typedefs.LightEventType;
@@ -23,12 +25,29 @@ public class SensorEventGenerator implements EventGenerator {
 
     public Event getNextEvent() {
         // pretend like we're getting the events from physical world, but here we're going to just generate some random events
-        if (Math.random() < 0.01) {
+        if (Math.random() < 0.02) {
             System.out.println("End of generator cycle");
             return null; // null means end of event stream
         }
         EventType sensorEventType;
         String objectId;
+        if (Math.random() < 0.1) {
+            sensorEventType = AlarmEventType.ALARM_ACTIVATE;
+            objectId = "ALARM";
+            return new AlarmEvent(sensorEventType, new StringId(objectId), Application.ACTIVATION_CODE);
+        } else if (Math.random() < 0.1) {
+            sensorEventType = AlarmEventType.ALARM_DEACTIVATE;
+            objectId = "ALARM";
+            return new AlarmEvent(sensorEventType, new StringId(objectId), Application.ACTIVATION_CODE);
+        } else if (Math.random() < 0.1) {
+            sensorEventType = AlarmEventType.ALARM_ACTIVATE;
+            objectId = "ALARM";
+            return new AlarmEvent(sensorEventType, new StringId(objectId), Application.INVALID_CODE);
+        } else if (Math.random() < 0.1) {
+            sensorEventType = AlarmEventType.ALARM_DEACTIVATE;
+            objectId = "ALARM";
+            return new AlarmEvent(sensorEventType, new StringId(objectId), Application.INVALID_CODE);
+        }
         if (Math.random() >= 0.5) {
             sensorEventType = DoorEventType.values()[random.nextInt(DoorEventType.values().length)];
             objectId = String.valueOf(random.nextInt(smartHome.getElementCount(HomeElementType.DOOR) + 1));

@@ -1,7 +1,11 @@
 package ru.sbt.mipt.oop.elements;
 
 import ru.sbt.mipt.oop.actions.Action;
+import ru.sbt.mipt.oop.elements.alarm.AlarmState;
+import ru.sbt.mipt.oop.elements.alarm.AlarmSystem;
 import ru.sbt.mipt.oop.events.Event;
+import ru.sbt.mipt.oop.events.processors.EventProcessorType;
+import ru.sbt.mipt.oop.events.typedefs.AlarmEventType;
 import ru.sbt.mipt.oop.events.typedefs.HallDoorEventType;
 
 import java.util.ArrayList;
@@ -10,6 +14,7 @@ import java.util.stream.Collectors;
 
 public class SmartHome implements HomeComponent, HomeComponentComposite {
     private Collection<Room> rooms;
+    private AlarmSystem alarmSystem;
 
     public SmartHome() {
         rooms = new ArrayList<>();
@@ -24,6 +29,8 @@ public class SmartHome implements HomeComponent, HomeComponentComposite {
     public void addHomeComponent(ElementType type, HomeComponent component) {
         if (type == HomeElementType.ROOM) {
             rooms.add((Room) component);
+        } else if (type == HomeElementType.ALARM) {
+            alarmSystem = (AlarmSystem) component;
         }
     }
 
@@ -71,12 +78,37 @@ public class SmartHome implements HomeComponent, HomeComponentComposite {
     }
 
     public Event apply(Event event, Action action) {
+        if (event.getType().getProcessorType() == EventProcessorType.ALARM) {
+            Event newEvent = alarmSystem.apply(event, action);
+            return newEvent;
+        } else {
+            if (alarmSystem.getAlarmState() != AlarmState.WARNING) {
+                if (alarmSystem.getAlarmState() != AlarmState.ACTIVATED) {
+                    return processRoomEvent(event, action);
+                } else {
+                    alarmSystem.warn();
+                    sendSms("!!! WARNING !!!");
+                }
+            } else {
+                sendSms("!!! WARNING !!!");
+            }
+            return event;
+        }
+    }
+
+    private Event processRoomEvent(Event event, Action action) {
         Event newEvent = rooms.stream()
-                .map((Room r) -> {return r.apply(event, action);} )
-                .filter((Event e) -> (e.getType() instanceof HallDoorEventType)).collect(Collectors.toList()).get(0);
+                .map((Room r) -> {
+                    return r.apply(event, action);
+                })
+                .filter((Event e) -> (e.getType() instanceof HallDoorEventType || e.getType() == AlarmEventType.ALARM_WARNING)).findFirst().orElse(null);
         if (newEvent != null) {
             return newEvent;
         }
         return event;
+    }
+
+    private void sendSms(String sms) {
+        System.out.println(String.format("Sending sms: %s", sms));
     }
 }

@@ -14,6 +14,7 @@ public class SmartHomeEngine implements Engine {
         processorComposite.addEventProcessor(EventProcessorType.DOOR, new DoorEventProcessor());
         processorComposite.addEventProcessor(EventProcessorType.LIGHT, new LightEventProcessor());
         processorComposite.addEventProcessor(EventProcessorType.HALL_DOOR, new HallDoorEventProcessor());
+        processorComposite.addEventProcessor(EventProcessorType.ALARM, new AlarmProcessor());
     }
 
     public void start() {
