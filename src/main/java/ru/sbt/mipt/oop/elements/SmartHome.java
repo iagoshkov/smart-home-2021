@@ -10,6 +10,7 @@ import ru.sbt.mipt.oop.events.typedefs.HallDoorEventType;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class SmartHome implements HomeComponent, HomeComponentComposite {
@@ -97,13 +98,13 @@ public class SmartHome implements HomeComponent, HomeComponentComposite {
     }
 
     private Event processRoomEvent(Event event, Action action) {
-        Event newEvent = rooms.stream()
+        List<Event> newEvents = rooms.stream()
                 .map((Room r) -> {
                     return r.apply(event, action);
                 })
-                .filter((Event e) -> (e.getType() instanceof HallDoorEventType || e.getType() == AlarmEventType.ALARM_WARNING)).findFirst().orElse(null);
-        if (newEvent != null) {
-            return newEvent;
+                .filter((Event e) -> (e.getType() instanceof HallDoorEventType || e.getType() == AlarmEventType.ALARM_WARNING)).collect(Collectors.toList());
+        if (!newEvents.isEmpty()) {
+            return newEvents.get(0);
         }
         return event;
     }

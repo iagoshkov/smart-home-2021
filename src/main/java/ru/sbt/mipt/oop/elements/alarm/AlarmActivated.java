@@ -24,7 +24,7 @@ public class AlarmActivated implements AlarmBehavior {
 
     @Override
     public void warn() {
-        System.out.println("Trespassing detected!");
+        System.out.println("Turning warning mode on!");
         system.setAlarmBehavior(AlarmState.WARNING);
     }
 

@@ -10,10 +10,10 @@ public class AlarmDeactivated implements AlarmBehavior {
     @Override
     public void activate(Object activationHashCode, Object providedHashCode) {
         if (activationHashCode.equals(providedHashCode)) {
-            this.warn();
-        } else {
             System.out.println("Alarm is activated");
             system.setAlarmBehavior(AlarmState.ACTIVATED);
+        } else {
+            this.warn();
         }
     }
 
@@ -24,7 +24,7 @@ public class AlarmDeactivated implements AlarmBehavior {
 
     @Override
     public void warn() {
-        System.out.println("Trespassing detected!");
+        System.out.println("Turning warning mode on!");
         system.setAlarmBehavior(AlarmState.WARNING);
     }
 

@@ -5,6 +5,8 @@ import org.junit.Test;
 import ru.sbt.mipt.oop.Engine;
 import ru.sbt.mipt.oop.SmartHomeEngine;
 import ru.sbt.mipt.oop.elements.*;
+import ru.sbt.mipt.oop.elements.alarm.AlarmState;
+import ru.sbt.mipt.oop.elements.alarm.AlarmSystem;
 import ru.sbt.mipt.oop.events.DoorEvent;
 import ru.sbt.mipt.oop.events.Event;
 import ru.sbt.mipt.oop.events.LightEvent;
@@ -17,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import static org.junit.Assert.*;
+import static ru.sbt.mipt.oop.Application.ACTIVATION_CODE;
 
 public class LightEventProcessorTest {
     private EventProcessor processor;
@@ -26,6 +29,7 @@ public class LightEventProcessorTest {
         try {
             HomeLoader homeLoader = new JsonHomeLoader();
             smartHome = homeLoader.load(new FileInputStream("smart-home-1.js"));
+            smartHome.addHomeComponent(HomeElementType.ALARM, new AlarmSystem(new StringId("ALARM"), ACTIVATION_CODE, AlarmState.DEACTIVATED));
             processor = new LightEventProcessor();
         } catch (IOException e) {
             fail();
