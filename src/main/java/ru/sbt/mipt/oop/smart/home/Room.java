@@ -15,8 +15,8 @@ public class Room implements Actionable {
     public Room(String name, Collection<Door> doors, Collection<Light> lights) throws IllegalArgumentException {
         if (name == null) throw new IllegalArgumentException();
         this.name = name;
-        this.doors.addAll(doors);
-        this.lights.addAll(lights);
+        if (doors != null) this.doors.addAll(doors);
+        if (lights != null) this.lights.addAll(lights);
     }
 
     @Override
