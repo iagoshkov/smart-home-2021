@@ -39,7 +39,7 @@ public class LightEventProcessorTest {
     @Test
     public void processLightEvent_turnsOn() {
         ComponentId lightId = new StringId("4");
-        Light testLight = (Light) smartHome.getComponent(HomeElementType.LIGHT, lightId);
+        Light testLight = (Light) smartHome.getComponent((HomeComponent c) -> c.getType().equals(HomeElementType.LIGHT) && c.getId().equals(lightId));
         assertFalse(testLight.isOn());
         Event event = new LightEvent(LightEventType.LIGHT_ON, lightId);
         Event newEvent = processor.processEvent(smartHome, event);
@@ -50,7 +50,7 @@ public class LightEventProcessorTest {
     @Test
     public void processLightEvent_turnsOff() {
         ComponentId lightId = new StringId("2");
-        Light testLight = (Light) smartHome.getComponent(HomeElementType.LIGHT, lightId);
+        Light testLight = (Light) smartHome.getComponent((HomeComponent c) -> c.getType().equals(HomeElementType.LIGHT) && c.getId().equals(lightId));
         assertTrue(testLight.isOn());
         Event event = new LightEvent(LightEventType.LIGHT_OFF, lightId);
         Event newEvent = processor.processEvent(smartHome, event);

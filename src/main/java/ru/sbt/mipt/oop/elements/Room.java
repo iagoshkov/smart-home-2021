@@ -10,7 +10,11 @@ import ru.sbt.mipt.oop.events.typedefs.HallDoorEventType;
 import ru.sbt.mipt.oop.events.typedefs.LightEventType;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class Room implements HomeComponent, HomeComponentComposite {
@@ -29,13 +33,11 @@ public class Room implements HomeComponent, HomeComponentComposite {
     }
 
     @Override
-    public Collection<? extends HomeComponent> getComponents(ElementType type) {
-        if (type.equals(HomeElementType.DOOR)) {
-            return doors;
-        } else if (type.equals(HomeElementType.LIGHT)) {
-            return lights;
-        }
-        return null;
+    public Collection<? extends HomeComponent> getComponents(Predicate<? super HomeComponent> condition) {
+        List<HomeComponent> resultList = doors.stream().filter(condition).collect(Collectors.toList());
+        List<HomeComponent> lightList = lights.stream().filter(condition).collect(Collectors.toList());
+        resultList.addAll(lightList);
+        return resultList;
     }
 
     public Room(Map<ComponentId, Light> lights, Map<ComponentId, Door> doors, String name) {
@@ -44,13 +46,13 @@ public class Room implements HomeComponent, HomeComponentComposite {
         this.name = name;
     }
 
-    public HomeComponent getComponent(ElementType type, ComponentId id) {
-        if (type == HomeElementType.DOOR) {
-            return doors.stream().filter((HomeComponent c) -> c.getId().equals(id)).findFirst().orElse(null);
-        } else if (type == HomeElementType.LIGHT) {
-            return lights.stream().filter((HomeComponent c) -> c.getId().equals(id)).findFirst().orElse(null);
+    public HomeComponent getComponent(Predicate<? super HomeComponent> condition) {
+        HomeComponent door = doors.stream().filter(condition/*(HomeComponent c) -> c.getId().equals(id)*/).findFirst().orElse(null);
+        if (door != null) {
+            return door;
         }
-        return null;
+        HomeComponent light = lights.stream().filter(condition).findFirst().orElse(null);
+        return light;
     }
 
     public int getElementCount(ElementType type) {

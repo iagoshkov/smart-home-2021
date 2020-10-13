@@ -46,7 +46,7 @@ public class HallDoorEventProcessorTest {
         Event event = new HallDoorEvent(HallDoorEventType.LIGHTS_ON, smartHome.getId(), new SimpleSensorCommand(CommandType.LIGHT_ON, smartHome.getId()));
         Event newEvent = processor.processEvent(smartHome, event);
         assertEquals(event, newEvent);
-        Collection<Light> lights = (Collection<Light>) smartHome.getComponents(HomeElementType.LIGHT);
+        Collection<Light> lights = (Collection<Light>) smartHome.getComponents((HomeComponent c) -> c.getType().equals(HomeElementType.LIGHT));
         assertTrue(lights.stream().map(Light::isOn).allMatch(Predicate.isEqual(true)));
     }
 
@@ -55,7 +55,7 @@ public class HallDoorEventProcessorTest {
         Event event = new HallDoorEvent(HallDoorEventType.LIGHTS_OFF, smartHome.getId(), new SimpleSensorCommand(CommandType.LIGHT_OFF, smartHome.getId()));
         Event newEvent = processor.processEvent(smartHome, event);
         assertEquals(event, newEvent);
-        Collection<Light> lights = (Collection<Light>) smartHome.getComponents(HomeElementType.LIGHT);
+        Collection<Light> lights = (Collection<Light>) smartHome.getComponents((HomeComponent c) -> c.getType().equals(HomeElementType.LIGHT));
         assertTrue(lights.stream().map(Light::isOn).allMatch(Predicate.isEqual(false)));
     }
 }
