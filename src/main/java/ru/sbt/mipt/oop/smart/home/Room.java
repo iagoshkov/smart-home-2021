@@ -21,6 +21,7 @@ public class Room implements Actionable {
 
     @Override
     public void execute(Action action) {
+        action.act(this);
         doors.forEach(door -> door.execute(action));
         lights.forEach(light -> light.execute(action));
     }
