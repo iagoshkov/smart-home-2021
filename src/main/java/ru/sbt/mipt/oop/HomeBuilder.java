@@ -60,7 +60,7 @@ public class HomeBuilder {
         roomsList.add(kitchen);
         roomsList.add(bedroom);
 
-        SmartHome smartHome = new SmartHome(new Alarm("99", Constants.ALARM_PASSWORD), roomsList);
+        SmartHome smartHome = new SmartHome(new Alarm(Constants.ALARM_DEVICE_ID), roomsList);
 
         SmartHomeWriter smartHomeReaderWriter = new SmartHomeWriterJsonFile(
                 Constants.OUTPUT_SMART_HOME_JSON_FILE_NAME);

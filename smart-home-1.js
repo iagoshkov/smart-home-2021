@@ -95,7 +95,6 @@
   ],
   "alarm": {
     "id": "99",
-    "password": "1234",
     "state": "DEACTIVATED"
   }
 }

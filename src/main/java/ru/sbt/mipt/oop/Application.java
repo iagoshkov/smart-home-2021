@@ -32,10 +32,10 @@ public class Application {
         }
 
         List<EventProcessor> processors = Arrays.asList(
-                new AlarmEventProcessor(),
-                new LightEventProcessor(),
-                new DoorEventProcessor(),
-                new HallDoorEventProcessor()
+                new SecurityProcessorDecorator(new AlarmEventProcessor()),
+                new SecurityProcessorDecorator(new LightEventProcessor()),
+                new SecurityProcessorDecorator(new DoorEventProcessor()),
+                new SecurityProcessorDecorator(new HallDoorEventProcessor())
         );
 
         MainLoop mainLoop = new MainLoop(new EventHandler(processors), new RandomEventGenerator());

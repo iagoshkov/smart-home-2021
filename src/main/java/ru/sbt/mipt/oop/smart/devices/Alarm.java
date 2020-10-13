@@ -10,39 +10,42 @@ public class Alarm implements Actionable {
     }
 
     private final String id;
-    private final String password;
+    private String password;
     private AlarmStates state = AlarmStates.DEACTIVATED;
 
-    public Alarm(String id, String password) throws IllegalArgumentException {
-        if (id == null || password == null) throw new IllegalArgumentException();
+    public Alarm(String id) throws IllegalArgumentException {
+        if (id == null) throw new IllegalArgumentException();
         this.id = id;
-        this.password = password;
     }
 
     public boolean activate(String password) {
         if (state == AlarmStates.ACTIVATED) return false;
-        if (!this.password.equals(password)) return false;
+        if (password == null || password.trim().isEmpty()) return false;
+        if (this.password != null && !this.password.equals(password)) return false;
+
+        if (this.password == null)
+            this.password = password;
+
         state = AlarmStates.ACTIVATED;
-        System.out.println("Alarm activated");
         return true;
     }
 
     public boolean deactivate(String password) {
         if (state == AlarmStates.DEACTIVATED) return false;
+        if (password == null || password.trim().isEmpty()) return false;
         if (!this.password.equals(password)) {
             activateAlert();
             return false;
         }
         state = AlarmStates.DEACTIVATED;
-        System.out.println("Alarm deactivated");
         return true;
     }
 
-    public void activateAlert() {
-        if (state == AlarmStates.ACTIVATED) {
-            state = AlarmStates.ALERT;
-            System.out.println("Alarm alert!!!");
-        }
+    public boolean activateAlert() {
+        if (state != AlarmStates.ACTIVATED) return false;
+        System.out.println("Alarm! Sending sms");
+        state = AlarmStates.ALERT;
+        return true;
     }
 
     public boolean isAlert() {

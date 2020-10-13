@@ -18,7 +18,7 @@ public class MainLoop {
 
     public void run(SmartHome smartHome) {
         // Активируем сигнализацию
-        eventHandler.executeEvent(new SensorEvent(SensorEventType.ALARM_ACTIVATE, null), smartHome);
+        eventHandler.executeEvent(new SensorEvent(SensorEventType.ALARM_ACTIVATE, Constants.ALARM_DEVICE_ID), smartHome);
         // Входим в цикл обработки событий
         while(true) {
             SensorEvent event = randomEventGenerator.getNextSensorEvent();
