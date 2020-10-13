@@ -69,18 +69,6 @@ class AlarmTests {
     }
 
     @Test
-    void actionAlarmDeactivate_whenCodeIsNull() {
-        // when
-        securityAlarmEvent.processing(
-                new SensorEvent(SensorEventType.ALARM_DEACTIVATE, Constants.ALARM_DEVICE_ID),
-                smartHome);
-
-        boolean alarmActive = alarm.isActivated();
-        //then
-        assertFalse(alarmActive);
-    }
-
-    @Test
     void actionAlarmDeactivate_whenCodeIsValidAndAlarmIsDeactivated() {
         // when
         securityAlarmEvent.processing(
