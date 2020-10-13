@@ -8,34 +8,51 @@ import ru.sbt.mipt.oop.smart.home.SmartHome;
 import ru.sbt.mipt.oop.smart.home.utils.SmartHomeWriter;
 import ru.sbt.mipt.oop.smart.home.utils.SmartHomeWriterJsonFile;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class HomeBuilder {
     public static void main(String[] args) {
-        Room bathroom = new Room("bathroom", null);
-        Room hall = new Room("hall", null);
-        Room kitchen = new Room("kitchen", null);
-        Room bedroom = new Room("bedroom", null);
+        Room bathroom = new Room("bathroom",
+                Arrays.asList(
+                        new Door("11", false),
+                        new Door("12", false)
+                ),
+                Arrays.asList(
+                        new Light("1", false),
+                        new Light("2", false)
+                ));
 
-        bathroom.addDevice(new Light("1", false));
-        bathroom.addDevice(new Light("2", false));
-        bathroom.addDevice(new Door("11", false));
-        bathroom.addDevice(new Door("12", false));
+        Room hall = new Room("hall",
+                Arrays.asList(
+                        new Door("13", false),
+                        new Door("14", false)
+                ),
+                Arrays.asList(
+                        new Light("3", false),
+                        new Light("4", false)
+                ));
 
-        hall.addDevice(new Light("3", false));
-        hall.addDevice(new Light("4", false));
-        hall.addDevice(new Door("13", false));
-        hall.addDevice(new Door("14", false));
+        Room kitchen = new Room("kitchen",
+                Arrays.asList(
+                        new Door("15", false),
+                        new Door("16", false)
+                ),
+                Arrays.asList(
+                        new Light("5", false),
+                        new Light("6", false)
+                ));
 
-        kitchen.addDevice(new Light("5", false));
-        kitchen.addDevice(new Light("6", false));
-        kitchen.addDevice(new Door("15", false));
-        kitchen.addDevice(new Door("16", false));
-
-        bedroom.addDevice(new Light("7", false));
-        bedroom.addDevice(new Light("8", false));
-        bedroom.addDevice(new Door("17", false));
-        bedroom.addDevice(new Door("18", false));
+        Room bedroom = new Room("bedroom",
+                Arrays.asList(
+                        new Door("17", false),
+                        new Door("18", false)
+                ),
+                Arrays.asList(
+                        new Light("7", false),
+                        new Light("8", false)
+                ));
 
         ArrayList<Room> roomsList = new ArrayList<>();
         roomsList.add(bathroom);

@@ -1,134 +1,94 @@
 {
   "rooms": [
     {
-      "name": "kitchen",
-      "devices": [
-        {
-          "deviceClass": "Light",
-          "properties": {
-            "id": "5",
-            "isOn": false
-          }
-        },
-        {
-          "deviceClass": "Door",
-          "properties": {
-            "id": "16",
-            "isOpen": false
-          }
-        },
-        {
-          "deviceClass": "Door",
-          "properties": {
-            "id": "15",
-            "isOpen": false
-          }
-        },
-        {
-          "deviceClass": "Light",
-          "properties": {
-            "id": "6",
-            "isOn": false
-          }
-        }
-      ]
-    },
-    {
-      "name": "hall",
-      "devices": [
-        {
-          "deviceClass": "Light",
-          "properties": {
-            "id": "4",
-            "isOn": false
-          }
-        },
-        {
-          "deviceClass": "Door",
-          "properties": {
-            "id": "13",
-            "isOpen": false
-          }
-        },
-        {
-          "deviceClass": "Light",
-          "properties": {
-            "id": "3",
-            "isOn": false
-          }
-        },
-        {
-          "deviceClass": "Door",
-          "properties": {
-            "id": "14",
-            "isOpen": false
-          }
-        }
-      ]
-    },
-    {
       "name": "bathroom",
-      "devices": [
+      "doors": [
         {
-          "deviceClass": "Light",
-          "properties": {
-            "id": "1",
-            "isOn": false
-          }
+          "id": "11",
+          "isOpen": false
         },
         {
-          "deviceClass": "Door",
-          "properties": {
-            "id": "12",
-            "isOpen": false
-          }
+          "id": "12",
+          "isOpen": false
+        }
+      ],
+      "lights": [
+        {
+          "id": "1",
+          "isOn": false
         },
         {
-          "deviceClass": "Light",
-          "properties": {
-            "id": "2",
-            "isOn": false
-          }
-        },
-        {
-          "deviceClass": "Door",
-          "properties": {
-            "id": "11",
-            "isOpen": false
-          }
+          "id": "2",
+          "isOn": false
         }
       ]
     },
     {
       "name": "bedroom",
-      "devices": [
+      "doors": [
         {
-          "deviceClass": "Light",
-          "properties": {
-            "id": "7",
-            "isOn": false
-          }
+          "id": "17",
+          "isOpen": false
         },
         {
-          "deviceClass": "Door",
-          "properties": {
-            "id": "18",
-            "isOpen": false
-          }
+          "id": "18",
+          "isOpen": false
+        }
+      ],
+      "lights": [
+        {
+          "id": "7",
+          "isOn": false
         },
         {
-          "deviceClass": "Light",
-          "properties": {
-            "id": "8",
-            "isOn": false
-          }
+          "id": "8",
+          "isOn": false
+        }
+      ]
+    },
+    {
+      "name": "kitchen",
+      "doors": [
+        {
+          "id": "16",
+          "isOpen": false
         },
         {
-          "deviceClass": "Door",
-          "properties": {
-            "id": "17",
-            "isOpen": false
-          }
+          "id": "15",
+          "isOpen": false
+        }
+      ],
+      "lights": [
+        {
+          "id": "6",
+          "isOn": false
+        },
+        {
+          "id": "5",
+          "isOn": false
+        }
+      ]
+    },
+    {
+      "name": "hall",
+      "doors": [
+        {
+          "id": "13",
+          "isOpen": false
+        },
+        {
+          "id": "14",
+          "isOpen": false
+        }
+      ],
+      "lights": [
+        {
+          "id": "3",
+          "isOn": false
+        },
+        {
+          "id": "4",
+          "isOn": false
         }
       ]
     }

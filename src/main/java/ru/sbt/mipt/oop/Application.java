@@ -1,10 +1,17 @@
 package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.events.RandomEventGenerator;
-import ru.sbt.mipt.oop.events.EventProcessor;
+import ru.sbt.mipt.oop.events.EventHandler;
+import ru.sbt.mipt.oop.events.processors.AlarmEventProcessor;
+import ru.sbt.mipt.oop.events.processors.DoorEventProcessor;
+import ru.sbt.mipt.oop.events.processors.EventProcessor;
+import ru.sbt.mipt.oop.events.processors.LightEventProcessor;
 import ru.sbt.mipt.oop.smart.home.SmartHome;
 import ru.sbt.mipt.oop.smart.home.utils.SmartHomeReader;
 import ru.sbt.mipt.oop.smart.home.utils.SmartHomeReaderJsonFile;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Application {
     private final SmartHomeReader smartHomeReader;
@@ -24,9 +31,16 @@ public class Application {
         SmartHome smartHome = smartHomeReader.load();
         if (smartHome == null) {
             System.out.println("Error load smart home");
+            return;
         }
 
-        MainLoop mainLoop = new MainLoop(new EventProcessor(), new RandomEventGenerator());
+        List<EventProcessor> processors = Arrays.asList(
+                new AlarmEventProcessor(),
+                new LightEventProcessor(),
+                new DoorEventProcessor()
+        );
+
+        MainLoop mainLoop = new MainLoop(new EventHandler(processors), new RandomEventGenerator());
         mainLoop.run(smartHome);
     }
 }

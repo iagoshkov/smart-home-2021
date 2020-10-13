@@ -1,8 +1,8 @@
 package ru.sbt.mipt.oop.smart.devices;
 
-import ru.sbt.mipt.oop.events.actions.Action;
+import ru.sbt.mipt.oop.events.processors.Action;
 
-public class Door implements SmartDevice, Actionable {
+public class Door implements Actionable {
     private final String id;
     private boolean isOpen;
 
@@ -21,14 +21,12 @@ public class Door implements SmartDevice, Actionable {
         this.isOpen = open;
     }
 
-    @Override
     public String getId() {
         return id;
     }
 
     @Override
     public void execute(Action action) {
-        if (action == null) return;
         action.act(this);
     }
 }

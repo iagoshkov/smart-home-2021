@@ -1,40 +1,31 @@
 package ru.sbt.mipt.oop.smart.home;
 
-import ru.sbt.mipt.oop.events.actions.Action;
+import ru.sbt.mipt.oop.events.processors.Action;
 import ru.sbt.mipt.oop.smart.devices.Actionable;
-import ru.sbt.mipt.oop.smart.devices.SmartDevice;
+import ru.sbt.mipt.oop.smart.devices.Door;
+import ru.sbt.mipt.oop.smart.devices.Light;
 
 import java.util.*;
 
 public class Room implements Actionable {
     private final String name;
-    private final Set<SmartDevice> devices = new HashSet<>();
+    private final Set<Door> doors = new HashSet<>();
+    private final Set<Light> lights = new HashSet<>();
 
-    public Room(String name, Collection<SmartDevice> devices) throws IllegalArgumentException {
+    public Room(String name, Collection<Door> doors, Collection<Light> lights) throws IllegalArgumentException {
         if (name == null) throw new IllegalArgumentException();
         this.name = name;
-
-        if (devices != null) this.devices.addAll(devices);
-    }
-
-    public void addDevice(SmartDevice device) throws IllegalArgumentException {
-        if (device == null) throw new IllegalArgumentException();
-        devices.add(device);
+        this.doors.addAll(doors);
+        this.lights.addAll(lights);
     }
 
     @Override
     public void execute(Action action) {
-        if (action == null) return;
-        for(SmartDevice device : devices) {
-            ((Actionable) device).execute(action);
-        }
+        doors.forEach(door -> door.execute(action));
+        lights.forEach(light -> light.execute(action));
     }
 
     public String getName() {
         return name;
-    }
-
-    public Collection<SmartDevice> getDevices() {
-        return devices;
     }
 }

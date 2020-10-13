@@ -1,9 +1,8 @@
 package ru.sbt.mipt.oop.smart.devices;
 
-import ru.sbt.mipt.oop.events.actions.Action;
-import ru.sbt.mipt.oop.events.actions.ActionAlarmDeactivate;
+import ru.sbt.mipt.oop.events.processors.Action;
 
-public class Alarm implements SmartDevice, Actionable {
+public class Alarm implements Actionable {
     private enum AlarmStates{
         ACTIVATED,
         DEACTIVATED,
@@ -20,21 +19,23 @@ public class Alarm implements SmartDevice, Actionable {
         this.password = password;
     }
 
-    public void activate(String password) {
-        if (state == AlarmStates.ACTIVATED) return;
-        if (!this.password.equals(password)) return;
+    public boolean activate(String password) {
+        if (state == AlarmStates.ACTIVATED) return false;
+        if (!this.password.equals(password)) return false;
         state = AlarmStates.ACTIVATED;
         System.out.println("Alarm activated");
+        return true;
     }
 
-    public void deactivate(String password) {
-        if (state == AlarmStates.DEACTIVATED) return;
+    public boolean deactivate(String password) {
+        if (state == AlarmStates.DEACTIVATED) return false;
         if (!this.password.equals(password)) {
             activateAlert();
-            return;
+            return false;
         }
         state = AlarmStates.DEACTIVATED;
         System.out.println("Alarm deactivated");
+        return true;
     }
 
     public void activateAlert() {
@@ -52,18 +53,12 @@ public class Alarm implements SmartDevice, Actionable {
         return state == AlarmStates.ALERT || state == AlarmStates.ACTIVATED;
     }
 
-    @Override
     public String getId() {
         return id;
     }
 
     @Override
     public void execute(Action action) {
-        if (action == null) return;
-        if (isActivated() && !(action instanceof ActionAlarmDeactivate)) {
-            activateAlert();
-            System.out.println("Sending sms");
-        }
         action.act(this);
     }
 }

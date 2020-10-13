@@ -1,8 +1,8 @@
 package ru.sbt.mipt.oop.smart.devices;
 
-import ru.sbt.mipt.oop.events.actions.Action;
+import ru.sbt.mipt.oop.events.processors.Action;
 
-public class Light implements SmartDevice, Actionable {
+public class Light implements Actionable {
     private final String id;
     private boolean isOn;
 
@@ -21,14 +21,12 @@ public class Light implements SmartDevice, Actionable {
         this.isOn = on;
     }
 
-    @Override
     public String getId() {
         return id;
     }
 
     @Override
     public void execute(Action action) {
-        if (action == null) return;
         action.act(this);
     }
 }
