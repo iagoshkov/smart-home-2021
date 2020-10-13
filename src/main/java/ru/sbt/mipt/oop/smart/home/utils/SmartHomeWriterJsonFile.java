@@ -12,34 +12,28 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class SmartHomeJsonReaderWriter implements SmartHomeReaderWriter {
-    private final String inputFilename;
-    private final String outputFilename;
+public class SmartHomeWriterJsonFile implements SmartHomeWriter {
+    private final String filename;
 
-    public SmartHomeJsonReaderWriter(String inputFilename, String outputFilename) {
-        this.inputFilename = inputFilename;
-        this.outputFilename = outputFilename;
+    public SmartHomeWriterJsonFile(String filename) throws IllegalArgumentException {
+        if (filename == null) throw new IllegalArgumentException();
+        this.filename = filename;
     }
 
     @Override
-    public SmartHome loadSmartHome() throws IOException {
-        Gson gson = createGson();
-        String json;
-
-        json = new String(Files.readAllBytes(Paths.get(inputFilename)));
-
-        return gson.fromJson(json, SmartHome.class);
-    }
-
-    @Override
-    public void saveSmartHome(SmartHome smartHome) throws IOException {
+    public boolean save(SmartHome smartHome) {
         Gson gson = createGson();
         String jsonString = gson.toJson(smartHome);
-        Path path = Paths.get(outputFilename);
+        Path path = Paths.get(filename);
 
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(jsonString);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
+
+        return true;
     }
 
     private Gson createGson() {

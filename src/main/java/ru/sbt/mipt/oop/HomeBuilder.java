@@ -5,10 +5,9 @@ import ru.sbt.mipt.oop.smart.devices.Door;
 import ru.sbt.mipt.oop.smart.devices.Light;
 import ru.sbt.mipt.oop.smart.home.Room;
 import ru.sbt.mipt.oop.smart.home.SmartHome;
-import ru.sbt.mipt.oop.smart.home.utils.SmartHomeJsonReaderWriter;
-import ru.sbt.mipt.oop.smart.home.utils.SmartHomeReaderWriter;
+import ru.sbt.mipt.oop.smart.home.utils.SmartHomeWriter;
+import ru.sbt.mipt.oop.smart.home.utils.SmartHomeWriterJsonFile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class HomeBuilder {
@@ -46,14 +45,10 @@ public class HomeBuilder {
 
         SmartHome smartHome = new SmartHome(new Alarm("99", Constants.ALARM_PASSWORD), roomsList);
 
-        try {
-            SmartHomeReaderWriter smartHomeReaderWriter = new SmartHomeJsonReaderWriter(
-                    Constants.INPUT_SMART_HOME_JSON_FILE_NAME,
-                    Constants.OUTPUT_SMART_HOME_JSON_FILE_NAME);
-            smartHomeReaderWriter.saveSmartHome(smartHome);
-        } catch (IOException e) {
-            System.out.println("Failed to save smart home");
-            e.printStackTrace();
-        }
+        SmartHomeWriter smartHomeReaderWriter = new SmartHomeWriterJsonFile(
+                Constants.OUTPUT_SMART_HOME_JSON_FILE_NAME);
+        boolean saveSuccessful = smartHomeReaderWriter.save(smartHome);
+        if (!saveSuccessful)
+            System.out.println("Error save smart home");
     }
 }

@@ -3,35 +3,29 @@ package ru.sbt.mipt.oop;
 import ru.sbt.mipt.oop.events.EventGenerator;
 import ru.sbt.mipt.oop.events.EventProcessor;
 import ru.sbt.mipt.oop.smart.home.SmartHome;
-import ru.sbt.mipt.oop.smart.home.utils.SmartHomeJsonReaderWriter;
-import ru.sbt.mipt.oop.smart.home.utils.SmartHomeReaderWriter;
-
-import java.io.IOException;
+import ru.sbt.mipt.oop.smart.home.utils.SmartHomeReader;
+import ru.sbt.mipt.oop.smart.home.utils.SmartHomeReaderJsonFile;
 
 public class Application {
-    private final SmartHomeReaderWriter smartHomeReaderWriter;
+    private final SmartHomeReader smartHomeReader;
 
-    public Application(SmartHomeReaderWriter smartHomeReaderWriter) {
-        this.smartHomeReaderWriter = smartHomeReaderWriter;
+    public Application(SmartHomeReader smartHomeReader) {
+        this.smartHomeReader = smartHomeReader;
     }
 
     public static void main(String... args) {
-        SmartHomeReaderWriter smartHomeReaderWriter = new SmartHomeJsonReaderWriter(
-                Constants.INPUT_SMART_HOME_JSON_FILE_NAME, Constants.OUTPUT_SMART_HOME_JSON_FILE_NAME);
-        Application application = new Application(smartHomeReaderWriter);
+        SmartHomeReader smartHomeReader = new SmartHomeReaderJsonFile(Constants.INPUT_SMART_HOME_JSON_FILE_NAME);
+        Application application = new Application(smartHomeReader);
 
         application.start();
     }
 
     public void start() {
-        SmartHome smartHome;
-        try {
-            smartHome = smartHomeReaderWriter.loadSmartHome();
-        } catch (IOException e) {
-            System.out.println("Failed to initialize smart home");
-            e.printStackTrace();
-            return;
+        SmartHome smartHome = smartHomeReader.load();
+        if (smartHome == null) {
+            System.out.println("Error load smart home");
         }
+
         MainLoop mainLoop = new MainLoop(new EventProcessor(), new EventGenerator());
         mainLoop.run(smartHome);
     }
