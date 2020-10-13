@@ -4,8 +4,8 @@ import ru.sbt.mipt.oop.actions.Action;
 import ru.sbt.mipt.oop.events.Event;
 import ru.sbt.mipt.oop.events.typedefs.HallDoorEventType;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class SmartHome implements HomeComponent, HomeComponentComposite {
@@ -28,28 +28,20 @@ public class SmartHome implements HomeComponent, HomeComponentComposite {
     }
 
     @Override
-    public Collection<? extends HomeComponent> getComponents(ElementType type) {
-        if (type == HomeElementType.ROOM) {
-            return rooms;
-        }
-        return rooms.stream()
-                .map((HomeComponent r) -> ((Room)r).getComponents(type))
-                .flatMap(Collection::stream)
-                .collect(Collectors.toList());
+    public Collection<? extends HomeComponent> getComponents(Predicate<? super HomeComponent> condition) {
+        List<HomeComponent> resultList = rooms.stream().filter(condition).collect(Collectors.toList());
+        List<HomeComponent> componentList = rooms.stream().map((Room r) -> r.getComponents(condition)).flatMap(Collection::stream).collect(Collectors.toList());
+        resultList.addAll(componentList);
+        return resultList;
     }
 
     @Override
-    public HomeComponent getComponent(ElementType type, ComponentId id) {
-        if (type == HomeElementType.ROOM) {
-            return rooms.stream()
-                    .filter((HomeComponent c) -> (c.getId().equals(id)))
-                    .findFirst()
-                    .orElse(null);
+    public HomeComponent getComponent(Predicate<? super HomeComponent> condition) {
+        HomeComponent room = rooms.stream().filter(condition).findFirst().orElse(null);
+        if (room != null) {
+            return room;
         }
-        return getComponents(type).stream()
-                .filter((HomeComponent c) -> (c.getId().equals(id)))
-                .findFirst()
-                .orElse(null);
+        return getComponents(condition).stream().findFirst().orElse(null);
     }
 
     public int getElementCount(ElementType type) {
@@ -72,8 +64,8 @@ public class SmartHome implements HomeComponent, HomeComponentComposite {
 
     public Event apply(Event event, Action action) {
         Event newEvent = rooms.stream()
-                .map((Room r) -> {return r.apply(event, action);} )
-                .filter((Event e) -> (e.getType() instanceof HallDoorEventType)).collect(Collectors.toList()).get(0);
+                .map((Room r) -> r.apply(event, action))
+                .filter((Event e) -> (e.getType() instanceof HallDoorEventType)).collect(Collectors.toList()).stream().findFirst().orElse(null);
         if (newEvent != null) {
             return newEvent;
         }

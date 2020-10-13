@@ -3,12 +3,9 @@ package ru.sbt.mipt.oop.events.processors;
 
 import org.junit.Before;
 import org.junit.Test;
-import ru.sbt.mipt.oop.Engine;
-import ru.sbt.mipt.oop.SmartHomeEngine;
 import ru.sbt.mipt.oop.elements.*;
 import ru.sbt.mipt.oop.events.DoorEvent;
 import ru.sbt.mipt.oop.events.Event;
-import ru.sbt.mipt.oop.events.HallDoorEvent;
 import ru.sbt.mipt.oop.events.typedefs.DoorEventType;
 import ru.sbt.mipt.oop.events.typedefs.HallDoorEventType;
 import ru.sbt.mipt.oop.init.HomeLoader;
@@ -36,7 +33,7 @@ public class DoorEventProcessorTest {
     @Test
     public void processDoorEvent_opensDoor() {
         ComponentId doorId = new StringId("2");
-        Door testDoor = (Door) smartHome.getComponent(HomeElementType.DOOR, doorId);
+        Door testDoor = (Door) smartHome.getComponent((HomeComponent c) -> c.getType().equals(HomeElementType.DOOR) && c.getId().equals(doorId));
         assertFalse(testDoor.isOpen());
         Event event = new DoorEvent(DoorEventType.DOOR_OPEN, doorId);
         Event newEvent = processor.processEvent(smartHome, event);
@@ -47,7 +44,7 @@ public class DoorEventProcessorTest {
     @Test
     public void processDoorEvent_closesDoor() {
         ComponentId doorId = new StringId("3");
-        Door testDoor = (Door) smartHome.getComponent(HomeElementType.DOOR, doorId);
+        Door testDoor = (Door) smartHome.getComponent((HomeComponent c) -> c.getType().equals(HomeElementType.DOOR) && c.getId().equals(doorId));
         assertTrue(testDoor.isOpen());
 
         Event event = new DoorEvent(DoorEventType.DOOR_CLOSED, doorId);
@@ -59,7 +56,7 @@ public class DoorEventProcessorTest {
     @Test
     public void processDoorEvent_closesHallDoor() {
         ComponentId doorId = new StringId("4");
-        Door testDoor = (Door) smartHome.getComponent(HomeElementType.DOOR, doorId);
+        Door testDoor = (Door) smartHome.getComponent((HomeComponent c) -> c.getType().equals(HomeElementType.DOOR) && c.getId().equals(doorId));
         assertFalse(testDoor.isOpen());
 
         Event event = new DoorEvent(DoorEventType.DOOR_CLOSED, doorId);
