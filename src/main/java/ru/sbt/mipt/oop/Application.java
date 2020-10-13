@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.events.EventGenerator;
+import ru.sbt.mipt.oop.events.RandomEventGenerator;
 import ru.sbt.mipt.oop.events.EventProcessor;
 import ru.sbt.mipt.oop.smart.home.SmartHome;
 import ru.sbt.mipt.oop.smart.home.utils.SmartHomeReader;
@@ -26,7 +26,7 @@ public class Application {
             System.out.println("Error load smart home");
         }
 
-        MainLoop mainLoop = new MainLoop(new EventProcessor(), new EventGenerator());
+        MainLoop mainLoop = new MainLoop(new EventProcessor(), new RandomEventGenerator());
         mainLoop.run(smartHome);
     }
 }
