@@ -3,6 +3,8 @@ package ru.sbt.mipt.oop.event_handlers;
 public class SensorEvent {
     private final SensorEventType type;
     private final String objectId;
+    private int code = 0;
+
 
     public SensorEvent(SensorEventType type, String objectId) {
         this.type = type;
@@ -15,6 +17,10 @@ public class SensorEvent {
 
     public String getObjectId() {
         return objectId;
+    }
+
+    public int getCode() {
+        return code;
     }
 
     @Override

@@ -8,6 +8,7 @@ public class EventProcessor {
     EventSolverImplementation eventSolverImplementation = new EventSolverImplementation();
     EventGenerator eventGenerator = new EventGenerator();
 
+
     public EventProcessor(SmartHome smartHome) {
         this.smartHome = smartHome;
     }
