@@ -13,8 +13,6 @@ public class Room {
     private final Collection<Light> lights;
     private final Collection<Door> doors;
     private final String name;
-    private final LightEventHandler lightEventHandler = new LightEventHandler();
-    private final DoorEventHandler doorEventHandler = new DoorEventHandler();
 
     public Room(Collection<Light> lights, Collection<Door> doors, String name) {
         this.lights = lights;
@@ -32,13 +30,5 @@ public class Room {
 
     public String getName() {
         return name;
-    }
-
-    public void handleLightEvent(SensorEvent event, SmartHome smartHome) {
-        lightEventHandler.handleLightEvent(event, this);
-    }
-
-    public void handleDoorEvent(SensorEvent event, SmartHome smartHome) {
-        doorEventHandler.handleDoorEvent(event, smartHome, this);
     }
 }

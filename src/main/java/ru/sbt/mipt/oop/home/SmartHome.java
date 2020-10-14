@@ -20,15 +20,4 @@ public class SmartHome {
     public void addRoom(Room room) {
         rooms.add(room);
     }
-
-    public void handleLightEvent(SensorEvent event) {
-        for (Room room : this.getRooms()) {
-            room.handleLightEvent(event, this);
-        }
-    }
-    public void handleDoorEvent(SensorEvent event) {
-        for (Room room : this.getRooms()) {
-            room.handleDoorEvent(event, this);
-        }
-    }
 }
