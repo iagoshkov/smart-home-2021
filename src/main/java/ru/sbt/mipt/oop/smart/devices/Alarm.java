@@ -3,57 +3,34 @@ package ru.sbt.mipt.oop.smart.devices;
 import ru.sbt.mipt.oop.events.processors.Action;
 
 public class Alarm implements Actionable {
-    private enum AlarmStates{
-        ACTIVATED,
-        DEACTIVATED,
-        ALERT
-    }
-
     private final String id;
-    private String password;
-    private AlarmStates state = AlarmStates.DEACTIVATED;
+    private transient String password;
+    private transient AlarmState state;
 
     public Alarm(String id) throws IllegalArgumentException {
         if (id == null) throw new IllegalArgumentException();
         this.id = id;
+        this.state = new AlarmDeactivatedState(this);
     }
 
     public boolean activate(String password) {
-        if (state == AlarmStates.ACTIVATED) return false;
-        if (password == null || password.trim().isEmpty()) return false;
-        if (this.password != null && !this.password.equals(password)) return false;
-
-        if (this.password == null)
-            this.password = password;
-
-        state = AlarmStates.ACTIVATED;
-        return true;
+        return state.activate(password);
     }
 
     public boolean deactivate(String password) {
-        if (state == AlarmStates.DEACTIVATED) return false;
-        if (password == null || password.trim().isEmpty()) return false;
-        if (!this.password.equals(password)) {
-            activateAlert();
-            return false;
-        }
-        state = AlarmStates.DEACTIVATED;
-        return true;
+        return state.deactivate(password);
     }
 
     public boolean activateAlert() {
-        if (state != AlarmStates.ACTIVATED) return false;
-        System.out.println("Alarm! Sending sms");
-        state = AlarmStates.ALERT;
-        return true;
+        return state.activateAlert();
     }
 
     public boolean isAlert() {
-        return state == AlarmStates.ALERT;
+        return state instanceof AlarmAlertState;
     }
 
     public boolean isActivated() {
-        return state == AlarmStates.ALERT || state == AlarmStates.ACTIVATED;
+        return state instanceof AlarmActivatedState;
     }
 
     public String getId() {
@@ -63,5 +40,18 @@ public class Alarm implements Actionable {
     @Override
     public void execute(Action action) {
         action.act(this);
+    }
+
+    void setPassword(String password) {
+        this.password = password;
+    }
+
+    String getPassword() {
+        return password;
+    }
+
+    void changeState(AlarmState state) {
+        if (state == null) return;
+        this.state = state;
     }
 }

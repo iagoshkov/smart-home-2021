@@ -23,7 +23,10 @@ public class SecurityProcessorDecorator implements EventProcessor {
         }
 
         if (alarm.isActivated()) alarm.activateAlert();
-        if (alarm.isAlert()) return;
+        if (alarm.isAlert()) {
+            System.out.println("Sending sms");
+            return;
+        }
 
         source.processing(event, smartHome);
     }

@@ -1,52 +1,6 @@
 {
   "rooms": [
     {
-      "name": "bathroom",
-      "doors": [
-        {
-          "id": "11",
-          "isOpen": false
-        },
-        {
-          "id": "12",
-          "isOpen": false
-        }
-      ],
-      "lights": [
-        {
-          "id": "1",
-          "isOn": false
-        },
-        {
-          "id": "2",
-          "isOn": false
-        }
-      ]
-    },
-    {
-      "name": "bedroom",
-      "doors": [
-        {
-          "id": "17",
-          "isOpen": false
-        },
-        {
-          "id": "18",
-          "isOpen": false
-        }
-      ],
-      "lights": [
-        {
-          "id": "7",
-          "isOn": false
-        },
-        {
-          "id": "8",
-          "isOn": false
-        }
-      ]
-    },
-    {
       "name": "kitchen",
       "doors": [
         {
@@ -91,10 +45,55 @@
           "isOn": false
         }
       ]
+    },
+    {
+      "name": "bathroom",
+      "doors": [
+        {
+          "id": "11",
+          "isOpen": false
+        },
+        {
+          "id": "12",
+          "isOpen": false
+        }
+      ],
+      "lights": [
+        {
+          "id": "1",
+          "isOn": false
+        },
+        {
+          "id": "2",
+          "isOn": false
+        }
+      ]
+    },
+    {
+      "name": "bedroom",
+      "doors": [
+        {
+          "id": "17",
+          "isOpen": false
+        },
+        {
+          "id": "18",
+          "isOpen": false
+        }
+      ],
+      "lights": [
+        {
+          "id": "7",
+          "isOn": false
+        },
+        {
+          "id": "8",
+          "isOn": false
+        }
+      ]
     }
   ],
   "alarm": {
-    "id": "99",
-    "state": "DEACTIVATED"
+    "id": "99"
   }
 }
