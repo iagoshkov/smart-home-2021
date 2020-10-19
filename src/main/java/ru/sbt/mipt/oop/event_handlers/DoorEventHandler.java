@@ -6,7 +6,7 @@ import ru.sbt.mipt.oop.door.Door;
 
 import static ru.sbt.mipt.oop.event_handlers.SensorEventType.DOOR_OPEN;
 
-public class DoorEventHandler implements EventHandler{
+public class DoorEventHandler {
     private final SensorEvent event;
     private final Door door;
 
@@ -15,15 +15,15 @@ public class DoorEventHandler implements EventHandler{
         this.door = door;
     }
 
-    @Override
-    public void handleEvent() {
+    public void handleDoorEvent() {
+
         if (door.getId().equals(event.getObjectId())) {
             if (event.getType() == DOOR_OPEN) {
                 door.setOpen(true);
             } else {
-                door.setOpen(false);
+                    door.setOpen(false);
+                }
             }
         }
     }
-}
 

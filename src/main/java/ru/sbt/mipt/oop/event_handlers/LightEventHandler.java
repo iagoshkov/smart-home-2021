@@ -5,7 +5,7 @@ import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.light.Light;
 import static ru.sbt.mipt.oop.event_handlers.SensorEventType.LIGHT_ON;
 
-public class LightEventHandler implements EventHandler {
+public class LightEventHandler {
 
     private final SensorEvent event;
     private final Light light;
@@ -15,15 +15,15 @@ public class LightEventHandler implements EventHandler {
         this.light = light;
     }
 
-    @Override
-    public void handleEvent() {
+    public void handleLightEvent() {
         if (light.getId().equals(event.getObjectId())) {
             if (event.getType() == LIGHT_ON) {
                 light.setOn(true);
-            } else {
-                light.setOn(false);
-            }
+                    } else {
+                        light.setOn(false);
+                    }
         }
     }
+
 }
 
