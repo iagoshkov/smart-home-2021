@@ -9,6 +9,7 @@ public class SmartHome {
 
     Collection<Room> rooms;
 
+
     public Collection<Room> getRooms() {
         return rooms;
     }
@@ -19,5 +20,10 @@ public class SmartHome {
 
     public void addRoom(Room room) {
         rooms.add(room);
+    }
+
+    public void turnDownAllLights() {
+        ClosedHallDoorEvent closedHallDoorEvent = new ClosedHallDoorEvent();
+        closedHallDoorEvent.hallDoorClosed(this);
     }
 }

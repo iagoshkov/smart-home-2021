@@ -4,12 +4,11 @@ import ru.sbt.mipt.oop.home.SmartHome;
 import java.util.ArrayList;
 
 public class EventSolverImplementation implements EventSolver{
-    ArrayList<GeneralEvent> events;
+    ArrayList<GeneralEvent> events = new ArrayList<>();
     LightEventHandler lightEventHandler = new LightEventHandler();
     DoorEventHandler doorEventHandler = new DoorEventHandler();
 
     public EventSolverImplementation() {
-        this.events  = new ArrayList<>();
         events.add(lightEventHandler);
         events.add(doorEventHandler);
     }

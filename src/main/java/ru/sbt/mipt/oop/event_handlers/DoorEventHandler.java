@@ -23,8 +23,8 @@ public class DoorEventHandler implements GeneralEvent{
                             System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
                         } else if (event.getType() == DOOR_CLOSED) {
                             if (room.getName().equals("hall")) {
-                                ClosedHallDoorEvent closedHallDoorEvent = new ClosedHallDoorEvent();
-                                closedHallDoorEvent.hallDoorClosed(smartHome);
+                                door.setOpen(false);
+                                smartHome.turnDownAllLights();
                             } else {
                                 door.setOpen(false);
                                 System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
