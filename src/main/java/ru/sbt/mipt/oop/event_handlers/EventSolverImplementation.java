@@ -15,7 +15,7 @@ public class EventSolverImplementation implements EventSolver{
     @Override
     public void solveEvent(SmartHome smartHome, SensorEvent event) {
             if (event.getType() == SensorEventType.DOOR_CLOSED) {
-                DoorClosedAction doorClosedAction = new DoorClosedAction(event.getObjectId());
+                DoorClosedAction doorClosedAction = new DoorClosedAction(event.getObjectId(), smartHome);
                 smartHome.execute(doorClosedAction);
             }
             if (event.getType() == SensorEventType.DOOR_OPEN) {
