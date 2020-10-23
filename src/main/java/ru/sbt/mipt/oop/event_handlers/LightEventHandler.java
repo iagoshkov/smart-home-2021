@@ -17,10 +17,10 @@ public class LightEventHandler implements GeneralEvent{
             for (Light light : room.getLights()) {
                 if (light.getId().equals(event.getObjectId())) {
                     if (event.getType() == LIGHT_ON) {
-                        LightOnAction lightOnAction = new LightOnAction(light);
+                        LightOnAction lightOnAction = new LightOnAction(light.getId());
                         smartHome.execute(lightOnAction);
                     } else if (event.getType() == LIGHT_OFF) {
-                        LightOffAction lightOffAction = new LightOffAction(light);
+                        LightOffAction lightOffAction = new LightOffAction(light.getId());
                         smartHome.execute(lightOffAction);
                     }
                 }

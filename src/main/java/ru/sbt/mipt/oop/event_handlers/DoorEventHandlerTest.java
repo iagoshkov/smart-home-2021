@@ -25,9 +25,9 @@ class DoorEventHandlerTest {
         Room room1 = new Room(null, doors, "name");
         rooms.add(room1);
         SmartHome smartHome = new SmartHome(rooms);
-        doorEventHandler.handleEvent(event, smartHome);
+//        doorEventHandler.handleEvent(event, smartHome);
         assertTrue(door.isOpen());
-        doorEventHandler.handleEvent(event, smartHome);
+//        doorEventHandler.handleEvent(event, smartHome);
         assertTrue(door.isOpen());
     }
 
@@ -43,9 +43,9 @@ class DoorEventHandlerTest {
         rooms.add(room1);
         SmartHome smartHome = new SmartHome(rooms);
         DoorEventHandler doorEventHandler = new DoorEventHandler();
-        doorEventHandler.handleEvent(event, smartHome);
+//        doorEventHandler.handleEvent(event, smartHome);
         assertFalse(door.isOpen());
-        doorEventHandler.handleEvent(event, smartHome);
+//        doorEventHandler.handleEvent(event, smartHome);
         assertFalse(door.isOpen());
     }
 }

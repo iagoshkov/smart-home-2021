@@ -5,18 +5,18 @@ import ru.sbt.mipt.oop.Actionable;
 import ru.sbt.mipt.oop.door.Door;
 
 public class DoorClosedAction implements Action {
-    private final Door doorObject;
+    private final String doorObjectID;
 
-    public DoorClosedAction(Door doorObject) {
-        this.doorObject = doorObject;
+    public DoorClosedAction(String id) {
+        this.doorObjectID = id;
     }
 
     @Override
     public void accept(Actionable actionable) {
         if (actionable instanceof Door) {
-            if (((Door) actionable).getId().equals(doorObject.getId())) {
+            if (((Door) actionable).getId().equals(doorObjectID)) {
                 ((Door) actionable).setOpen(false);
-                System.out.println("Door " + doorObject.getId() + " was closed.");
+                System.out.println("Door " + doorObjectID + " was closed.");
             }
         }
     }

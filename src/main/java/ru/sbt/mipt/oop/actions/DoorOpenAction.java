@@ -6,18 +6,18 @@ import ru.sbt.mipt.oop.door.Door;
 
 
 public class DoorOpenAction implements Action {
-    private final Door doorObject;
+    private final String doorObjectID;
 
-    public DoorOpenAction(Door doorObject) {
-        this.doorObject = doorObject;
+    public DoorOpenAction(String doorObjectID) {
+        this.doorObjectID = doorObjectID;
     }
 
     @Override
     public void accept(Actionable actionable) {
         if (actionable instanceof Door) {
-            if (((Door) actionable).getId().equals(doorObject.getId())) {
+            if (((Door) actionable).getId().equals(doorObjectID)) {
                 ((Door) actionable).setOpen(true);
-                System.out.println("Door " + doorObject.getId() + " was opened.");
+                System.out.println("Door " + doorObjectID + " was opened.");
             }
         }
     }

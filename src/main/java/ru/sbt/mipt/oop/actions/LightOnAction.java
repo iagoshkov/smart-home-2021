@@ -7,18 +7,18 @@ import ru.sbt.mipt.oop.light.Light;
 
 public class LightOnAction implements Action {
 
-    private final Light lightObject;
+    private final String lightObjectID;
 
-    public LightOnAction(Light lightObject) {
-        this.lightObject = lightObject;
+    public LightOnAction(String lightObjectID) {
+        this.lightObjectID = lightObjectID;
     }
 
     @Override
     public void accept(Actionable actionable) {
         if (actionable instanceof Light) {
-            if (((Light) actionable).getId().equals(lightObject.getId())) {
+            if (((Light) actionable).getId().equals(lightObjectID)) {
                 ((Light) actionable).setOn(true);
-                System.out.println("Light " + lightObject.getId() + " was turned on.");
+                System.out.println("Light " + lightObjectID + " was turned on.");
             }
         }
     }

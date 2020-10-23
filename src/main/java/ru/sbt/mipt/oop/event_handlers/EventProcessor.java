@@ -1,5 +1,6 @@
 package ru.sbt.mipt.oop.event_handlers;
 
+import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.home.SmartHome;
 
 public class EventProcessor {

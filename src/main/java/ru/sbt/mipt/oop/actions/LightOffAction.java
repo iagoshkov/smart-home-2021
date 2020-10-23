@@ -5,18 +5,18 @@ import ru.sbt.mipt.oop.Actionable;
 import ru.sbt.mipt.oop.light.Light;
 
 public class LightOffAction implements Action {
-    private final Light lightObject;
+    private final String lightObjectID;
 
-    public LightOffAction(Light lightObject) {
-        this.lightObject = lightObject;
+    public LightOffAction(String lightObjectID) {
+        this.lightObjectID = lightObjectID;
     }
 
     @Override
     public void accept(Actionable actionable) {
         if (actionable instanceof Light) {
-            if (((Light) actionable).getId().equals(lightObject.getId())) {
+            if (((Light) actionable).getId().equals(lightObjectID)) {
                 ((Light) actionable).setOn(false);
-                System.out.println("Light " + lightObject.getId() + " was turned off.");
+                System.out.println("Light " + lightObjectID + " was turned off.");
             }
         }
     }
