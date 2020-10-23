@@ -3,14 +3,9 @@ package ru.sbt.mipt.oop.home;
 import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Actionable;
 import ru.sbt.mipt.oop.door.Door;
-import ru.sbt.mipt.oop.event_handlers.DoorEventHandler;
-import ru.sbt.mipt.oop.event_handlers.LightEventHandler;
-import ru.sbt.mipt.oop.event_handlers.SensorEvent;
 import ru.sbt.mipt.oop.light.Light;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 public class Room implements Actionable {
 
