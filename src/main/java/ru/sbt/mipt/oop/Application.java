@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.events.RandomEventGenerator;
+import com.coolcompany.smarthome.events.SensorEventsManager;
+import ru.sbt.mipt.oop.events.adpter.EventHandlerAdapter;
 import ru.sbt.mipt.oop.events.EventHandler;
 import ru.sbt.mipt.oop.events.processors.*;
 import ru.sbt.mipt.oop.smart.home.SmartHome;
@@ -20,7 +21,6 @@ public class Application {
     public static void main(String... args) {
         SmartHomeReader smartHomeReader = new SmartHomeReaderJsonFile(Constants.INPUT_SMART_HOME_JSON_FILE_NAME);
         Application application = new Application(smartHomeReader);
-
         application.start();
     }
 
@@ -37,8 +37,10 @@ public class Application {
                 new SecurityProcessorDecorator(new DoorEventProcessor()),
                 new SecurityProcessorDecorator(new HallDoorEventProcessor())
         );
+        EventHandlerAdapter adapter = new EventHandlerAdapter(new EventHandler(processors, smartHome));
 
-        MainLoop mainLoop = new MainLoop(new EventHandler(processors), new RandomEventGenerator());
-        mainLoop.run(smartHome);
+        SensorEventsManager sensorEventsManager = new SensorEventsManager();
+        sensorEventsManager.registerEventHandler(adapter);
+        sensorEventsManager.start();
     }
 }
