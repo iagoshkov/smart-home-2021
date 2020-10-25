@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.alarm;
 
-public class WarningState implements AlarmStates {
+public class WarningState implements AlarmStateInterface {
 
     Alarm alarm;
 

@@ -10,13 +10,12 @@ import java.util.ArrayList;
 public class EventSolverDecorator implements EventSolver {
 
     private Alarm alarm;
-    ArrayList<GeneralEvent> events;
+    ArrayList<GeneralEvent> events = new ArrayList<>();;
     LightEventHandler lightEventHandler = new LightEventHandler();
     DoorEventHandler doorEventHandler = new DoorEventHandler();
 
     EventSolverDecorator(SmartHome smartHome) {
         this.alarm = smartHome.getAlarm();
-        this.events  = new ArrayList<>();
         events.add(lightEventHandler);
         events.add(doorEventHandler);
     }

@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.alarm;
 
-public interface AlarmStates {
+public interface AlarmStateInterface {
 
     public abstract void activate(int code);
     public abstract void deactivate(int code);
