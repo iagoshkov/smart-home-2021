@@ -9,7 +9,10 @@ import static ru.sbt.mipt.oop.event_handlers.SensorEventType.DOOR_OPEN;
 
 public class DoorEventHandler implements GeneralEvent{
 
-    public DoorEventHandler() {
+    ClosedHallDoorEventHandler closedHallDoorEventHandler;
+
+    public DoorEventHandler(ClosedHallDoorEventHandler closedHallDoorEventHandler) {
+        this.closedHallDoorEventHandler = closedHallDoorEventHandler;
     }
 
     @Override
@@ -24,7 +27,7 @@ public class DoorEventHandler implements GeneralEvent{
                         } else if (event.getType() == DOOR_CLOSED) {
                             if (room.getName().equals("hall")) {
                                 door.setOpen(false);
-                                smartHome.turnDownAllLights();
+                                closedHallDoorEventHandler.handleEvent(event, smartHome);
                             } else {
                                 door.setOpen(false);
                                 System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");

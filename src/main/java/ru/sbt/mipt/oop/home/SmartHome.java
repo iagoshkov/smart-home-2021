@@ -21,9 +21,4 @@ public class SmartHome {
     public void addRoom(Room room) {
         rooms.add(room);
     }
-
-    public void turnDownAllLights() {
-        ClosedHallDoorEvent closedHallDoorEvent = new ClosedHallDoorEvent();
-        closedHallDoorEvent.hallDoorClosed(this);
-    }
 }
