@@ -1,10 +1,10 @@
 package ru.sbt.mipt.oop.alarm;
 
-public class ActivateState implements AlarmStateInterface {
+public class ActivateStateImplementation implements AlarmState {
 
     Alarm alarm;
 
-    public ActivateState(Alarm alarm) { this.alarm = alarm; }
+    public ActivateStateImplementation(Alarm alarm) { this.alarm = alarm; }
 
     @Override
     public void activate(int code) {}
@@ -23,7 +23,6 @@ public class ActivateState implements AlarmStateInterface {
 
     @Override
     public void alarm() {
-
         System.out.println("ALARM!");
         alarm.changeState(new WarningState(alarm));
     }

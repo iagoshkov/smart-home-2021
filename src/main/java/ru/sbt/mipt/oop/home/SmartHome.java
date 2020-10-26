@@ -1,8 +1,6 @@
 package ru.sbt.mipt.oop.home;
 
 import ru.sbt.mipt.oop.alarm.Alarm;
-import ru.sbt.mipt.oop.event_handlers.ClosedHallDoorEvent;
-import ru.sbt.mipt.oop.event_handlers.SensorEvent;
 
 import java.util.Collection;
 
@@ -14,12 +12,17 @@ public class SmartHome {
         return rooms;
     }
 
-    public SmartHome(Collection<Room> rooms) {
+    public SmartHome(Collection<Room> rooms, Alarm alarm) {
+        this.alarm = alarm;
         this.rooms = rooms;
     }
 
     public void addRoom(Room room) {
         rooms.add(room);
+    }
+
+    public void setAlarm() {
+        this.alarm = new Alarm(0);
     }
 
     private Alarm alarm;

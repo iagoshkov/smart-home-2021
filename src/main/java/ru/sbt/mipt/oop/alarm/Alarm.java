@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop.alarm;
 
 public class Alarm {
 
-    private AlarmStateInterface state;
+    private AlarmState state;
     private int code;
 
     public Alarm(int code) {
@@ -10,11 +10,11 @@ public class Alarm {
         this.code = code;
     }
 
-    public void changeState(AlarmStateInterface state) {
+    public void changeState(AlarmState state) {
         this.state = state;
     }
 
-    public AlarmStateInterface getState() {
+    public AlarmState getState() {
         return state;
     }
 

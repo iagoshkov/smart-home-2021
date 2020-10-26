@@ -10,6 +10,7 @@ public class AlarmEventHandler implements EventSolver{
         this.smartHome = smartHome;
     }
 
+    @Override
     public void solveEvent(SmartHome smartHome, SensorEvent event) {
 
         if (event.getType() == SensorEventType.ALARM_ACTIVATE) {
