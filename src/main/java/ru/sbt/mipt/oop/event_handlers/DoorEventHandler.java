@@ -4,8 +4,7 @@ import ru.sbt.mipt.oop.home.Room;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.door.Door;
 
-import static ru.sbt.mipt.oop.event_handlers.SensorEventType.DOOR_CLOSED;
-import static ru.sbt.mipt.oop.event_handlers.SensorEventType.DOOR_OPEN;
+import static ru.sbt.mipt.oop.event_handlers.SensorEventType.*;
 
 public class DoorEventHandler implements GeneralEvent{
 
@@ -29,6 +28,14 @@ public class DoorEventHandler implements GeneralEvent{
                                 door.setOpen(false);
                                 System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
                             }
+                        }
+                        if (event.getType() == DOOR_LOCKED) {
+                            door.setLocked(true);
+                            System.out.println("Door " + door.getId() + " in room " + room.getName() + " was locked.");
+                        }
+                        if (event.getType() == DOOR_UNLOCKED) {
+                            door.setLocked(false);
+                            System.out.println("Door " + door.getId() + " in room " + room.getName() + " was unlocked.");
                         }
                     }
                 }

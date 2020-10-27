@@ -3,10 +3,12 @@ package ru.sbt.mipt.oop.door;
 public class Door {
     private final String id;
     private boolean isOpen;
+    private boolean isLocked;
 
-    public Door(boolean isOpen, String id) {
+    public Door(boolean isOpen, String id, boolean isLocked) {
         this.isOpen = isOpen;
         this.id = id;
+        this.isLocked = isLocked;
     }
 
     public String getId() {
@@ -15,5 +17,8 @@ public class Door {
 
     public void setOpen(boolean open) {
         isOpen = open;
+    }
+    public void setLocked(boolean locked){
+        isLocked = locked;
     }
 }
