@@ -1,11 +1,13 @@
 package ru.sbt.mipt.oop.event_handlers;
 
+import org.springframework.stereotype.Component;
 import ru.sbt.mipt.oop.home.Room;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.door.Door;
 
 import static ru.sbt.mipt.oop.event_handlers.SensorEventType.*;
 
+@Component
 public class DoorEventHandler implements GeneralEvent{
 
     public DoorEventHandler() {

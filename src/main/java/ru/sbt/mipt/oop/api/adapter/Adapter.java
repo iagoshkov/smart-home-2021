@@ -1,7 +1,8 @@
 package ru.sbt.mipt.oop.api.adapter;
 
 import com.coolcompany.smarthome.events.CCSensorEvent;
-import ru.sbt.mipt.oop.event_handlers.EventSolverImplementation;
+import org.springframework.stereotype.Component;
+import ru.sbt.mipt.oop.event_handlers.EventSolver;
 import ru.sbt.mipt.oop.event_handlers.SensorEvent;
 import ru.sbt.mipt.oop.event_handlers.SensorEventType;
 import ru.sbt.mipt.oop.home.SmartHome;
@@ -10,15 +11,16 @@ import ru.sbt.mipt.oop.home.SmartHome;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Component
 public class Adapter implements com.coolcompany.smarthome.events.EventHandler {
 
-    private final EventSolverImplementation eventSolver;
+    private final EventSolver eventSolver;
     private SmartHome smartHome;
     private final Collection<SensorEventGetter> sensorEventGetters = new ArrayList<>();
     private final DoorSensorEventGetterImpl doorSensorEventGetter = new DoorSensorEventGetterImpl();
     private final LightSensorEventGetterImpl lightSensorEventGetter = new LightSensorEventGetterImpl();
 
-    public Adapter(EventSolverImplementation eventSolver, SmartHome smartHome) {
+    public Adapter(EventSolver eventSolver, SmartHome smartHome) {
         this.eventSolver = eventSolver;
         this.smartHome = smartHome;
         this.sensorEventGetters.add(doorSensorEventGetter);

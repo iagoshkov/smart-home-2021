@@ -1,13 +1,9 @@
 package ru.sbt.mipt.oop.spring.utils;
 
-
 import com.coolcompany.smarthome.events.SensorEventsManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.sbt.mipt.oop.api.adapter.Adapter;
-import ru.sbt.mipt.oop.api.adapter.DoorSensorEventGetterImpl;
-import ru.sbt.mipt.oop.api.adapter.LightSensorEventGetterImpl;
-import ru.sbt.mipt.oop.api.adapter.SensorEventGetter;
 import ru.sbt.mipt.oop.condition.HomeConditionImplementation;
 import ru.sbt.mipt.oop.event_handlers.*;
 import ru.sbt.mipt.oop.home.SmartHome;
@@ -16,33 +12,13 @@ import ru.sbt.mipt.oop.home.SmartHome;
 public class SpringConfiguration {
 
     @Bean
-    GeneralEvent doorEvent(){
-        return new DoorEventHandler();
-    }
-
-    @Bean
-    GeneralEvent lightEvent(){
-        return new LightEventHandler();
-    }
-
-    @Bean
-    SensorEventGetter doorSensorEventGetter(){
-        return new DoorSensorEventGetterImpl();
-    }
-
-    @Bean
-    SensorEventGetter lightSensorEventGetter(){
-        return new LightSensorEventGetterImpl();
-    }
-
-    @Bean
-    EventSolverImplementation eventSolver(){
+    EventSolverWithEvents eventSolver(){
         return new EventSolverImplementation();
     }
 
     @Bean
-    Adapter eventSolverImplementationAdapter(EventSolverImplementation eventSolverImplementation, SmartHome smartHome){
-        return new Adapter(eventSolverImplementation, smartHome);
+    Adapter eventSolverImplementationAdapter(){
+        return new Adapter(eventSolver(), smartHome());
     }
 
     @Bean
@@ -51,9 +27,9 @@ public class SpringConfiguration {
     }
 
     @Bean
-    SensorEventsManager sensorEventsManager(Adapter adapter) {
+    SensorEventsManager sensorEventsManager() {
         SensorEventsManager sensorEventsManager = new SensorEventsManager();
-        sensorEventsManager.registerEventHandler(adapter);
+        sensorEventsManager.registerEventHandler(eventSolverImplementationAdapter());
         return sensorEventsManager;
     }
 
@@ -63,7 +39,8 @@ public class SpringConfiguration {
     }
 
     @Bean
-    EventProcessor eventProcessor(SmartHome smartHome, EventSolverImplementation eventSolverImplementation, EventGenerator eventGenerator){
-        return new EventProcessor(smartHome, eventSolverImplementation, eventGenerator);
+    EventProcessor eventProcessor(){
+        return new EventProcessor(smartHome(), eventSolver(), eventGenerator());
     }
+
 }

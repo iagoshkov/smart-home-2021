@@ -6,19 +6,21 @@ import ru.sbt.mipt.oop.alarm.WarningState;
 import ru.sbt.mipt.oop.home.SmartHome;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventSolverDecorator implements EventSolver {
 
-    private EventSolverImplementation wrapper;
+    private EventSolverWithEvents wrapper;
     private final Alarm alarm;
     private AlarmEventHandler alarmEventHandler;
 
 
-    EventSolverDecorator(EventSolverImplementation eventSolverImplementation, AlarmEventHandler alarmEventHandler, SmartHome smartHome) {
+    EventSolverDecorator(EventSolverWithEvents eventSolver, AlarmEventHandler alarmEventHandler, SmartHome smartHome) {
         this.alarm = smartHome.getAlarm();
         this.alarmEventHandler = alarmEventHandler;
-        this.wrapper = eventSolverImplementation;
+        this.wrapper = eventSolver;
     }
+
 
     @Override
     public void solveEvent(SmartHome smartHome, SensorEvent event) {
@@ -29,7 +31,7 @@ public class EventSolverDecorator implements EventSolver {
             System.out.println("SMS: ALARM!!");
             return;
         }
-        for (GeneralEvent event1 : wrapper.events) {
+        for (GeneralEvent event1 : wrapper.getEvents()) {
             event1.handleEvent(event, smartHome);
         }
     }

@@ -37,5 +37,4 @@ public class HomeBuilder {
             writer.write(jsonString);
         }
     }
-
 }
