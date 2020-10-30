@@ -5,16 +5,14 @@ import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.alarm.WarningState;
 import ru.sbt.mipt.oop.home.SmartHome;
 
-import java.util.ArrayList;
-
 public class EventSolverDecorator implements EventSolver {
 
-    private EventSolverImplementation wrapper;
+    private final EventSolverImplementation wrapper;
     private final Alarm alarm;
-    private AlarmEventHandler alarmEventHandler;
+    private EventSolver alarmEventHandler;
 
 
-    EventSolverDecorator(EventSolverImplementation eventSolverImplementation, AlarmEventHandler alarmEventHandler, SmartHome smartHome) {
+    EventSolverDecorator(EventSolverImplementation eventSolverImplementation, EventSolver alarmEventHandler, SmartHome smartHome) {
         this.alarm = smartHome.getAlarm();
         this.alarmEventHandler = alarmEventHandler;
         this.wrapper = eventSolverImplementation;
