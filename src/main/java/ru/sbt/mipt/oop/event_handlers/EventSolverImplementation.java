@@ -2,26 +2,18 @@ package ru.sbt.mipt.oop.event_handlers;
 import ru.sbt.mipt.oop.home.SmartHome;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventSolverImplementation implements EventSolver{
-    ArrayList<GeneralEvent> events;
-    LightEventHandler lightEventHandler;
-    DoorEventHandler doorEventHandler;
-    ClosedHallDoorEventHandler closedHallDoorEvent;
+    List<GeneralEvent> eventHandlersList;
 
-    public EventSolverImplementation(ArrayList<GeneralEvent> events, LightEventHandler lightEventHandler, DoorEventHandler doorEventHandler, ClosedHallDoorEventHandler closedHallDoorEventHandler) {
-        this.events = events;
-        this.lightEventHandler = lightEventHandler;
-        this.doorEventHandler = doorEventHandler;
-        this.closedHallDoorEvent = closedHallDoorEventHandler;
-        events.add(lightEventHandler);
-        events.add(doorEventHandler);
-        events.add(closedHallDoorEventHandler);
+    public EventSolverImplementation(List<GeneralEvent> events) {
+        this.eventHandlersList = events;
     }
 
     @Override
     public void solveEvent(SmartHome smartHome, SensorEvent event) {
-        for (GeneralEvent eventToHandle : events) {
+        for (GeneralEvent eventToHandle : eventHandlersList) {
             eventToHandle.handleEvent(event, smartHome);
         }
     }

@@ -5,6 +5,8 @@ import ru.sbt.mipt.oop.event_handlers.*;
 import ru.sbt.mipt.oop.home.SmartHome;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Application {
@@ -14,7 +16,8 @@ public class Application {
         HomeConditionImplementation homeConditionImplementation = new HomeConditionImplementation();
         SmartHome smartHome = homeConditionImplementation.smartHomeCondition();
         // начинаем цикл обработки событий
-        EventProcessor eventProcessor = new EventProcessor(smartHome, new EventGenerator(), new EventSolverImplementation(new ArrayList<>(), new LightEventHandler(), new DoorEventHandler(), new ClosedHallDoorEventHandler()));
+        List<GeneralEvent> eventHandlersList = Arrays.asList(new LightEventHandler(), new DoorEventHandler(), new ClosedHallDoorEventHandler());
+        EventProcessor eventProcessor = new EventProcessor(smartHome, new EventGenerator(), new EventSolverImplementation(eventHandlersList));
         eventProcessor.processEvent();
     }
 }
