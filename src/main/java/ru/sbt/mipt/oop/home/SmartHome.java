@@ -8,6 +8,7 @@ public class SmartHome {
 
     Collection<Room> rooms;
 
+
     public Collection<Room> getRooms() {
         return rooms;
     }
