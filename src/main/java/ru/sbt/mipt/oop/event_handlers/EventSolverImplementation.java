@@ -7,13 +7,16 @@ public class EventSolverImplementation implements EventSolver{
     ArrayList<GeneralEvent> events;
     LightEventHandler lightEventHandler;
     DoorEventHandler doorEventHandler;
+    ClosedHallDoorEventHandler closedHallDoorEvent;
 
-    public EventSolverImplementation(ArrayList<GeneralEvent> events, LightEventHandler lightEventHandler, DoorEventHandler doorEventHandler) {
+    public EventSolverImplementation(ArrayList<GeneralEvent> events, LightEventHandler lightEventHandler, DoorEventHandler doorEventHandler, ClosedHallDoorEventHandler closedHallDoorEventHandler) {
         this.events = events;
         this.lightEventHandler = lightEventHandler;
         this.doorEventHandler = doorEventHandler;
+        this.closedHallDoorEvent = closedHallDoorEventHandler;
         events.add(lightEventHandler);
         events.add(doorEventHandler);
+        events.add(closedHallDoorEventHandler);
     }
 
     @Override

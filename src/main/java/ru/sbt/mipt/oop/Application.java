@@ -14,7 +14,7 @@ public class Application {
         HomeConditionImplementation homeConditionImplementation = new HomeConditionImplementation();
         SmartHome smartHome = homeConditionImplementation.smartHomeCondition();
         // начинаем цикл обработки событий
-        EventProcessor eventProcessor = new EventProcessor(smartHome, new EventGenerator(), new EventSolverImplementation(new ArrayList<>(), new LightEventHandler(), new DoorEventHandler(new ClosedHallDoorEventHandler())));
+        EventProcessor eventProcessor = new EventProcessor(smartHome, new EventGenerator(), new EventSolverImplementation(new ArrayList<>(), new LightEventHandler(), new DoorEventHandler(), new ClosedHallDoorEventHandler()));
         eventProcessor.processEvent();
     }
 }

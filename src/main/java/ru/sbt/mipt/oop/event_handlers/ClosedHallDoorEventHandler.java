@@ -4,6 +4,8 @@ import ru.sbt.mipt.oop.home.Room;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.light.Light;
 
+import static ru.sbt.mipt.oop.event_handlers.SensorEventType.DOOR_CLOSED;
+
 public class ClosedHallDoorEventHandler implements GeneralEvent{
 
     public ClosedHallDoorEventHandler() {
@@ -11,11 +13,15 @@ public class ClosedHallDoorEventHandler implements GeneralEvent{
 
     @Override
     public void handleEvent(SensorEvent event, SmartHome smartHome) {
-        for (Room room : smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
-                light.setOn(false);
+        if (event.getType() == DOOR_CLOSED){
+            for (Room room : smartHome.getRooms()) {
+                if (room.getName().equals("hall")){
+                    for (Light light : room.getLights()) {
+                        light.setOn(false);
+                    }
+                    System.out.println("All lights were turned off.");
+                }
             }
         }
-        System.out.println("All lights were turned off.");
     }
 }
