@@ -3,7 +3,7 @@ package ru.sbt.mipt.oop;
 import ru.sbt.mipt.oop.components.Door;
 import ru.sbt.mipt.oop.components.Room;
 import ru.sbt.mipt.oop.components.SmartHome;
-import ru.sbt.mipt.oop.config.Light;
+import ru.sbt.mipt.oop.components.Light;
 import ru.sbt.mipt.oop.config.savers.ISmartHomeSaver;
 import ru.sbt.mipt.oop.config.savers.JsonSmartHomeSaver;
 
@@ -13,6 +13,8 @@ import java.util.Arrays;
 public class HomeBuilder {
 
     public static void main(String[] args) throws IOException {
+        String OUTPUT_CONFIG_FILE = "output.js";
+
         Room kitchen = new Room(Arrays.asList(new Light("1", false), new Light("2", true)),
                 Arrays.asList(new Door(false, "1")),
                 "kitchen");
@@ -27,7 +29,7 @@ public class HomeBuilder {
                 "hall");
 
         SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
-        ISmartHomeSaver smartHomeSaver = new JsonSmartHomeSaver("output.js");
+        ISmartHomeSaver smartHomeSaver = new JsonSmartHomeSaver(OUTPUT_CONFIG_FILE);
 
         smartHomeSaver.saveSmartHome(smartHome);
     }
