@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.components;
 
-public class Light {
+public class Light implements HomeComponent {
     private boolean isOn;
     private final String id;
 
@@ -13,6 +13,7 @@ public class Light {
         return isOn;
     }
 
+    @Override
     public String getId() {
         return id;
     }

@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop.components;
 
-public class Door {
+public class Door implements HomeComponent {
     private final String id;
     private boolean isOpen;
 
@@ -9,6 +9,7 @@ public class Door {
         this.id = id;
     }
 
+    @Override
     public String getId() {
         return id;
     }
