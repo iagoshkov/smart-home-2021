@@ -20,9 +20,9 @@ public class HomeBuilder {
                 "hall");
 
         SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
-        SmartHomeJsonReaderWriter smartHomeReaderWriter = new SmartHomeJsonReaderWriter("smart-home-1.js", "output.js");
+        ISmartHomeSaver smartHomeSaver = new JsonSmartHomeSaver("output.js");
 
-        smartHomeReaderWriter.saveSmartHome(smartHome);
+        smartHomeSaver.saveSmartHome(smartHome);
     }
 
 }

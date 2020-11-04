@@ -3,27 +3,26 @@ package ru.sbt.mipt.oop;
 import java.io.IOException;
 
 public class Application {
-    private final SmartHomeReaderWriter smartHomeReaderWriter;
+    private final ISmartHomeLoader smartHomeLoader;
     private final EventManager eventManager;
 
-    public Application(SmartHomeReaderWriter smartHomeReaderWriter, EventManager eventManager) {
-        this.smartHomeReaderWriter = smartHomeReaderWriter;
+    public Application(ISmartHomeLoader smartHomeReader, EventManager eventManager) {
+        this.smartHomeLoader = smartHomeReader;
         this.eventManager = eventManager;
     }
 
     public static void main(String... args) throws IOException {
         // считываем состояние дома из файла
-        SmartHomeJsonReaderWriter smartHomeReaderWriter = new SmartHomeJsonReaderWriter("smart-home-1.js", "output.js");
+        ISmartHomeLoader smartHomeReader = new JsonSmartHomeLoader("smart-home-1.js");
         EventManager eventManager = new EventManager();
-        Application application = new Application(smartHomeReaderWriter, eventManager);
+        Application application = new Application(smartHomeReader, eventManager);
 
         application.run();
-
     }
 
     public void run() throws IOException {
         SensorEvent event;
-        SmartHome smartHome = smartHomeReaderWriter.loadSmartHome();
+        SmartHome smartHome = smartHomeLoader.load();
 
         eventManager.setSmartHome(smartHome);
 
