@@ -1,5 +1,8 @@
 package ru.sbt.mipt.oop.events.handlers;
 
+import ru.sbt.mipt.oop.actions.Action;
+import ru.sbt.mipt.oop.actions.LightOffAction;
+import ru.sbt.mipt.oop.actions.LightOnAction;
 import ru.sbt.mipt.oop.components.Room;
 import ru.sbt.mipt.oop.components.SmartHome;
 import ru.sbt.mipt.oop.components.Light;
@@ -20,12 +23,12 @@ public class LightEventHandler implements IEventHandler {
             for (Light light : room.getLights()) {
                 if (light.getId().equals(event.getObjectId())) {
                     if (event.getType() == LIGHT_ON) {
-                        light.setOn();
-                        System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
+                        Action action = new LightOnAction(event.getObjectId());
+                        room.execute(action);
                     }
                     if (event.getType() == LIGHT_OFF) {
-                        light.setOff();
-                        System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
+                        Action action = new LightOffAction(event.getObjectId());
+                        room.execute(action);
                     }
                 }
             }

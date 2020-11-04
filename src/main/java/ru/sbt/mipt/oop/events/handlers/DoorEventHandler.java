@@ -1,5 +1,8 @@
 package ru.sbt.mipt.oop.events.handlers;
 
+import ru.sbt.mipt.oop.actions.Action;
+import ru.sbt.mipt.oop.actions.DoorCloseAction;
+import ru.sbt.mipt.oop.actions.DoorOpenAction;
 import ru.sbt.mipt.oop.components.Door;
 import ru.sbt.mipt.oop.components.Room;
 import ru.sbt.mipt.oop.sensor.event.SensorEvent;
@@ -19,12 +22,12 @@ public class DoorEventHandler implements IEventHandler {
             for (Door door : room.getDoors()) {
                 if (door.getId().equals(event.getObjectId())) {
                     if (event.getType() == DOOR_OPEN) {
-                        door.setOpen();
-                        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
+                        Action action = new DoorOpenAction(event.getObjectId());
+                        room.execute(action);
                     }
                     if (event.getType() == DOOR_CLOSED) {
-                        door.setClosed();
-                        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
+                        Action action = new DoorCloseAction(event.getObjectId());
+                        room.execute(action);
                     }
                 }
             }

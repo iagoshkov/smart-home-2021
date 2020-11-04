@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.actions;
 
-import ru.sbt.mipt.oop.Door;
-import ru.sbt.mipt.oop.HomeComponent;
+import ru.sbt.mipt.oop.components.Door;
+import ru.sbt.mipt.oop.components.HomeComponent;
 
 public class DoorOpenAction implements Action{
     private final String objectId;

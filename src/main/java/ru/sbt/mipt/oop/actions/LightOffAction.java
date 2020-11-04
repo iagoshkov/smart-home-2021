@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.actions;
 
-import ru.sbt.mipt.oop.HomeComponent;
-import ru.sbt.mipt.oop.Light;
+import ru.sbt.mipt.oop.components.HomeComponent;
+import ru.sbt.mipt.oop.components.Light;
 
 public class LightOffAction implements Action{
     private final String objectId;
