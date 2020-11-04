@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop.components;
 
+import ru.sbt.mipt.oop.actions.Action;
+
 public class Door implements HomeComponent {
     private final String id;
     private boolean isOpen;
@@ -20,5 +22,10 @@ public class Door implements HomeComponent {
 
     public void setClosed() {
         isOpen = false;
+    }
+
+    @Override
+    public void execute(Action action) {
+        action.act(this);
     }
 }

@@ -43,8 +43,10 @@ public class Room implements Actionable {
 
     @Override
     public void execute(Action action) {
-        for (HomeComponent component : getComponents()) {
-            action.act(component);
-        }
+        lights.forEach(light -> light.execute(action));
+        doors.forEach(door -> door.execute(action));
+//        for (HomeComponent component : getComponents()) {
+//            action.act(component);
+//        }
     }
 }

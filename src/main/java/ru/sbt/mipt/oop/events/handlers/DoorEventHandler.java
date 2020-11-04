@@ -4,7 +4,6 @@ import ru.sbt.mipt.oop.actions.Action;
 import ru.sbt.mipt.oop.actions.DoorCloseAction;
 import ru.sbt.mipt.oop.actions.DoorOpenAction;
 import ru.sbt.mipt.oop.components.Door;
-import ru.sbt.mipt.oop.components.Room;
 import ru.sbt.mipt.oop.sensor.event.SensorEvent;
 import ru.sbt.mipt.oop.components.SmartHome;
 
@@ -18,19 +17,22 @@ public class DoorEventHandler implements IEventHandler {
 
     @Override
     public void processEvent(SmartHome smartHome, SensorEvent event) {
-        for (Room room : smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
+        smartHome.execute(homeComponent -> {
+            if (homeComponent instanceof Door) {
+                Door door = (Door) homeComponent;
                 if (door.getId().equals(event.getObjectId())) {
                     if (event.getType() == DOOR_OPEN) {
                         Action action = new DoorOpenAction(event.getObjectId());
-                        room.execute(action);
+                        door.execute(action);
                     }
                     if (event.getType() == DOOR_CLOSED) {
                         Action action = new DoorCloseAction(event.getObjectId());
-                        room.execute(action);
+                        door.execute(action);
                     }
                 }
+
             }
-        }
+
+        });
     }
 }
