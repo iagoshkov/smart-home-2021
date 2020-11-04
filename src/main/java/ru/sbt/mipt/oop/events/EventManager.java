@@ -1,0 +1,28 @@
+package ru.sbt.mipt.oop.events;
+
+import ru.sbt.mipt.oop.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class EventManager implements IEventManager {
+    private SmartHome smartHome;
+    private List<IEventHandler> eventHandlers = new ArrayList<>();
+
+    @Override
+    public void setSmartHome(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
+
+    @Override
+    public void addHandler(IEventHandler eventHandler) {
+        this.eventHandlers.add(eventHandler);
+    }
+
+    @Override
+    public void processEvent(SensorEvent sensorEvent) {
+        for (IEventHandler eventHandler : eventHandlers) {
+            eventHandler.processEvent(smartHome, sensorEvent);
+        }
+    }
+}
