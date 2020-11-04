@@ -6,7 +6,7 @@ import ru.sbt.mipt.oop.actions.Actionable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Room implements Actionable {
+public class Room implements HomeComponent {
     private Collection<Light> lights;
     private Collection<Door> doors;
     private String name;
@@ -17,26 +17,6 @@ public class Room implements Actionable {
         this.name = name;
     }
 
-    public Collection<HomeComponent> getComponents() {
-        Collection<HomeComponent> components = new ArrayList<>();
-
-        for(HomeComponent light : lights) {
-            components.add(light);
-        }
-        for(HomeComponent door : doors) {
-            components.add(door);
-        }
-        return components;
-    }
-
-    public Collection<Light> getLights() {
-        return lights;
-    }
-
-    public Collection<Door> getDoors() {
-        return doors;
-    }
-
     public String getName() {
         return name;
     }
@@ -45,8 +25,10 @@ public class Room implements Actionable {
     public void execute(Action action) {
         lights.forEach(light -> light.execute(action));
         doors.forEach(door -> door.execute(action));
-//        for (HomeComponent component : getComponents()) {
-//            action.act(component);
-//        }
+    }
+
+    @Override
+    public String getId() {
+        return null;
     }
 }

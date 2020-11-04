@@ -7,7 +7,7 @@ import ru.sbt.mipt.oop.components.Room;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class SmartHome implements Actionable {
+public class SmartHome implements HomeComponent {
     Collection<Room> rooms;
 
     public SmartHome() {
@@ -29,5 +29,10 @@ public class SmartHome implements Actionable {
     @Override
     public void execute(Action action) {
         rooms.forEach(room -> room.execute(action));
+    }
+
+    @Override
+    public String getId() {
+        return null;
     }
 }

@@ -1,5 +1,8 @@
 package ru.sbt.mipt.oop.events.handlers;
 
+import ru.sbt.mipt.oop.actions.Action;
+import ru.sbt.mipt.oop.actions.HallDoorCloseAction;
+import ru.sbt.mipt.oop.actions.LightOffAction;
 import ru.sbt.mipt.oop.components.Door;
 import ru.sbt.mipt.oop.components.SmartHome;
 import ru.sbt.mipt.oop.components.Light;
@@ -16,18 +19,6 @@ public class HallDoorEventHandler implements IEventHandler {
 
     }
 
-    private void lightOffAllRooms(SmartHome smartHome) {
-        smartHome.execute(light -> {
-            if (light instanceof Light) {
-                ((Light) light).setOff();
-
-                SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                ICommandSender commandSender = new CommandSender();
-                commandSender.send(command);
-            }
-        });
-    }
-
     @Override
     public void processEvent(SmartHome smartHome, SensorEvent event) {
         smartHome.execute(homeComponent -> {
@@ -35,7 +26,9 @@ public class HallDoorEventHandler implements IEventHandler {
                 Door door = (Door) homeComponent;
                 if (door.getId().equals(event.getObjectId())) {
                     if (event.getType() == DOOR_CLOSED) {
-                        lightOffAllRooms(smartHome);
+//                        lightOffAllRooms(smartHome);
+                        Action action = new HallDoorCloseAction(event.getObjectId());
+                        smartHome.execute(action);
                     }
                 }
 
