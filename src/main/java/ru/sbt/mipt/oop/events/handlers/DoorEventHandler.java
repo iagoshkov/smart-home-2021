@@ -17,16 +17,16 @@ public class DoorEventHandler implements IEventHandler {
 
     @Override
     public void processEvent(SmartHome smartHome, SensorEvent event) {
-        smartHome.execute(homeComponent -> {
-            if (homeComponent instanceof Door) {
-                Door door = (Door) homeComponent;
+        smartHome.execute(actionable -> {
+            if (actionable instanceof Door) {
+                Door door = (Door) actionable;
                 if (door.getId().equals(event.getObjectId())) {
                     if (event.getType() == DOOR_OPEN) {
-                        Action action = new DoorOpenAction(event.getObjectId());
+                        Action action = new DoorOpenAction(event);
                         door.execute(action);
                     }
                     if (event.getType() == DOOR_CLOSED) {
-                        Action action = new DoorCloseAction(event.getObjectId());
+                        Action action = new DoorCloseAction(event);
                         door.execute(action);
                     }
                 }

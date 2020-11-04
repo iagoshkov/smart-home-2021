@@ -5,12 +5,13 @@ import ru.sbt.mipt.oop.sensor.command.CommandType;
 import ru.sbt.mipt.oop.sensor.command.SensorCommand;
 import ru.sbt.mipt.oop.sensor.command.senders.CommandSender;
 import ru.sbt.mipt.oop.sensor.command.senders.ICommandSender;
+import ru.sbt.mipt.oop.sensor.event.SensorEvent;
 
 public class HallDoorCloseAction implements Action{
-    private final String objectId;
+    private final SensorEvent event;
 
-    public HallDoorCloseAction(String objectId) {
-        this.objectId = objectId;
+    public HallDoorCloseAction(SensorEvent event) {
+        this.event = event;
     }
 
     @Override

@@ -15,16 +15,16 @@ public class LightEventHandler implements IEventHandler {
 
     @Override
     public void processEvent(SmartHome smartHome, SensorEvent event) {
-        smartHome.execute(homeComponent -> {
-            if (homeComponent instanceof Light) {
-                Light light = (Light) homeComponent;
+        smartHome.execute(actionable -> {
+            if (actionable instanceof Light) {
+                Light light = (Light) actionable;
                 if (light.getId().equals(event.getObjectId())) {
                     if (event.getType() == LIGHT_ON) {
-                        Action action = new LightOnAction(event.getObjectId());
+                        Action action = new LightOnAction(event);
                         light.execute(action);
                     }
                     if (event.getType() == LIGHT_OFF) {
-                        Action action = new LightOffAction(event.getObjectId());
+                        Action action = new LightOffAction(event);
                         light.execute(action);
                     }
                 }
