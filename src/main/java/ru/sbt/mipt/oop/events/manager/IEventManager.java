@@ -1,5 +1,6 @@
-package ru.sbt.mipt.oop.events;
+package ru.sbt.mipt.oop.events.manager;
 
+import ru.sbt.mipt.oop.events.handlers.IEventHandler;
 import ru.sbt.mipt.oop.sensor.event.SensorEvent;
 import ru.sbt.mipt.oop.components.SmartHome;
 
