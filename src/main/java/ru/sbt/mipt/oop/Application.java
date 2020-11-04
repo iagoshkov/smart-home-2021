@@ -2,25 +2,20 @@ package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.config.loaders.ISmartHomeLoader;
 import ru.sbt.mipt.oop.config.loaders.JsonSmartHomeLoader;
+import ru.sbt.mipt.oop.sensor.senders.ISensorEventSender;
+import ru.sbt.mipt.oop.sensor.senders.RandomSensorEventSender;
 
 import java.io.IOException;
 
 public class Application {
     private final ISmartHomeLoader smartHomeLoader;
     private final EventManager eventManager;
+    private final ISensorEventSender sensorEventSender;
 
-    public Application(ISmartHomeLoader smartHomeReader, EventManager eventManager) {
+    public Application(ISmartHomeLoader smartHomeReader, EventManager eventManager, ISensorEventSender sensorEventSender) {
         this.smartHomeLoader = smartHomeReader;
         this.eventManager = eventManager;
-    }
-
-    public static void main(String... args) throws IOException {
-        // считываем состояние дома из файла
-        ISmartHomeLoader smartHomeReader = new JsonSmartHomeLoader("smart-home-1.js");
-        EventManager eventManager = new EventManager();
-        Application application = new Application(smartHomeReader, eventManager);
-
-        application.run();
+        this.sensorEventSender = sensorEventSender;
     }
 
     public void run() throws IOException {
@@ -31,7 +26,7 @@ public class Application {
 
         while (true) {
             // начинаем цикл обработки событий
-            event = eventManager.getNextSensorEvent();
+            event = sensorEventSender.getNextSensorEvent();
 
             if (event == null) {
                 return;
@@ -40,5 +35,16 @@ public class Application {
         }
     }
 
+    public static void main(String... args) throws IOException {
+        String INPUT_CONFIG_FILE = "smart-home-1.js";
+
+        // считываем состояние дома из файла
+        ISmartHomeLoader smartHomeReader = new JsonSmartHomeLoader(INPUT_CONFIG_FILE);
+        EventManager eventManager = new EventManager();
+        ISensorEventSender sensorEventSender = new RandomSensorEventSender();
+        Application application = new Application(smartHomeReader, eventManager, sensorEventSender);
+
+        application.run();
+    }
 
 }
