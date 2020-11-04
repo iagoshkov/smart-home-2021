@@ -3,7 +3,7 @@ package ru.sbt.mipt.oop.components;
 import ru.sbt.mipt.oop.actions.Action;
 import ru.sbt.mipt.oop.actions.Actionable;
 
-public class Light implements HomeComponent {
+public class Light implements Actionable {
     private boolean isOn;
     private final String id;
 
@@ -16,7 +16,6 @@ public class Light implements HomeComponent {
         return isOn;
     }
 
-    @Override
     public String getId() {
         return id;
     }

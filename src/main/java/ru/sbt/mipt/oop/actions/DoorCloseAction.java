@@ -1,7 +1,6 @@
 package ru.sbt.mipt.oop.actions;
 
 import ru.sbt.mipt.oop.components.Door;
-import ru.sbt.mipt.oop.components.HomeComponent;
 
 public class DoorCloseAction implements Action {
     private final String objectId;
@@ -11,10 +10,10 @@ public class DoorCloseAction implements Action {
     }
 
     @Override
-    public void act(HomeComponent homeComponent) {
-        if (homeComponent instanceof Door) {
-            if (homeComponent.getId().equals(objectId)) {
-                Door door = (Door) homeComponent;
+    public void act(Actionable actionable) {
+        if (actionable instanceof Door) {
+            Door door = (Door) actionable;
+            if (door.getId().equals(objectId)) {
                 door.setClosed();
                 System.out.println("Door " + door.getId() + " was closed.");
             }

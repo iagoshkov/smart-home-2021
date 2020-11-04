@@ -1,8 +1,9 @@
 package ru.sbt.mipt.oop.components;
 
 import ru.sbt.mipt.oop.actions.Action;
+import ru.sbt.mipt.oop.actions.Actionable;
 
-public class Door implements HomeComponent {
+public class Door implements Actionable {
     private final String id;
     private boolean isOpen;
 
@@ -11,7 +12,6 @@ public class Door implements HomeComponent {
         this.id = id;
     }
 
-    @Override
     public String getId() {
         return id;
     }

@@ -1,6 +1,5 @@
 package ru.sbt.mipt.oop.actions;
 
-import ru.sbt.mipt.oop.components.HomeComponent;
 import ru.sbt.mipt.oop.components.Light;
 import ru.sbt.mipt.oop.sensor.command.CommandType;
 import ru.sbt.mipt.oop.sensor.command.SensorCommand;
@@ -15,10 +14,11 @@ public class HallDoorCloseAction implements Action{
     }
 
     @Override
-    public void act(HomeComponent homeComponent) {
-        homeComponent.execute(light -> {
-                if (light instanceof Light) {
-                    ((Light) light).setOff();
+    public void act(Actionable actionable) {
+        actionable.execute(component -> {
+                if (component instanceof Light) {
+                    Light light = (Light) component;
+                    light.setOff();
 
                     SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
                     ICommandSender commandSender = new CommandSender();
