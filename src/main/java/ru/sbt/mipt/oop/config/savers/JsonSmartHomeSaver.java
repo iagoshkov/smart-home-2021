@@ -2,8 +2,7 @@ package ru.sbt.mipt.oop.config.savers;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import ru.sbt.mipt.oop.SmartHome;
-import ru.sbt.mipt.oop.config.savers.ISmartHomeSaver;
+import ru.sbt.mipt.oop.components.SmartHome;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

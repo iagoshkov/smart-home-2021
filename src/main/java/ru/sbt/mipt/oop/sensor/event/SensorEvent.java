@@ -1,6 +1,6 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.sensor.event;
 
-import static ru.sbt.mipt.oop.SensorEventType.*;
+import static ru.sbt.mipt.oop.sensor.event.SensorEventType.*;
 
 public class SensorEvent {
     private final SensorEventType type;

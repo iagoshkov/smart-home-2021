@@ -1,8 +1,10 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.components.SmartHome;
 import ru.sbt.mipt.oop.config.loaders.ISmartHomeLoader;
 import ru.sbt.mipt.oop.config.loaders.JsonSmartHomeLoader;
 import ru.sbt.mipt.oop.events.*;
+import ru.sbt.mipt.oop.sensor.event.SensorEvent;
 import ru.sbt.mipt.oop.sensor.senders.ISensorEventSender;
 import ru.sbt.mipt.oop.sensor.senders.RandomSensorEventSender;
 
@@ -46,8 +48,8 @@ public class Application {
         eventManager.addHandler(new DoorEventHandler());
         eventManager.addHandler(new HallDoorEventHandler());
         ISensorEventSender sensorEventSender = new RandomSensorEventSender();
-        Application application = new Application(smartHomeReader, eventManager, sensorEventSender);
 
+        Application application = new Application(smartHomeReader, eventManager, sensorEventSender);
         application.run();
     }
 

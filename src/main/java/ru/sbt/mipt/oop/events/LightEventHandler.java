@@ -1,9 +1,12 @@
 package ru.sbt.mipt.oop.events;
 
-import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.components.Room;
+import ru.sbt.mipt.oop.components.SmartHome;
+import ru.sbt.mipt.oop.config.Light;
+import ru.sbt.mipt.oop.sensor.event.SensorEvent;
 
-import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
-import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
+import static ru.sbt.mipt.oop.sensor.event.SensorEventType.LIGHT_OFF;
+import static ru.sbt.mipt.oop.sensor.event.SensorEventType.LIGHT_ON;
 
 public class LightEventHandler implements IEventHandler {
 

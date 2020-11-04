@@ -1,8 +1,7 @@
 package ru.sbt.mipt.oop.sensor.senders;
 
-import ru.sbt.mipt.oop.SensorEvent;
-import ru.sbt.mipt.oop.SensorEventType;
-import ru.sbt.mipt.oop.sensor.senders.ISensorEventSender;
+import ru.sbt.mipt.oop.sensor.event.SensorEvent;
+import ru.sbt.mipt.oop.sensor.event.SensorEventType;
 
 public class RandomSensorEventSender implements ISensorEventSender {
     @Override

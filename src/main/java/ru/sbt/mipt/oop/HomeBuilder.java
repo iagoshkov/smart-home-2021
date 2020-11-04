@@ -1,5 +1,9 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.components.Door;
+import ru.sbt.mipt.oop.components.Room;
+import ru.sbt.mipt.oop.components.SmartHome;
+import ru.sbt.mipt.oop.config.Light;
 import ru.sbt.mipt.oop.config.savers.ISmartHomeSaver;
 import ru.sbt.mipt.oop.config.savers.JsonSmartHomeSaver;
 

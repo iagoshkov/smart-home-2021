@@ -1,12 +1,12 @@
 package ru.sbt.mipt.oop.events;
 
-import ru.sbt.mipt.oop.Door;
-import ru.sbt.mipt.oop.Room;
-import ru.sbt.mipt.oop.SensorEvent;
-import ru.sbt.mipt.oop.SmartHome;
+import ru.sbt.mipt.oop.components.Door;
+import ru.sbt.mipt.oop.components.Room;
+import ru.sbt.mipt.oop.sensor.event.SensorEvent;
+import ru.sbt.mipt.oop.components.SmartHome;
 
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
+import static ru.sbt.mipt.oop.sensor.event.SensorEventType.DOOR_CLOSED;
+import static ru.sbt.mipt.oop.sensor.event.SensorEventType.DOOR_OPEN;
 
 public class DoorEventHandler implements IEventHandler {
     public DoorEventHandler() {
