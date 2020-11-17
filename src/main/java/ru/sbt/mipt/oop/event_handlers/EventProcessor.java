@@ -1,6 +1,5 @@
 package ru.sbt.mipt.oop.event_handlers;
 
-import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.home.SmartHome;
 
 public class EventProcessor {
@@ -11,17 +10,18 @@ public class EventProcessor {
     EventSolverDecorator eventSolverDecorator;
 
 
+
     public EventProcessor(SmartHome smartHome, EventSolverWithEvents eventSolver, EventGenerator eventGenerator) {
         this.eventSolver = eventSolver;
         this.eventGenerator = eventGenerator;
         this.smartHome = smartHome;
         this.eventSolverDecorator = new EventSolverDecorator(eventSolver, new AlarmEventHandler(smartHome), smartHome);
+
     }
 
     public void processEvent(){
         EventGenerator eventGenerator = new EventGenerator();
         SensorEvent event = eventGenerator.makeEvent();
-        EventSolverImplementation eventSolverImplementation = new EventSolverImplementation();
         while (event != null) {
             System.out.println("Got event: " + event);
             eventSolverDecorator.solveEvent(smartHome, event);

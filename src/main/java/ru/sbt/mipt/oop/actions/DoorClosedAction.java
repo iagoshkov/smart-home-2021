@@ -24,7 +24,7 @@ public class DoorClosedAction implements Action {
                 System.out.println("Door " + doorObjectID + " was closed.");
                 smartHome.execute(x -> {
                     if (x instanceof Room) {
-                        if (((Room) x).getName() == "hall") {
+                        if (((Room) x).getName().equals("hall")) {
                             smartHome.execute(t -> {
                                 if (t instanceof Light) {
                                     Light light = (Light) t;
