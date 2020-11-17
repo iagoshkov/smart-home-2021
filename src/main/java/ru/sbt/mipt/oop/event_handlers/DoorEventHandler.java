@@ -10,8 +10,7 @@ import static ru.sbt.mipt.oop.event_handlers.SensorEventType.*;
 @Component
 public class DoorEventHandler implements GeneralEvent{
 
-    public DoorEventHandler() {
-    }
+    public DoorEventHandler() {}
 
     @Override
     public void handleEvent(SensorEvent event, SmartHome smartHome) {
@@ -23,13 +22,8 @@ public class DoorEventHandler implements GeneralEvent{
                             door.setOpen(true);
                             System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
                         } else if (event.getType() == DOOR_CLOSED) {
-                            if (room.getName().equals("hall")) {
-                                ClosedHallDoorEvent closedHallDoorEvent = new ClosedHallDoorEvent();
-                                closedHallDoorEvent.hallDoorClosed(smartHome);
-                            } else {
-                                door.setOpen(false);
-                                System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
-                            }
+                            door.setOpen(false);
+                            System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
                         }
                         if (event.getType() == DOOR_LOCKED) {
                             door.setLocked(true);
