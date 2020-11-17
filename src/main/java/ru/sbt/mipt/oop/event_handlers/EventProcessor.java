@@ -4,16 +4,16 @@ import ru.sbt.mipt.oop.home.SmartHome;
 
 public class EventProcessor {
 
-    SmartHome smartHome;
-    EventSolverImplementation eventSolverImplementation;
-    EventGenerator eventGenerator;
-    SensorEvent event;
-    EventSolver eventSolverDecorator;
+    final SmartHome smartHome;
+    final EventSolver eventSolver;
+    final EventGenerator eventGenerator;
+    final SensorEvent event;
+    final EventSolver eventSolverDecorator;
 
-    public EventProcessor(SmartHome smartHome, EventGenerator eventGenerator, EventSolverImplementation eventSolverImplementation, EventSolver eventSolverDecorator) {
+    public EventProcessor(SmartHome smartHome, EventGenerator eventGenerator, EventSolver eventSolver, EventSolver eventSolverDecorator) {
         this.eventGenerator = eventGenerator;
         this.smartHome = smartHome;
-        this.eventSolverImplementation = eventSolverImplementation;
+        this.eventSolver = eventSolver;
         this.event = eventGenerator.makeEvent();
         this.eventSolverDecorator = eventSolverDecorator;
     }

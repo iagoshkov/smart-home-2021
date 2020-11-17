@@ -1,5 +1,6 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.condition.HomeConditionImplementation;
 import ru.sbt.mipt.oop.event_handlers.*;
 import ru.sbt.mipt.oop.home.SmartHome;
@@ -17,7 +18,7 @@ public class Application {
         smartHome.setAlarm();
         // начинаем цикл обработки событий
         List<GeneralEvent> eventHandlersList = Arrays.asList(new LightEventHandler(), new DoorEventHandler(), new ClosedHallDoorEventHandler(), new AlarmEventHandler());
-        EventProcessor eventProcessor = new EventProcessor(smartHome, new EventGenerator(), new EventSolverImplementation(eventHandlersList), new EventSolverDecorator(eventHandlersList, smartHome));
+        EventProcessor eventProcessor = new EventProcessor(smartHome, new EventGenerator(), new EventSolverImplementation(eventHandlersList), new EventSolverDecorator(eventHandlersList, new Alarm(0000)));
         eventProcessor.processEvent();
     }
 }

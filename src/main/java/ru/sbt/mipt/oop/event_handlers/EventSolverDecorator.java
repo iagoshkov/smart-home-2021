@@ -1,9 +1,10 @@
 package ru.sbt.mipt.oop.event_handlers;
 
-import ru.sbt.mipt.oop.alarm.ActivateStateImplementation;
+import ru.sbt.mipt.oop.alarm.ActivateState;
 import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.alarm.WarningState;
 import ru.sbt.mipt.oop.home.SmartHome;
+import ru.sbt.mipt.oop.warning_senders.WarningSolver;
 
 import java.util.List;
 
@@ -14,18 +15,20 @@ public class EventSolverDecorator implements EventSolver {
     private final List<GeneralEvent> eventHandlersList;
 
 
-    public EventSolverDecorator(List<GeneralEvent> eventHandlersList, SmartHome smartHome) {
-        this.alarm = smartHome.getAlarm();
+    public EventSolverDecorator(List<GeneralEvent> eventHandlersList, Alarm alarm) {
+        this.alarm = alarm;
         this.eventHandlersList = eventHandlersList;
     }
 
     @Override
     public void solveEvent(SmartHome smartHome, SensorEvent event) {
-        if (alarm.getState() instanceof ActivateStateImplementation) {
+
+        if (alarm.isAlarmed()) {
             alarm.alarm();
         }
-        if (alarm.getState() instanceof WarningState) {
-            System.out.println("SMS: ALARM!!");
+        if (alarm.isWarning()) {
+            WarningSolver solver = new WarningSolver("sms");
+            solver.solveWarning();
             return;
         }
         for (GeneralEvent event1 : eventHandlersList) {
