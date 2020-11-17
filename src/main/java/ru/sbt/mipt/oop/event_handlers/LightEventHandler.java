@@ -11,7 +11,6 @@ public class LightEventHandler implements GeneralEvent{
 
     @Override
     public void handleEvent(SensorEvent event, SmartHome smartHome) {
-
         for (Room room : smartHome.getRooms()) {
             for (Light light : room.getLights()) {
                 if (light.getId().equals(event.getObjectId())) {
