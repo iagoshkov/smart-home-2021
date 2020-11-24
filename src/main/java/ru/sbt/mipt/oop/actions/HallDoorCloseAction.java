@@ -4,7 +4,7 @@ import ru.sbt.mipt.oop.components.Light;
 import ru.sbt.mipt.oop.sensor.command.CommandType;
 import ru.sbt.mipt.oop.sensor.command.SensorCommand;
 import ru.sbt.mipt.oop.sensor.command.senders.CommandSender;
-import ru.sbt.mipt.oop.sensor.command.senders.ICommandSender;
+import ru.sbt.mipt.oop.sensor.command.senders.CommandSenderImpl;
 import ru.sbt.mipt.oop.sensor.event.SensorEvent;
 
 public class HallDoorCloseAction implements Action{
@@ -22,7 +22,7 @@ public class HallDoorCloseAction implements Action{
                     light.setOff();
 
                     SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                    ICommandSender commandSender = new CommandSender();
+                    CommandSender commandSender = new CommandSenderImpl();
                     commandSender.send(command);
                 }
         });

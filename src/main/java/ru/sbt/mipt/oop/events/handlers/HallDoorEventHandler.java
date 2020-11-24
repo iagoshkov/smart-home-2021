@@ -8,7 +8,7 @@ import ru.sbt.mipt.oop.sensor.event.SensorEvent;
 
 import static ru.sbt.mipt.oop.sensor.event.SensorEventType.DOOR_CLOSED;
 
-public class HallDoorEventHandler implements IEventHandler {
+public class HallDoorEventHandler implements EventHandler {
     public HallDoorEventHandler() {
 
     }
