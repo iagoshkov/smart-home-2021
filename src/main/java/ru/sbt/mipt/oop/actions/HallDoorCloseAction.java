@@ -9,9 +9,11 @@ import ru.sbt.mipt.oop.sensor.event.SensorEvent;
 
 public class HallDoorCloseAction implements Action{
     private final SensorEvent event;
+    private final CommandSender commandSender;
 
-    public HallDoorCloseAction(SensorEvent event) {
+    public HallDoorCloseAction(SensorEvent event, CommandSender commandSender) {
         this.event = event;
+        this.commandSender = commandSender;
     }
 
     @Override
@@ -22,7 +24,6 @@ public class HallDoorCloseAction implements Action{
                     light.setOff();
 
                     SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                    CommandSender commandSender = new CommandSenderImpl();
                     commandSender.send(command);
                 }
         });
