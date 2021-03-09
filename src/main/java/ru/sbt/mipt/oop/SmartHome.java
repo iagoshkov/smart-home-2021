@@ -7,7 +7,7 @@ public class SmartHome {
     Collection<Room> rooms;
 
     public SmartHome() {
-        rooms = new ArrayList<>();
+        this.rooms = new ArrayList<>();
     }
 
     public SmartHome(Collection<Room> rooms) {
