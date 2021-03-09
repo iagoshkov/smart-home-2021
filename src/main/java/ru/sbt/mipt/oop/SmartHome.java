@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHome {
-    Collection<Room> rooms;
+    // Encapsulation
+    private Collection<Room> rooms;
 
     public SmartHome() {
         this.rooms = new ArrayList<>();
@@ -17,6 +18,9 @@ public class SmartHome {
     public void addRoom(Room room) {
         rooms.add(room);
     }
+
+    // Is it need?
+    // public void removeRoom(String name)
 
     public Collection<Room> getRooms() {
         return rooms;
