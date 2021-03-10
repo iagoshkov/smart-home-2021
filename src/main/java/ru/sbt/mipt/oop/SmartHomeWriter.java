@@ -1,6 +1,4 @@
-package ru.sbt.mipt.oop.SmartHomeWriter;
-
-import ru.sbt.mipt.oop.SmartHome;
+package ru.sbt.mipt.oop;
 
 // IOP & LSP
 public interface SmartHomeWriter {

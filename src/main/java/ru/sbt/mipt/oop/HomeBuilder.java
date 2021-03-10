@@ -1,8 +1,5 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.SmartHomeWriter.JsonSmartHomeWriter;
-import ru.sbt.mipt.oop.SmartHomeWriter.SmartHomeWriter;
-
 import java.util.Arrays;
 
 public class HomeBuilder {

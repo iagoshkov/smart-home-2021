@@ -1,8 +1,5 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.SmartHomeReader.JsonSmartHomeReader;
-import ru.sbt.mipt.oop.SmartHomeReader.SmartHomeReader;
-
 import static ru.sbt.mipt.oop.SensorEventType.*;
 
 public class Application {
