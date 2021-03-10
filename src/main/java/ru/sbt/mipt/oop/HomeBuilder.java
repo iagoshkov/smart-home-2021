@@ -1,18 +1,13 @@
 package ru.sbt.mipt.oop;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import ru.sbt.mipt.oop.SmartHomeWriter.JsonSmartHomeWriter;
+import ru.sbt.mipt.oop.SmartHomeWriter.SmartHomeWriter;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class HomeBuilder {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Room kitchen = new Room(Arrays.asList(new Light("1", false), new Light("2", true)),
                 Arrays.asList(new Door(false, "1")),
                 "kitchen");
@@ -28,14 +23,9 @@ public class HomeBuilder {
 
         SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall), "hall");
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String jsonString = gson.toJson(smartHome);
-        System.out.println(jsonString);
-
-        Path path = Paths.get("output.js");
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            writer.write(jsonString);
-        }
+        String filename = "output.js";
+        SmartHomeWriter smartHouseWriter = new JsonSmartHomeWriter(filename);
+        smartHouseWriter.write(smartHome);
     }
 
 }
