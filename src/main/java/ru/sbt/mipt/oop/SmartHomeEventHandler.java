@@ -3,10 +3,10 @@ package ru.sbt.mipt.oop;
 public class SmartHomeEventHandler implements EventHandler {
 
     private final SmartHome smartHome;
-    private final HomeInteraction homeInteraction;
+    private final HomeControl homeControl;
 
-    public SmartHomeEventHandler(HomeInteraction homeInteraction, SmartHome smartHome) {
-        this.homeInteraction = homeInteraction;
+    public SmartHomeEventHandler(HomeControl homeInteraction, SmartHome smartHome) {
+        this.homeControl = homeInteraction;
         this.smartHome = smartHome;
     }
 
@@ -96,7 +96,7 @@ public class SmartHomeEventHandler implements EventHandler {
                 for (Light light : homeRoom.getLights()) {
                     light.setOn(false);
                     SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                    homeInteraction.sendCommand(command);
+                    homeControl.sendCommand(command);
                 }
             }
         }
