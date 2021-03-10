@@ -8,6 +8,14 @@ import java.util.Arrays;
 public class HomeBuilder {
 
     public static void main(String[] args) {
+        // for easier reading
+        SmartHome smartHome = createSomeSmartHome();
+
+        SmartHomeWriter smartHouseWriter = new JsonSmartHomeWriter("output.js");
+        smartHouseWriter.write(smartHome);
+    }
+
+    private static SmartHome createSomeSmartHome() {
         Room kitchen = new Room(Arrays.asList(new Light("1", false), new Light("2", true)),
                 Arrays.asList(new Door(false, "1")),
                 "kitchen");
@@ -21,11 +29,7 @@ public class HomeBuilder {
                 Arrays.asList(new Door(false, "4")),
                 "hall");
 
-        SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall), "hall");
-
-        String filename = "output.js";
-        SmartHomeWriter smartHouseWriter = new JsonSmartHomeWriter(filename);
-        smartHouseWriter.write(smartHome);
+        return new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall), "hall");
     }
 
 }
