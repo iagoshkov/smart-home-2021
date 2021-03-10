@@ -8,14 +8,14 @@ import static ru.sbt.mipt.oop.SensorEventType.*;
 public class Application {
 
     public static void main(String... args) {
-        // считываем состояние дома из файла
         JsonSmartHomeReader smartHomeReader = new JsonSmartHomeReader("smart-home-1.js");
         SmartHome smartHome = smartHomeReader.read();
 
-        // начинаем цикл обработки событий
-        SensorEvent event = getNextSensorEvent();
+        listenToEvents(smartHome);
+    }
 
-        while (event != null) {
+    private static void listenToEvents(SmartHome smartHome) {
+        for (SensorEvent event = getNextSensorEvent(); event != null; event = getNextSensorEvent()) {
             System.out.println("Got event: " + event);
 
             if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
@@ -63,7 +63,6 @@ public class Application {
                     }
                 }
             }
-            event = getNextSensorEvent();
         }
     }
 
