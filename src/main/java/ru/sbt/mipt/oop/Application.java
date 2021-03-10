@@ -10,55 +10,43 @@ import static ru.sbt.mipt.oop.SensorEventType.*;
 
 public class Application {
 
-    public static void main(String... args) throws IOException {
+    public static void main(String... args) {
         // считываем состояние дома из файла
-        Gson gson = new Gson();
-        String json = new String(Files.readAllBytes(Paths.get("smart-home-1.js")));
-        SmartHome smartHome = gson.fromJson(json, SmartHome.class);
+        SmartHome smartHome = (new SmartHomeFromJSGetter("smart-home-1.js")).get();
         // начинаем цикл обработки событий
+        ProcessEvents(smartHome);
+    }
+
+    private static void ProcessEvents(SmartHome smartHome) {
         SensorEvent event = getNextSensorEvent();
+        DoorCloser doorCloser = new DoorCloser(smartHome);
+        LightSwitcher lightSwitcher = new LightSwitcher(smartHome);
+
         while (event != null) {
             System.out.println("Got event: " + event);
+
             if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
                 // событие от источника света
-                for (Room room : smartHome.getRooms()) {
-                    for (Light light : room.getLights()) {
-                        if (light.getId().equals(event.getObjectId())) {
-                            if (event.getType() == LIGHT_ON) {
-                                light.setOn(true);
-                                System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
-                            } else {
-                                light.setOn(false);
-                                System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
-                            }
-                        }
-                    }
+                if (event.getType() == LIGHT_ON) {
+                    lightSwitcher.turnOn(event.getObjectId());
+
+                } else {
+                    lightSwitcher.turnOff(event.getObjectId());
                 }
             }
+
             if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
                 // событие от двери
-                for (Room room : smartHome.getRooms()) {
-                    for (Door door : room.getDoors()) {
-                        if (door.getId().equals(event.getObjectId())) {
-                            if (event.getType() == DOOR_OPEN) {
-                                door.setOpen(true);
-                                System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
-                            } else {
-                                door.setOpen(false);
-                                System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
-                                // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
-                                // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-                                if (room.getName().equals("hall")) {
-                                    for (Room homeRoom : smartHome.getRooms()) {
-                                        for (Light light : homeRoom.getLights()) {
-                                            light.setOn(false);
-                                            SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                                            sendCommand(command);
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                if (event.getType() == DOOR_OPEN) {
+                    doorCloser.open(event.getObjectId());
+                } else {
+                    Room roomWhereClosed = doorCloser.close(event.getObjectId());
+                    // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
+                    // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
+                    if (roomWhereClosed != null && roomWhereClosed.getName().equals("hall")) {
+                        lightSwitcher.turnOffAll();
+                        CommandSender sender = new CommandSender(smartHome);
+                        sender.sendAllLight();
                     }
                 }
             }
@@ -66,9 +54,6 @@ public class Application {
         }
     }
 
-    private static void sendCommand(SensorCommand command) {
-        System.out.println("Pretent we're sending command " + command);
-    }
 
     private static SensorEvent getNextSensorEvent() {
         // pretend like we're getting the events from physical world, but here we're going to just generate some random events
