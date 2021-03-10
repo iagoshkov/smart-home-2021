@@ -1,6 +1,10 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.event;
 
-import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
+import ru.sbt.mipt.oop.objects.Light;
+import ru.sbt.mipt.oop.objects.Room;
+import ru.sbt.mipt.oop.objects.SmartHome;
+
+import static ru.sbt.mipt.oop.event.SensorEventType.LIGHT_ON;
 
 public class LightEventProcessing implements EventProcessing {
     private final SensorEvent event;

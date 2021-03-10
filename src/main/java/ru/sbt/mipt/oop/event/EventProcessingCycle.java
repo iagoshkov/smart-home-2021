@@ -1,11 +1,13 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.event;
 
-import static ru.sbt.mipt.oop.SensorEventType.*;
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
+import ru.sbt.mipt.oop.objects.SmartHome;
+
+import static ru.sbt.mipt.oop.event.SensorEventType.*;
+import static ru.sbt.mipt.oop.event.SensorEventType.DOOR_CLOSED;
 
 public class EventProcessingCycle {
     private final SmartHome smartHome;
-    EventProcessingCycle(SmartHome smartHome) {
+    public EventProcessingCycle(SmartHome smartHome) {
         this.smartHome = smartHome;
     }
 
