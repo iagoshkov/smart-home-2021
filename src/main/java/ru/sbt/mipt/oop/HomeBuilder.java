@@ -1,38 +1,76 @@
 package ru.sbt.mipt.oop;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class HomeBuilder {
-
     public static void main(String[] args) throws IOException {
-        Room kitchen = new Room(Arrays.asList(new Light("1", false), new Light("2", true)),
-                Arrays.asList(new Door(false, "1")),
-                "kitchen");
-        Room bathroom = new Room(Arrays.asList(new Light("3", true)),
-                Arrays.asList(new Door(false, "2")),
-                "bathroom");
-        Room bedroom = new Room(Arrays.asList(new Light("4", false), new Light("5", false), new Light("6", false)),
-                Arrays.asList(new Door(true, "3")),
-                "bedroom");
-        Room hall = new Room(Arrays.asList(new Light("7", false), new Light("8", false), new Light("9", false)),
-                Arrays.asList(new Door(false, "4")),
-                "hall");
-        SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String jsonString = gson.toJson(smartHome);
-        System.out.println(jsonString);
-        Path path = Paths.get("output.js");
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            writer.write(jsonString);
-        }
+        String output = "output.js";
+
+        Kitchen kitchen = createTestKitchen();
+        Bathroom bathroom = createTestBathroom();
+        Bedroom bedroom = createTestBedroom();
+        Hall hall = createTestHall();
+
+        HashMap<String, Room> testRooms = new HashMap<String, Room>();
+
+        testRooms.put(kitchen.getName(), kitchen);
+        testRooms.put(bathroom.getName(), bathroom);
+        testRooms.put(bedroom.getName(), bedroom);
+        testRooms.put(hall.getName(), hall);
+
+        SmartHome smartHome = new SmartHome(testRooms);
+
+        JSONWorker.createJSON(smartHome, output);
+    }
+
+    private static Hall createTestHall() {
+        HashMap<String, Light> testLights = new HashMap<String, Light>();
+        HashMap<String, Door> testDoors = new HashMap<String, Door>();
+
+        testLights.put("7", new Light("7", false));
+        testLights.put("8", new Light("8", false));
+        testLights.put("9", new Light("9", false));
+
+        testDoors.put("4", new Door("4", false));
+
+        return new Hall(testLights, testDoors, "hall");
+    }
+
+    private static Bedroom createTestBedroom() {
+        HashMap<String, Light> testLights = new HashMap<String, Light>();
+        HashMap<String, Door> testDoors = new HashMap<String, Door>();
+
+        testLights.put("4", new Light("4", false));
+        testLights.put("5", new Light("5", false));
+        testLights.put("6", new Light("6", false));
+
+        testDoors.put("3", new Door("3", false));
+
+        return new Bedroom(testLights, testDoors, "bedroom");
+    }
+
+    private static Bathroom createTestBathroom() {
+        HashMap<String, Light> testLights = new HashMap<String, Light>();
+        HashMap<String, Door> testDoors = new HashMap<String, Door>();
+
+        testLights.put("3", new Light("3", false));
+
+        testDoors.put("2", new Door("2", false));
+
+        return new Bathroom(testLights, testDoors, "bathroom");
+    }
+
+    private static Kitchen createTestKitchen() {
+        HashMap<String, Light> testLights = new HashMap<String, Light>();
+        HashMap<String, Door> testDoors = new HashMap<String, Door>();
+
+        testLights.put("1", new Light("1", false));
+        testLights.put("2", new Light("2", false));
+
+        testDoors.put("1", new Door("1", false));
+
+        return new Kitchen(testLights, testDoors, "kitchen");
     }
 
 }

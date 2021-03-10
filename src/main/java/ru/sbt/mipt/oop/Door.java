@@ -1,16 +1,11 @@
 package ru.sbt.mipt.oop;
 
-public class Door {
-    private final String id;
+public class Door extends Event{
     private boolean isOpen;
 
-    public Door(boolean isOpen, String id) {
+    public Door(String id, boolean isOpen) {
+        super(id);
         this.isOpen = isOpen;
-        this.id = id;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public void setOpen(boolean open) {
