@@ -17,6 +17,7 @@ public class JsonSmartHomeWriter implements SmartHomeWriter {
         this.path = Paths.get(filename);
     }
 
+    @Override
     public void write(SmartHome smartHome) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String jsonString = gson.toJson(smartHome);

@@ -23,9 +23,6 @@ public class SmartHome {
         rooms.add(room);
     }
 
-    // Is it need?
-    // public void removeRoom(String name)
-
     public Collection<Room> getRooms() {
         return rooms;
     }

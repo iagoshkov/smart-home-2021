@@ -8,8 +8,8 @@ public class HomeBuilder {
         // for easier reading
         SmartHome smartHome = createSomeSmartHome();
 
-        SmartHomeWriter smartHouseWriter = new JsonSmartHomeWriter("output.js");
-        smartHouseWriter.write(smartHome);
+        SmartHomeWriter smartHomeWriter = new JsonSmartHomeWriter("output.json");
+        smartHomeWriter.write(smartHome);
     }
 
     private static SmartHome createSomeSmartHome() {

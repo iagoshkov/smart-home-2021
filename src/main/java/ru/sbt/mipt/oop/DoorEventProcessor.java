@@ -18,6 +18,7 @@ public class DoorEventProcessor implements EventProcessor {
         this.smartHome = smartHome;
     }
 
+    @Override
     public List<CommandType> processEvent(SensorEvent event) {
         if (!doorEventTypes.contains(event.getType())) return new ArrayList<>();
 
