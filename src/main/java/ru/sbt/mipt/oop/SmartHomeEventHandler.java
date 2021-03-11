@@ -17,7 +17,7 @@ public class SmartHomeEventHandler {
         CommandProducer commandProducer = new CommandProducer(smartHome);
 
         for (EventProcessor eventProcessor : eventProcessors) {
-            List<CommandType> commandTypes = eventProcessor.processEvent(event);
+            List<CommandType> commandTypes = eventProcessor.processEvent(smartHome, event);
             for (CommandType commandType : commandTypes) {
                 commandProducer.produceCommand(commandType);
             }

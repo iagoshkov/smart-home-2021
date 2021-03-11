@@ -11,8 +11,8 @@ public class Application {
 
         // SRP & IOP & LSP
         List<EventProcessor> eventProcessors = Arrays.asList(
-                new LightEventProcessor(smartHome),
-                new DoorEventProcessor(smartHome));
+                new LightEventProcessor(),
+                new DoorEventProcessor());
 
         // SRP
         SmartHomeEventHandler smartHomeEventHandler = new SmartHomeEventHandler(smartHome, eventProcessors);

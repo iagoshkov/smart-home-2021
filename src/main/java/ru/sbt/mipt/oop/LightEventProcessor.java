@@ -9,17 +9,10 @@ import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
 import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
 
 public class LightEventProcessor implements EventProcessor {
-
-    private final SmartHome smartHome;
-
     static final List<SensorEventType> lightEventTypes = Arrays.asList(LIGHT_ON, LIGHT_OFF);
 
-    public LightEventProcessor(SmartHome smartHome) {
-        this.smartHome = smartHome;
-    }
-
     @Override
-    public List<CommandType> processEvent(SensorEvent event) {
+    public List<CommandType> processEvent(SmartHome smartHome, SensorEvent event) {
         if (!lightEventTypes.contains(event.getType())) return new ArrayList<>();
 
         List<CommandType> commandTypes = new ArrayList<>();

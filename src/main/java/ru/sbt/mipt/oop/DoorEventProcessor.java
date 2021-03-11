@@ -3,23 +3,16 @@ package ru.sbt.mipt.oop;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
 
 public class DoorEventProcessor implements EventProcessor {
 
-    private final SmartHome smartHome;
-
     static final List<SensorEventType> doorEventTypes = Arrays.asList(DOOR_OPEN, DOOR_CLOSED);
 
-    public DoorEventProcessor(SmartHome smartHome) {
-        this.smartHome = smartHome;
-    }
-
     @Override
-    public List<CommandType> processEvent(SensorEvent event) {
+    public List<CommandType> processEvent(SmartHome smartHome, SensorEvent event) {
         if (!doorEventTypes.contains(event.getType())) return new ArrayList<>();
 
         List<CommandType> commandTypes = new ArrayList<>();
