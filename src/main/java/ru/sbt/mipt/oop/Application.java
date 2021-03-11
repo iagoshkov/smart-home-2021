@@ -20,10 +20,14 @@ public class Application {
             put(SensorEventType.DOOR_CLOSED, new DoorClosedHandler());
         }};
 
+        HashMap<CommandType, CommandProducer> DoorCommandProducers = new HashMap<CommandType, CommandProducer>() {{
+            put(CommandType.LIGHT_OFF, new LightOffCommandProducer());
+        }};
+
         // SRP & IOP & LSP
         List<EventProcessor> eventProcessors = Arrays.asList(
-                new LightEventProcessor(LightEventHandlers),
-                new DoorEventProcessor(DoorEventHandlers)
+            new LightEventProcessor(LightEventHandlers, new HashMap<>()),
+            new DoorEventProcessor(DoorEventHandlers, DoorCommandProducers)
         );
 
         // SRP

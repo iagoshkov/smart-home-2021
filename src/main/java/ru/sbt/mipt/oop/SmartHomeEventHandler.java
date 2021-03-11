@@ -15,13 +15,8 @@ public class SmartHomeEventHandler {
     public void handleEvent(SensorEvent event) {
         System.out.println("Got event: " + event);
 
-        CommandProducer commandProducer = new CommandProducer(smartHome);
-
         for (EventProcessor eventProcessor : eventProcessors) {
-            List<CommandType> commandTypes = eventProcessor.processEvent(smartHome, event);
-            for (CommandType commandType : commandTypes) {
-                commandProducer.produceCommand(commandType);
-            }
+            eventProcessor.processEvent(smartHome, event);
         }
     }
 
