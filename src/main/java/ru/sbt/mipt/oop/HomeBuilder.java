@@ -26,7 +26,7 @@ public class HomeBuilder {
                 Arrays.asList(new Door(false, "4")),
                 "hall");
 
-        return new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall), "hall");
+        return new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
     }
 
 }
