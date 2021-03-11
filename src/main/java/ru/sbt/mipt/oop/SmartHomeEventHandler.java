@@ -3,6 +3,7 @@ package ru.sbt.mipt.oop;
 import java.util.List;
 
 public class SmartHomeEventHandler {
+
     private final SmartHome smartHome;
     private final List<EventProcessor> eventProcessors;
 
@@ -23,4 +24,5 @@ public class SmartHomeEventHandler {
             }
         }
     }
+
 }
