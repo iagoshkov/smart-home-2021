@@ -1,5 +1,5 @@
 package ru.sbt.mipt.oop;
 
 public interface EventHandler {
-    CommandType handleEvent(Room room, Light light, Door door);
+    CommandType handleEvent(SensorEvent event, Room room, Light light, Door door);
 }
