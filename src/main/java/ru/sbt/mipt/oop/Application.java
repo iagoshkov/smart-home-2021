@@ -9,28 +9,16 @@ public class Application {
         JsonSmartHomeReader smartHomeReader = new JsonSmartHomeReader("smart-home-1.json");
         SmartHome smartHome = smartHomeReader.read();
 
-        listenToEvents(smartHome);
-    }
+        // SRP & IOP & LSP
+        List<EventProcessor> eventProcessors = Arrays.asList(
+                new LightEventProcessor(smartHome),
+                new DoorEventProcessor(smartHome));
 
-    private static void listenToEvents(SmartHome smartHome) {
+        // SRP
+        SmartHomeEventHandler smartHomeEventHandler = new SmartHomeEventHandler(smartHome, eventProcessors);
+
         for (SensorEvent event = getNextSensorEvent(); event != null; event = getNextSensorEvent()) {
-            System.out.println("Got event: " + event);
-
-            // SRP & IOP & LSP
-            List<EventProcessor> eventProcessors = Arrays.asList(
-                    new LightEventProcessor(smartHome),
-                    new DoorEventProcessor(smartHome));
-            // It may be a member of a class, but I thing it would be a higher coupling and loosely cohesion,
-            // because CommandProducer only a producer that moreover know about CommandProcessor.
-            // And I think Application would have these responsibilities
-            CommandProducer commandProducer = new CommandProducer(smartHome);
-
-            for (EventProcessor eventProcessor : eventProcessors) {
-                List<CommandType> commandTypes = eventProcessor.processEvent(event);
-                for (CommandType commandType : commandTypes) {
-                    commandProducer.produceCommand(commandType);
-                }
-            }
+            smartHomeEventHandler.handleEvent(event);
         }
     }
 
