@@ -12,11 +12,7 @@ public class DoorClosedHandler implements EventHandler {
 
         // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
         // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-        String hallRoomName = "hall";
-        if (room.getName().equals(hallRoomName)) {
-            return CommandType.LIGHT_OFF;
-        }
-        return null;
+        return DoorClosedCommandGenerator.generateCommand(room);
     }
 
 }
