@@ -4,14 +4,15 @@ public class LightOffCommandProducer implements CommandProducer {
 
     @Override
     public void produceCommand(SmartHome smartHome) {
+        smartHome.execute(new LightOffAction());
+
         CommandSender commandSender = new LightOffCommandSender();
 
-        for (Room room : smartHome.getRooms()) {
-            for (Light light : room.getLights()) {
-                light.setOn(false);
-                SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                commandSender.sendCommand(command);
-            }
+        for (LightSmartHomeIterator it = new LightSmartHomeIterator(smartHome); it.hasNext(); ) {
+            Light light = it.next();
+
+            SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
+            commandSender.sendCommand(command);
         }
     }
 
