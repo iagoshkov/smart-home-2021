@@ -3,7 +3,9 @@ package ru.sbt.mipt.oop;
 public class LightOffCommandProducer implements CommandProducer {
 
     @Override
-    public void produceCommand(CommandType commandType, SmartHome smartHome) {
+    public void produceCommand(SmartHome smartHome, CommandType commandType) {
+        if (commandType != CommandType.LIGHT_OFF) return;
+
         for (Room homeRoom : smartHome.getRooms()) {
             for (Light light : homeRoom.getLights()) {
                 light.setOn(false);

@@ -1,30 +1,33 @@
 package ru.sbt.mipt.oop;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public abstract class EventProcessor {
+public class EventProcessor {
 
     protected final Map<SensorEventType, EventHandler> eventHandlerByEventType;
-    protected final Map<CommandType, CommandProducer> commandHandlerByCommandType;
+    protected final Map<CommandType, CommandProducer> commandProducerByCommandType;
 
     public EventProcessor(Map<SensorEventType, EventHandler> eventHandlerByEventType,
-                              Map<CommandType, CommandProducer> commandHandlerByCommandType) {
-        this.eventHandlerByEventType = eventHandlerByEventType;
-        this.commandHandlerByCommandType = commandHandlerByCommandType;
+                          Map<CommandType, CommandProducer> commandProducerByCommandType) {
+        this.eventHandlerByEventType = eventHandlerByEventType != null ? eventHandlerByEventType : new HashMap<>();
+        this.commandProducerByCommandType = commandProducerByCommandType != null ? commandProducerByCommandType : new HashMap<>();
     }
 
-    abstract public void processEvent(SmartHome smartHome, SensorEvent event);
+    public void processEvent(SmartHome smartHome, SensorEvent event) {
+        EventHandler eventHandler = eventHandlerByEventType.getOrDefault(event.getType(), null);
 
-    protected CommandType handleEvent(SensorEvent event, Room room, Light light, Door door) {
-        if (eventHandlerByEventType.containsKey(event.getType())) {
-            return eventHandlerByEventType.get(event.getType()).handleEvent(event, room, light, door);
-        }
-        return null;
-    }
+        if (eventHandler != null) {
+            List<CommandType> commandTypes = eventHandler.handleEvent(smartHome, event);
 
-    protected void handleCommand(CommandType command, SmartHome smartHome) {
-        if (commandHandlerByCommandType.containsKey(command)) {
-            commandHandlerByCommandType.get(command).produceCommand(command, smartHome);
+            for (CommandType commandType : commandTypes) {
+                CommandProducer commandProducer = commandProducerByCommandType.getOrDefault(commandType, null);
+
+                if (commandProducerByCommandType.containsKey(commandType)) {
+                    commandProducer.produceCommand(smartHome, commandType);
+                }
+            }
         }
     }
 

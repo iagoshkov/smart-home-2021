@@ -26,8 +26,8 @@ public class Application {
 
         // SRP & IOP & LSP
         List<EventProcessor> eventProcessors = Arrays.asList(
-            new LightEventProcessor(LightEventHandlers, new HashMap<>()),
-            new DoorEventProcessor(DoorEventHandlers, DoorCommandProducers)
+            new EventProcessor(LightEventHandlers, null),
+            new EventProcessor(DoorEventHandlers, DoorCommandProducers)
         );
 
         // SRP

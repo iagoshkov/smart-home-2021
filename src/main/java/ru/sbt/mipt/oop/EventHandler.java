@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import java.util.List;
+
 public interface EventHandler {
-    CommandType handleEvent(SensorEvent event, Room room, Light light, Door door);
+    List<CommandType> handleEvent(SmartHome smartHome, SensorEvent event);
 }
