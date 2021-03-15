@@ -8,7 +8,7 @@ public class DoorOpenHandler implements EventHandler {
             for (Door door : room.getDoors()) {
                 if (!door.getId().equals(event.getObjectId())) continue;
 
-                door.setOpen(true);
+                door.execute(new DoorOpenAction());
                 System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
             }
         }

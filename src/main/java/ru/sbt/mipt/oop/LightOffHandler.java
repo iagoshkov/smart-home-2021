@@ -8,7 +8,7 @@ public class LightOffHandler implements EventHandler {
             for (Light light : room.getLights()) {
                 if (!light.getId().equals(event.getObjectId())) continue;
 
-                light.setOn(false);
+                light.execute(new LightOffAction());
                 System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
             }
         }
