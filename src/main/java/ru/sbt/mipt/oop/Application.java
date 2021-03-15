@@ -33,13 +33,7 @@ public class Application {
         // SRP
         SmartHomeEventHandler smartHomeEventHandler = new SmartHomeEventHandler(smartHome, eventProcessors);
 
-        SensorEvent event;
-        while (true) {
-            event = EventGenerator.getNextSensorEvent();
-            if (event == null) break;
-
-            smartHomeEventHandler.handleEvent(event);
-        }
+        SmartHomeSimulator.simulateWork(smartHomeEventHandler);
     }
 
 }
