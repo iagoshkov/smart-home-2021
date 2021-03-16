@@ -2,19 +2,19 @@ package ru.sbt.mipt.oop.handlers;
 
 import ru.sbt.mipt.oop.Light;
 import ru.sbt.mipt.oop.Room;
-import ru.sbt.mipt.oop.SensorEvent;
-import ru.sbt.mipt.oop.handlers.SensorEventHandler;
+import ru.sbt.mipt.oop.SmartHome;
+import ru.sbt.mipt.oop.sensors.SensorEvent;
 
 import java.util.Collection;
 
-import static ru.sbt.mipt.oop.SensorEventType.LIGHT_ON;
+import static ru.sbt.mipt.oop.sensors.SensorEventType.LIGHT_ON;
 
 public class LightSensorEventHandler implements SensorEventHandler {
     private final Collection<Room> rooms;
     private final SensorEvent event;
 
-    public LightSensorEventHandler(Collection<Room> rooms, SensorEvent event) {
-        this.rooms = rooms;
+    public LightSensorEventHandler(SmartHome smartHome, SensorEvent event) {
+        this.rooms = smartHome.getRooms();
         this.event = event;
     }
 
