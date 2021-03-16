@@ -1,5 +1,6 @@
 package ru.sbt.mipt.oop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DoorEventProcessor implements EventProcessor {
@@ -10,19 +11,32 @@ public class DoorEventProcessor implements EventProcessor {
     }
 
     private List<CommandType> handleEvent(SmartHome smartHome, SensorEvent event) {
-        EventHandler eventHandler = new EmptyEventHandler();
+        List<EventHandler> eventHandlerList = new ArrayList<>();
 
         switch (event.getType()) {
             case DOOR_OPEN:
-                eventHandler = new DoorOpenHandler();
+                eventHandlerList.add(new DoorOpenHandler());
                 break;
             case DOOR_CLOSED:
-                eventHandler = new DoorClosedHandler();
+                eventHandlerList.add(new DoorOpenHandler());
+                eventHandlerList.add(new HallDoorClosedHandler());
                 break;
             default:
                 // do nothing
         }
-        return eventHandler.handleEvent(smartHome, event);
+        return executeHandlers(smartHome, eventHandlerList, event);
+    }
+
+    private List<CommandType> executeHandlers(SmartHome smartHome, List<EventHandler> eventHandlerList, SensorEvent event) {
+        List<CommandType> commandTypeList = new ArrayList<>();
+
+        for (EventHandler eventHandler : eventHandlerList) {
+            List<CommandType> handlersCommandTypeList = eventHandler.handleEvent(smartHome, event);
+            if (handlersCommandTypeList != null) {
+                commandTypeList.addAll(handlersCommandTypeList);
+            }
+        }
+        return commandTypeList;
     }
 
     private void handleCommandTypeList(SmartHome smartHome, List<CommandType> commandTypeList) {
