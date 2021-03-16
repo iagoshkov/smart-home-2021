@@ -18,7 +18,7 @@ public class DoorEventProcessor implements EventProcessor {
                 eventHandlerList.add(new DoorOpenHandler());
                 break;
             case DOOR_CLOSED:
-                eventHandlerList.add(new DoorOpenHandler());
+                eventHandlerList.add(new DoorClosedHandler());
                 eventHandlerList.add(new HallDoorClosedHandler());
                 break;
             default:
