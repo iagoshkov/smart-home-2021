@@ -7,12 +7,12 @@ public class HomeBuilder {
     public static void main(String[] args) throws IOException {
         String output = "output.js";
 
-        Kitchen kitchen = createTestKitchen();
-        Bathroom bathroom = createTestBathroom();
-        Bedroom bedroom = createTestBedroom();
+        Room kitchen = createTestKitchen();
+        Room bathroom = createTestBathroom();
+        Room bedroom = createTestBedroom();
         Hall hall = createTestHall();
 
-        HashMap<String, Room> testRooms = new HashMap<String, Room>();
+        HashMap<String, Room> testRooms = new HashMap<>();
 
         testRooms.put(kitchen.getName(), kitchen);
         testRooms.put(bathroom.getName(), bathroom);
@@ -21,12 +21,12 @@ public class HomeBuilder {
 
         SmartHome smartHome = new SmartHome(testRooms);
 
-        JSONWorker.createJSON(smartHome, output);
+        SmartHomeJsonLoader.createJSON(smartHome, output);
     }
 
     private static Hall createTestHall() {
-        HashMap<String, Light> testLights = new HashMap<String, Light>();
-        HashMap<String, Door> testDoors = new HashMap<String, Door>();
+        HashMap<String, Light> testLights = new HashMap<>();
+        HashMap<String, Door> testDoors = new HashMap<>();
 
         testLights.put("7", new Light("7", false));
         testLights.put("8", new Light("8", false));
@@ -37,9 +37,9 @@ public class HomeBuilder {
         return new Hall(testLights, testDoors, "hall");
     }
 
-    private static Bedroom createTestBedroom() {
-        HashMap<String, Light> testLights = new HashMap<String, Light>();
-        HashMap<String, Door> testDoors = new HashMap<String, Door>();
+    private static Room createTestBedroom() {
+        HashMap<String, Light> testLights = new HashMap<>();
+        HashMap<String, Door> testDoors = new HashMap<>();
 
         testLights.put("4", new Light("4", false));
         testLights.put("5", new Light("5", false));
@@ -47,30 +47,30 @@ public class HomeBuilder {
 
         testDoors.put("3", new Door("3", false));
 
-        return new Bedroom(testLights, testDoors, "bedroom");
+        return new Room(testLights, testDoors, "bedroom");
     }
 
-    private static Bathroom createTestBathroom() {
-        HashMap<String, Light> testLights = new HashMap<String, Light>();
-        HashMap<String, Door> testDoors = new HashMap<String, Door>();
+    private static Room createTestBathroom() {
+        HashMap<String, Light> testLights = new HashMap<>();
+        HashMap<String, Door> testDoors = new HashMap<>();
 
         testLights.put("3", new Light("3", false));
 
         testDoors.put("2", new Door("2", false));
 
-        return new Bathroom(testLights, testDoors, "bathroom");
+        return new Room(testLights, testDoors, "bathroom");
     }
 
-    private static Kitchen createTestKitchen() {
-        HashMap<String, Light> testLights = new HashMap<String, Light>();
-        HashMap<String, Door> testDoors = new HashMap<String, Door>();
+    private static Room createTestKitchen() {
+        HashMap<String, Light> testLights = new HashMap<>();
+        HashMap<String, Door> testDoors = new HashMap<>();
 
         testLights.put("1", new Light("1", false));
         testLights.put("2", new Light("2", false));
 
         testDoors.put("1", new Door("1", false));
 
-        return new Kitchen(testLights, testDoors, "kitchen");
+        return new Room(testLights, testDoors, "kitchen");
     }
 
 }

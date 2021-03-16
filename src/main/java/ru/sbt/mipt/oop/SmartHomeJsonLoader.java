@@ -9,8 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class JSONWorker {
-    public static SmartHome getSmartHome(String source) throws IOException {
+public class SmartHomeJsonLoader implements JsonLoader {
+    public static SmartHome readSmartHome(String source) throws IOException {
         Gson gson = new Gson();
         String json = new String(Files.readAllBytes(Paths.get(source)));
         return gson.fromJson(json, SmartHome.class);

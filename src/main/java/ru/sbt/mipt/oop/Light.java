@@ -1,10 +1,16 @@
 package ru.sbt.mipt.oop;
 
-public class Light extends Event {
+public class Light {
     private boolean isOn;
 
+    public String getId() {
+        return id;
+    }
+
+    private String id;
+
     public Light(String id, boolean isOn) {
-        super(id);
+        this.id = id;
         this.isOn = isOn;
     }
 

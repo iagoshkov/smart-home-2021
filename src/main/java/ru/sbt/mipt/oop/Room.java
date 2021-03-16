@@ -3,7 +3,16 @@ package ru.sbt.mipt.oop;
 import java.util.HashMap;
 
 public class Room {
+    public HashMap<String, Light> getLights() {
+        return lights;
+    }
+
     private HashMap<String, Light> lights;
+
+    public HashMap<String, Door> getDoors() {
+        return doors;
+    }
+
     private HashMap<String, Door> doors;
     private String name;
 
@@ -13,13 +22,7 @@ public class Room {
         this.name = name;
     }
 
-    public HashMap<String, Light> getLights() {
-        return lights;
-    }
 
-    public HashMap<String, Door> getDoors() {
-        return doors;
-    }
 
     public String getName() {
         return name;
