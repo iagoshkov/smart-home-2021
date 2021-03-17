@@ -15,7 +15,12 @@ public class DoorEventHandler implements EventHandler{
         return ((component -> {
             if (component instanceof Door){
                 Door door = (Door)component;
-                if (door.getId().equals(event.getObjectId())) {
+                if (SmartHomeHelpers.isHallDoor(smartHome, door.getId())){
+                    return;
+                }
+                if (!door.getId().equals(event.getObjectId())) {
+                    return;
+                }
                     if (event.getType() == DOOR_OPEN) {
                         door.setOpen(true);
                         System.out.println("Door " + door.getId() + " was opened.");
@@ -24,7 +29,6 @@ public class DoorEventHandler implements EventHandler{
                         door.setOpen(false);
                         System.out.println("Door " + door.getId() + " was closed.");
                     }
-                }
             }
         }));
 

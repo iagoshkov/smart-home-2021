@@ -15,16 +15,27 @@ public class HallDoorEventHandler implements EventHandler{
         return ((component -> {
             if (component instanceof Door){
                 Door door = (Door)component;
-                if (door.getId().equals(event.getObjectId())) {
+                if (!SmartHomeHelpers.isHallDoor(smartHome, door.getId())){
+                    return;
+                }
+                if (!door.getId().equals(event.getObjectId())) {
+                    return;
+                }
                     if (event.getType() == DOOR_OPEN) {
                         door.setOpen(true);
                         System.out.println("Door " + door.getId() + " was opened.");
                     }
                     if (event.getType() == DOOR_CLOSED){
                         door.setOpen(false);
-                        System.out.println("Door " + door.getId() + " was closed.");
+                        System.out.println("Door (hall) " + door.getId() + " was closed.");
+                        smartHome.execute((innerComponent)->{
+                            if (innerComponent instanceof Light){
+                                Light light = (Light)innerComponent;
+                                System.out.println("Light " + light.getId() + " was turned off.");
+                                light.setOn(false);
+                            }
+                        });
                     }
-                }
             }
         }));
     }

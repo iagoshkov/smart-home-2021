@@ -15,17 +15,18 @@ public class LightEventHandler implements EventHandler{
     public Action handleEvent(SensorEvent event) {
             return ((component) -> {
                 if (component instanceof Light) {
-                    Light light = (Light)component;
+                    Light light = (Light) component;
                     if (light.getId().equals(event.getObjectId())) {
                         if (event.getType() == LIGHT_ON) {
                             light.setOn(true);
                             System.out.println("Light " + light.getId() + " was turned on.");
                         }
-                        if (event.getType() == LIGHT_OFF)
+                        if (event.getType() == LIGHT_OFF) {
                             light.setOn(false);
                             System.out.println("Light " + light.getId() + " was turned off.");
                         }
                     }
+                }
             });
     }
 
