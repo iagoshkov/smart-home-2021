@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import java.util.function.Function;
+
 public interface EventHandler {
-    void handleEvent(SensorEvent event);
+    Action handleEvent(SensorEvent event);
 }

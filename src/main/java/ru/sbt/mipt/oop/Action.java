@@ -1,5 +1,7 @@
 package ru.sbt.mipt.oop;
 
+import java.util.function.Function;
+
 public interface Action {
-    <T extends HomeComponent> void act(T component);
+    void act(HomeComponent component);
 }

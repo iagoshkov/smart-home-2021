@@ -19,7 +19,8 @@ public class EventLoop {
         SensorEvent event = generator.getNextSensorEvent();
         while (event != null) {
             for (EventHandler handler:handlers){
-                handler.handleEvent(event);
+                Action action = handler.handleEvent(event);
+                smartHome.execute(action);
             }
             event = generator.getNextSensorEvent();
         }

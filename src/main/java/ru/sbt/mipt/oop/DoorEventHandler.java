@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop;
 
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_OPEN;
+import static ru.sbt.mipt.oop.SensorEventType.*;
+import static ru.sbt.mipt.oop.SensorEventType.LIGHT_OFF;
 
 public class DoorEventHandler implements EventHandler{
 
@@ -11,37 +11,23 @@ public class DoorEventHandler implements EventHandler{
     }
 
     @Override
-    public void handleEvent(SensorEvent event) {
-
-        if (!((event.getType() == DOOR_OPEN) || (event.getType() == DOOR_CLOSED))){
-            return;
-        }
-
-        for (Room room : smartHome.getRooms()) {
-            if (room.getName().equals("hall")) {
-                continue;
-            }
-            for (Door door : room.getDoors()) {
+    public Action handleEvent(SensorEvent event) {
+        return ((component -> {
+            if (component instanceof Door){
+                Door door = (Door)component;
                 if (door.getId().equals(event.getObjectId())) {
                     if (event.getType() == DOOR_OPEN) {
                         door.setOpen(true);
-                        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
-                    } else {
+                        System.out.println("Door " + door.getId() + " was opened.");
+                    }
+                    if (event.getType() == DOOR_CLOSED){
                         door.setOpen(false);
-                        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
-                        // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
-                        // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-                            for (Room homeRoom : smartHome.getRooms()) {
-                                for (Light light : homeRoom.getLights()) {
-                                    light.setOn(false);
-                                    SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                                    commandPrinter.sendCommand(command);
-                                }
-                            }
+                        System.out.println("Door " + door.getId() + " was closed.");
                     }
                 }
             }
-        }
+        }));
+
     }
 
     SmartHome smartHome;
