@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LightEventsTest {
 
@@ -25,24 +26,28 @@ public class LightEventsTest {
 
     @Test
     public void applyOnExistingLight() {
-        AllLightIdsAction allLightIds = new AllLightIdsAction();
-        smartHome.execute(allLightIds);
+        AllLightsAction allLightsAction = new AllLightsAction();
+        smartHome.execute(allLightsAction);
 
-        for (String id : allLightIds.getIds()) {
-            checkIsLightOnByEvent(id, SensorEventType.LIGHT_OFF, false);
-            checkIsLightOnByEvent(id, SensorEventType.LIGHT_ON, true);
+        List<Light> lights = allLightsAction.getLights();
+
+        for (Light light : lights) {
+            checkIsLightOnByEvent(light.getId(), SensorEventType.LIGHT_OFF, false);
+            checkIsLightOnByEvent(light.getId(), SensorEventType.LIGHT_ON, true);
         }
     }
 
     @Test
     public void applyOnNonExistingLight() {
-        AllLightIdsAction allLightIds = new AllLightIdsAction();
-        smartHome.execute(allLightIds);
+        AllLightsAction allLightsAction = new AllLightsAction();
+        smartHome.execute(allLightsAction);
+
+        List<String> lightIds = allLightsAction.getLights().stream().map(Light::getId).collect(Collectors.toList());
 
         String nonExistingId = "";
         do {
             nonExistingId += "@";
-        } while (allLightIds.getIds().contains(nonExistingId));
+        } while (lightIds.contains(nonExistingId));
 
         checkIsLightOnByEvent(nonExistingId, SensorEventType.LIGHT_OFF, null);
         checkIsLightOnByEvent(nonExistingId, SensorEventType.LIGHT_ON, null);

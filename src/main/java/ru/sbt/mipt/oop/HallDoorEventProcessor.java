@@ -14,13 +14,13 @@ public class HallDoorEventProcessor implements EventProcessor {
 
         String hallRoomName = "hall";
 
-        for (Room room : smartHome.getRooms()) {
-            if (room.getName().equals(hallRoomName)) {
-                for (Door door : room.getDoors()) {
-                    if (door.getId().equals(event.getObjectId())) {
-                        commandProducer.produceCommand(smartHome);
-                    }
-                }
+        HallRoomDoorsAction hallRoomDoorsAction = new HallRoomDoorsAction(hallRoomName);
+        smartHome.execute(hallRoomDoorsAction);
+
+        for (Door door : hallRoomDoorsAction.getDoors()) {
+            if (door.getId().equals(event.getObjectId())) {
+                commandProducer.produceCommand(smartHome);
+                break;
             }
         }
     }

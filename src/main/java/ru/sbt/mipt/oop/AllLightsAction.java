@@ -3,18 +3,18 @@ package ru.sbt.mipt.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllLightIdsAction implements Action {
+public class AllLightsAction implements Action {
 
-    private final List<String> ids = new ArrayList<>();
+    private final List<Light> lights = new ArrayList<>();
 
-    public List<String> getIds() {
-        return ids;
+    public List<Light> getLights() {
+        return lights;
     }
 
     @Override
     public void apply(Object obj) {
         if (obj instanceof Light light) {
-            ids.add(light.getId());
+            lights.add(light);
         }
     }
 

@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DoorEventsTest {
 
@@ -25,24 +26,28 @@ public class DoorEventsTest {
 
     @Test
     public void applyOnExistingDoor() {
-        AllDoorIdsAction allDoorIds = new AllDoorIdsAction();
-        smartHome.execute(allDoorIds);
+        AllDoorsAction allDoorsAction = new AllDoorsAction();
+        smartHome.execute(allDoorsAction);
 
-        for (String id : allDoorIds.getIds()) {
-            checkIsDoorOpenByEvent(id, SensorEventType.DOOR_CLOSED, false);
-            checkIsDoorOpenByEvent(id, SensorEventType.DOOR_OPEN, true);
+        List<Door> doors = allDoorsAction.getDoors();
+
+        for (Door door : doors) {
+            checkIsDoorOpenByEvent(door.getId(), SensorEventType.DOOR_CLOSED, false);
+            checkIsDoorOpenByEvent(door.getId(), SensorEventType.DOOR_OPEN, true);
         }
     }
 
     @Test
     public void applyOnNonExistingDoor() {
-        AllDoorIdsAction allDoorIds = new AllDoorIdsAction();
-        smartHome.execute(allDoorIds);
+        AllDoorsAction allDoorsAction = new AllDoorsAction();
+        smartHome.execute(allDoorsAction);
+
+        List<String> doorIds = allDoorsAction.getDoors().stream().map(Door::getId).collect(Collectors.toList());
 
         String nonExistingId = "";
         do {
             nonExistingId += "@";
-        } while (allDoorIds.getIds().contains(nonExistingId));
+        } while (doorIds.contains(nonExistingId));
 
         checkIsDoorOpenByEvent(nonExistingId, SensorEventType.DOOR_CLOSED, null);
         checkIsDoorOpenByEvent(nonExistingId, SensorEventType.DOOR_OPEN, null);

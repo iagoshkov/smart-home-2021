@@ -8,9 +8,10 @@ public class LightOffCommandProducer implements CommandProducer {
 
         CommandSender commandSender = new LightOffCommandSender();
 
-        for (LightSmartHomeIterator it = new LightSmartHomeIterator(smartHome); it.hasNext(); ) {
-            Light light = it.next();
+        AllLightsAction allLightAction = new AllLightsAction();
+        smartHome.execute(allLightAction);
 
+        for (Light light: allLightAction.getLights()) {
             SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
             commandSender.sendCommand(command);
         }
