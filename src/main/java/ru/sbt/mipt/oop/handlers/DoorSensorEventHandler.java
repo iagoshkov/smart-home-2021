@@ -1,7 +1,6 @@
 package ru.sbt.mipt.oop.handlers;
 
 import ru.sbt.mipt.oop.*;
-import ru.sbt.mipt.oop.sensors.SensorCommand;
 import ru.sbt.mipt.oop.sensors.SensorEvent;
 
 import java.util.Collection;
@@ -27,6 +26,7 @@ public class DoorSensorEventHandler implements SensorEventHandler {
             return;
         }
 
+        // представим, что мы не пытаемся открыть открытую дверь)
         boolean openResult = (event.getType() == DOOR_OPEN);
         String eventId = event.getObjectId();
         
@@ -55,34 +55,5 @@ public class DoorSensorEventHandler implements SensorEventHandler {
         };
 
         smartHome.doAction(doorAction);
-    }
-
-    private void handleDoorOpen(Room room, Door door) {
-        door.setOpen(true);
-        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
-    }
-
-    private void handleDoorClose(Room room, Door door) {
-        door.setOpen(false);
-        System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
-        // если мы получили событие о закрытие двери в холле - это значит, что была закрыта входная дверь.
-        // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
-        handleHallDoorClose(room, door);
-    }
-
-    private void handleHallDoorClose(Room room, Door door) {
-        if (room.getName().equals("hall")) {
-            for (Room homeRoom : rooms) {
-                for (Light light : homeRoom.getLights()) {
-                    light.setOn(false);
-                    SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
-                    sendCommand(command);
-                }
-            }
-        }
-    }
-
-    private void sendCommand(SensorCommand command) {
-        System.out.println("Pretent we're sending command " + command);
     }
 }

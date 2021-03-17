@@ -29,6 +29,7 @@ public class LightSensorEventHandler implements SensorEventHandler {
             return;
         }
 
+        // представим, что мы не пытаемся включить включенный свет
         boolean turnResult = (event.getType() == LIGHT_ON);
         String eventId = event.getObjectId();
 
@@ -44,15 +45,5 @@ public class LightSensorEventHandler implements SensorEventHandler {
             }
         };
         smartHome.doAction(action);
-    }
-
-    private void handleLightOn(Room room, Light light) {
-        light.setOn(true);
-        System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned on.");
-    }
-
-    private void handleLightOff(Room room, Light light) {
-        light.setOn(false);
-        System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
     }
 }
