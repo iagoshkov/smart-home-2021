@@ -11,6 +11,8 @@ public class JSONSmartHomeReader implements SmartHomeReader{
         this.filename = filename;
     }
 
+    private final String filename;
+
     @Override
     public SmartHome readHome(){
         SmartHome smartHome;
@@ -24,5 +26,4 @@ public class JSONSmartHomeReader implements SmartHomeReader{
         return smartHome;
     }
 
-    String filename;
 }
