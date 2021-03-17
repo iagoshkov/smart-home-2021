@@ -7,21 +7,21 @@ public class LightEventProcessor implements EventProcessor {
 
     @Override
     public void processEvent(SmartHome smartHome, SensorEvent event) {
-        List<EventHandler> eventHandlerList = new ArrayList<>();
+        List<Action> eventHandlerList = new ArrayList<>();
 
         switch (event.getType()) {
             case LIGHT_ON:
-                eventHandlerList.add(new LightOnHandler());
+                eventHandlerList.add(new LightOnHandler(event));
                 break;
             case LIGHT_OFF:
-                eventHandlerList.add(new LightOffHandler());
+                eventHandlerList.add(new LightOffHandler(event));
                 break;
             default:
                 // do nothing
         }
 
-        for (EventHandler eventHandler : eventHandlerList) {
-            eventHandler.handleEvent(smartHome, event);
+        for (Action action : eventHandlerList) {
+            smartHome.execute(action);
         }
     }
 

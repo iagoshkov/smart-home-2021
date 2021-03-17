@@ -24,7 +24,9 @@ public class SmartHome implements Actionable {
 
     @Override
     public void execute(Action action) {
-        for (Room room : getRooms()) {
+        action.apply(this);
+
+        for (Room room : rooms) {
             room.execute(action);
         }
     }

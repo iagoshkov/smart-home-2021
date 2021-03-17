@@ -19,7 +19,6 @@ public class HallDoorEventProcessor implements EventProcessor {
                 for (Door door : room.getDoors()) {
                     if (door.getId().equals(event.getObjectId())) {
                         commandProducer.produceCommand(smartHome);
-                        return;
                     }
                 }
             }

@@ -1,16 +1,21 @@
 package ru.sbt.mipt.oop;
 
-public class DoorOpenHandler implements EventHandler {
+public class DoorOpenHandler implements Action {
+
+    private final String doorId;
+
+    public DoorOpenHandler(SensorEvent event) {
+        if (event.getType() != SensorEventType.DOOR_OPEN) {
+            throw new IllegalArgumentException("The event type must be DOOR_OPEN. Given: " + event.getType());
+        }
+        this.doorId = event.getObjectId();
+    }
 
     @Override
-    public void handleEvent(SmartHome smartHome, SensorEvent event) {
-        for (Room room : smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
-                if (!door.getId().equals(event.getObjectId())) continue;
-
-                door.execute(new DoorOpenAction());
-                System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
-            }
+    public void apply(Object obj) {
+        if (obj instanceof Room room) {
+            room.execute(new OpenCloseDoorAction(doorId, true));
+            System.out.println("Door " + doorId + " in room " + room.getName() + " was opened.");
         }
     }
 

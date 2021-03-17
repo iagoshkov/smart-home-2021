@@ -7,21 +7,21 @@ public class DoorEventProcessor implements EventProcessor {
 
     @Override
     public void processEvent(SmartHome smartHome, SensorEvent event) {
-        List<EventHandler> eventHandlerList = new ArrayList<>();
+        List<Action> actionList = new ArrayList<>();
 
         switch (event.getType()) {
             case DOOR_OPEN:
-                eventHandlerList.add(new DoorOpenHandler());
+                actionList.add(new DoorOpenHandler(event));
                 break;
             case DOOR_CLOSED:
-                eventHandlerList.add(new DoorClosedHandler());
+                actionList.add(new DoorClosedHandler(event));
                 break;
             default:
                 // do nothing
         }
 
-        for (EventHandler eventHandler : eventHandlerList) {
-            eventHandler.handleEvent(smartHome, event);
+        for (Action action : actionList) {
+            smartHome.execute(action);
         }
     }
 
