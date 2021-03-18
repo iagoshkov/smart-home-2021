@@ -5,9 +5,6 @@ public class DoorOpenHandler implements Action {
     private final String doorId;
 
     public DoorOpenHandler(SensorEvent event) {
-        if (event.getType() != SensorEventType.DOOR_OPEN) {
-            throw new IllegalArgumentException("The event type must be DOOR_OPEN. Given: " + event.getType());
-        }
         this.doorId = event.getObjectId();
     }
 
