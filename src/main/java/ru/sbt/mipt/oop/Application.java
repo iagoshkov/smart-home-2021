@@ -8,8 +8,8 @@ public class Application {
         // считываем состояние дома из файла
         SmartHome smartHome = SmartHomeJsonLoader.readSmartHome(source);
         // начинаем цикл обработки событий
-        SensorEvent event = EventHandler.getNextSensorEvent();
+        SensorEvent event = EventProcessor.getNextSensorEvent();
 
-        EventHandler.EventLoop(smartHome, event);
+        EventProcessor.EventLoop(smartHome, event);
     }
 }

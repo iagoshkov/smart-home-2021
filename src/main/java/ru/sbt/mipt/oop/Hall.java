@@ -1,9 +1,9 @@
 package ru.sbt.mipt.oop;
 
-import java.util.HashMap;
+import java.util.Collection;
 
 public class Hall extends Room{
-    public Hall(HashMap<String, Light> lights, HashMap<String, Door> doors, String name) {
+    public Hall(Collection<Light> lights, Collection<Door> doors, String name) {
         super(lights, doors, name);
     }
 }

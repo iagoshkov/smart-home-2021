@@ -1,7 +1,8 @@
 package ru.sbt.mipt.oop;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Collection;
 
 public class HomeBuilder {
     public static void main(String[] args) throws IOException {
@@ -12,12 +13,12 @@ public class HomeBuilder {
         Room bedroom = createTestBedroom();
         Hall hall = createTestHall();
 
-        HashMap<String, Room> testRooms = new HashMap<>();
+        Collection<Room> testRooms;
 
-        testRooms.put(kitchen.getName(), kitchen);
-        testRooms.put(bathroom.getName(), bathroom);
-        testRooms.put(bedroom.getName(), bedroom);
-        testRooms.put(hall.getName(), hall);
+        testRooms.add(kitchen);
+        testRooms.add(bathroom);
+        testRooms.add(bedroom);
+        testRooms.add(hall);
 
         SmartHome smartHome = new SmartHome(testRooms);
 
@@ -25,52 +26,30 @@ public class HomeBuilder {
     }
 
     private static Hall createTestHall() {
-        HashMap<String, Light> testLights = new HashMap<>();
-        HashMap<String, Door> testDoors = new HashMap<>();
-
-        testLights.put("7", new Light("7", false));
-        testLights.put("8", new Light("8", false));
-        testLights.put("9", new Light("9", false));
-
-        testDoors.put("4", new Door("4", false));
+        Collection<Light> testLights = Arrays.asList(new Light("7", false), new Light("8", false), new Light("9", false));
+        Collection<Door> testDoors = Arrays.asList(new Door("4", false));
 
         return new Hall(testLights, testDoors, "hall");
     }
 
     private static Room createTestBedroom() {
-        HashMap<String, Light> testLights = new HashMap<>();
-        HashMap<String, Door> testDoors = new HashMap<>();
-
-        testLights.put("4", new Light("4", false));
-        testLights.put("5", new Light("5", false));
-        testLights.put("6", new Light("6", false));
-
-        testDoors.put("3", new Door("3", false));
+        Collection<Light> testLights = Arrays.asList(new Light("4", false), new Light("5", false), new Light("6", false));
+        Collection<Door> testDoors = Arrays.asList(new Door("3", false));
 
         return new Room(testLights, testDoors, "bedroom");
     }
 
     private static Room createTestBathroom() {
-        HashMap<String, Light> testLights = new HashMap<>();
-        HashMap<String, Door> testDoors = new HashMap<>();
-
-        testLights.put("3", new Light("3", false));
-
-        testDoors.put("2", new Door("2", false));
+        Collection<Light> testLights = Arrays.asList(new Light("3", false));
+        Collection<Door> testDoors = Arrays.asList(new Door("2", false));
 
         return new Room(testLights, testDoors, "bathroom");
     }
 
     private static Room createTestKitchen() {
-        HashMap<String, Light> testLights = new HashMap<>();
-        HashMap<String, Door> testDoors = new HashMap<>();
-
-        testLights.put("1", new Light("1", false));
-        testLights.put("2", new Light("2", false));
-
-        testDoors.put("1", new Door("1", false));
+        Collection<Light> testLights = Arrays.asList(new Light("1", false), new Light("2", false));
+        Collection<Door> testDoors = Arrays.asList(new Door("1", false));
 
         return new Room(testLights, testDoors, "kitchen");
     }
-
 }
