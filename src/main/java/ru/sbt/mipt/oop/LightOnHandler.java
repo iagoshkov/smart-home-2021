@@ -4,8 +4,6 @@ public class LightOnHandler implements EventHandler {
 
     @Override
     public void handleEvent(SmartHome smartHome, SensorEvent event) {
-        if (event.getType() != SensorEventType.LIGHT_ON) return;
-
         for (Room room : smartHome.getRooms()) {
             for (Light light : room.getLights()) {
                 if (!light.getId().equals(event.getObjectId())) continue;

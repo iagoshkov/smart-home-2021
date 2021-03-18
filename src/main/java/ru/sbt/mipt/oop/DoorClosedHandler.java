@@ -4,8 +4,6 @@ public class DoorClosedHandler implements EventHandler {
 
     @Override
     public void handleEvent(SmartHome smartHome, SensorEvent event) {
-        if (event.getType() != SensorEventType.DOOR_CLOSED) return;
-
         for (Room room : smartHome.getRooms()) {
             for (Door door : room.getDoors()) {
                 if (!door.getId().equals(event.getObjectId())) continue;
