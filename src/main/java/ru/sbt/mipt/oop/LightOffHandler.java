@@ -1,13 +1,10 @@
 package ru.sbt.mipt.oop;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LightOffHandler implements EventHandler {
 
     @Override
-    public List<CommandType> handleEvent(SmartHome smartHome, SensorEvent event) {
-        if (event.getType() != SensorEventType.LIGHT_OFF) return null;
+    public void handleEvent(SmartHome smartHome, SensorEvent event) {
+        if (event.getType() != SensorEventType.LIGHT_OFF) return;
 
         for (Room room : smartHome.getRooms()) {
             for (Light light : room.getLights()) {
@@ -17,7 +14,6 @@ public class LightOffHandler implements EventHandler {
                 System.out.println("Light " + light.getId() + " in room " + room.getName() + " was turned off.");
             }
         }
-        return new ArrayList<>();
     }
 
 }

@@ -7,10 +7,6 @@ public class LightEventProcessor implements EventProcessor {
 
     @Override
     public void processEvent(SmartHome smartHome, SensorEvent event) {
-        handleCommandTypeList(smartHome, handleEvent(smartHome, event));
-    }
-
-    private List<CommandType> handleEvent(SmartHome smartHome, SensorEvent event) {
         List<EventHandler> eventHandlerList = new ArrayList<>();
 
         switch (event.getType()) {
@@ -23,23 +19,10 @@ public class LightEventProcessor implements EventProcessor {
             default:
                 // do nothing
         }
-        return executeHandlers(smartHome, eventHandlerList, event);
-    }
-
-    private List<CommandType> executeHandlers(SmartHome smartHome, List<EventHandler> eventHandlerList, SensorEvent event) {
-        List<CommandType> commandTypeList = new ArrayList<>();
 
         for (EventHandler eventHandler : eventHandlerList) {
-            List<CommandType> handlersCommandTypeList = eventHandler.handleEvent(smartHome, event);
-            if (handlersCommandTypeList != null) {
-                commandTypeList.addAll(handlersCommandTypeList);
-            }
+            eventHandler.handleEvent(smartHome, event);
         }
-        return commandTypeList;
-    }
-
-    private void handleCommandTypeList(SmartHome smartHome, List<CommandType> commandTypeList) {
-        // do nothing
     }
 
 }

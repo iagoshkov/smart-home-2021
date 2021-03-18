@@ -1,13 +1,10 @@
 package ru.sbt.mipt.oop;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DoorOpenHandler implements EventHandler {
 
     @Override
-    public List<CommandType> handleEvent(SmartHome smartHome, SensorEvent event) {
-        if (event.getType() != SensorEventType.DOOR_OPEN) return null;
+    public void handleEvent(SmartHome smartHome, SensorEvent event) {
+        if (event.getType() != SensorEventType.DOOR_OPEN) return;
 
         for (Room room : smartHome.getRooms()) {
             for (Door door : room.getDoors()) {
@@ -17,7 +14,6 @@ public class DoorOpenHandler implements EventHandler {
                 System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
             }
         }
-        return new ArrayList<>();
     }
 
 }
