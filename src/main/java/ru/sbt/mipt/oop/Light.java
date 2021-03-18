@@ -22,7 +22,7 @@ public class Light implements Actionable {
     }
 
     @Override
-    public void execute(ActionStrategy action) {
+    public void execute(Action action) {
     }
 
     /*@Override
