@@ -1,8 +1,9 @@
 package ru.sbt.mipt.oop;
 
-public class HallDoorClosedHandler implements EventHandler {
+public class HallDoorEventProcessor implements EventProcessor {
 
-    public void handleEvent(SmartHome smartHome, SensorEvent event) {
+    @Override
+    public void processEvent(SmartHome smartHome, SensorEvent event) {
         if (event.getType() != SensorEventType.DOOR_CLOSED) return;
 
         String hallRoomName = "hall";
@@ -12,7 +13,8 @@ public class HallDoorClosedHandler implements EventHandler {
                 for (Door door : room.getDoors()) {
                     if (door.getId().equals(event.getObjectId())) {
                         CommandProducer commandProducer = new LightOffCommandProducer();
-                        commandProducer.produceCommand(smartHome, CommandType.LIGHT_OFF);
+                        commandProducer.produceCommand(smartHome);
+                        return;
                     }
                 }
             }
