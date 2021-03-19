@@ -11,8 +11,14 @@ public class DoorClosedHandler implements Action {
     @Override
     public void apply(Object obj) {
         if (obj instanceof Room room) {
-            room.execute(new OpenCloseDoorAction(doorId, false));
-            System.out.println("Door " + doorId + " in room " + room.getName() + " was closed.");
+            room.execute(element -> {
+                if (element instanceof Door door) {
+                    if (door.getId().equals(doorId)) {
+                        door.setOpen(false);
+                        System.out.println("Door " + doorId + " in room " + room.getName() + " was closed.");
+                    }
+                }
+            });
         }
     }
 

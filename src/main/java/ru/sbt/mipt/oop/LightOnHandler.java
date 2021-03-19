@@ -11,8 +11,14 @@ public class LightOnHandler implements Action {
     @Override
     public void apply(Object obj) {
         if (obj instanceof Room room) {
-            room.execute(new TurnLightOnOffAction(lightId, true));
-            System.out.println("Light " + lightId + " in room " + room.getName() + " was turned on.");
+            room.execute(element -> {
+                if (element instanceof Light light) {
+                    if (light.getId().equals(lightId)) {
+                        light.setOn(true);
+                        System.out.println("Light " + lightId + " in room " + room.getName() + " was turned on.");
+                    }
+                }
+            });
         }
     }
 
