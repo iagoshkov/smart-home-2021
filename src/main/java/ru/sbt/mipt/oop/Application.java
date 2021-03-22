@@ -13,7 +13,7 @@ public class Application {
         List<EventProcessor> eventProcessors = Arrays.asList(
                 new LightEventProcessor(),
                 new DoorEventProcessor(),
-                new HallDoorEventProcessor()
+                new HallDoorEventProcessor(new LightOffCommandProducer())
         );
 
         // SRP
