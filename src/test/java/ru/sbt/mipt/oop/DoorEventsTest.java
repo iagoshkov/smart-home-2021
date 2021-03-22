@@ -17,7 +17,6 @@ public class DoorEventsTest {
         smartHome = smartHomeCreator.create();
 
         List<EventProcessor> eventProcessors = Arrays.asList(
-                new LightEventProcessor(),
                 new DoorEventProcessor()
         );
 

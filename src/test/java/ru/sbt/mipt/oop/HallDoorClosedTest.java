@@ -18,22 +18,17 @@ public class HallDoorClosedTest {
 
         List<EventProcessor> eventProcessors = Arrays.asList(
                 new LightEventProcessor(),
-                new DoorEventProcessor()
+                new DoorEventProcessor(),
+                new HallDoorEventProcessor(new LightOffCommandProducer())
         );
 
         eventHandler = new SmartHomeEventHandler(smartHome, eventProcessors);
     }
 
-    private void isDoorOpen(String id, Boolean isOpenExpected) {
-        IsDoorOpenAction isDoorOpen = new IsDoorOpenAction(id);
-        smartHome.execute(isDoorOpen);
-        Assert.assertEquals(isOpenExpected, isDoorOpen.isOpen());
-    }
-
-    private void IsLightOn(String id, Boolean isOnExpected) {
+    private void IsLightTurnedOff(String id) {
         IsLightOnAction isLightOn = new IsLightOnAction(id);
         smartHome.execute(isLightOn);
-        Assert.assertEquals(isOnExpected, isLightOn.isOn());
+        Assert.assertEquals(Boolean.FALSE, isLightOn.isOn());
     }
 
     @Test
@@ -66,7 +61,7 @@ public class HallDoorClosedTest {
         eventHandler.handleEvent(new SensorEvent(SensorEventType.DOOR_CLOSED, hallRoomDoorId));
 
         for (Light light : lights) {
-            IsLightOn(light.getId(), Boolean.FALSE);
+            IsLightTurnedOff(light.getId());
         }
     }
 

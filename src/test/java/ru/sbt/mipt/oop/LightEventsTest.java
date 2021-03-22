@@ -17,8 +17,7 @@ public class LightEventsTest {
         smartHome = smartHomeCreator.create();
 
         List<EventProcessor> eventProcessors = Arrays.asList(
-                new LightEventProcessor(),
-                new DoorEventProcessor()
+                new LightEventProcessor()
         );
 
         eventHandler = new SmartHomeEventHandler(smartHome, eventProcessors);
@@ -53,8 +52,8 @@ public class LightEventsTest {
         checkIsLightOnByEvent(nonExistingId, SensorEventType.LIGHT_ON, null);
     }
 
-    private void checkIsLightOnByEvent(String id, SensorEventType doorEventType, Boolean isOpenExpected) {
-        eventHandler.handleEvent(new SensorEvent(doorEventType, id));
+    private void checkIsLightOnByEvent(String id, SensorEventType lightEventType, Boolean isOpenExpected) {
+        eventHandler.handleEvent(new SensorEvent(lightEventType, id));
 
         IsLightOn(id, isOpenExpected);
     }
