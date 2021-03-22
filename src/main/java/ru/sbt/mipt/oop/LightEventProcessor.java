@@ -11,10 +11,10 @@ public class LightEventProcessor implements EventProcessor {
 
         switch (event.getType()) {
             case LIGHT_ON:
-                eventHandlerList.add(new LightOnHandler(event));
+                eventHandlerList.add(new LightOnAction(event));
                 break;
             case LIGHT_OFF:
-                eventHandlerList.add(new LightOffHandler(event));
+                eventHandlerList.add(new LightOffAction(event));
                 break;
             default:
                 // do nothing

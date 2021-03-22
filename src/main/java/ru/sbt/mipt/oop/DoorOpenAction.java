@@ -1,10 +1,10 @@
 package ru.sbt.mipt.oop;
 
-public class DoorOpenHandler implements Action {
+public class DoorOpenAction implements Action {
 
     private final String doorId;
 
-    public DoorOpenHandler(SensorEvent event) {
+    public DoorOpenAction(SensorEvent event) {
         this.doorId = event.getObjectId();
     }
 

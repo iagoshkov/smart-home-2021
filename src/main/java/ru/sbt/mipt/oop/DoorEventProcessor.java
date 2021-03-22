@@ -2,7 +2,6 @@ package ru.sbt.mipt.oop;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DoorEventProcessor implements EventProcessor {
 
@@ -12,10 +11,10 @@ public class DoorEventProcessor implements EventProcessor {
 
         switch (event.getType()) {
             case DOOR_OPEN:
-                actionList.add(new DoorOpenHandler(event));
+                actionList.add(new DoorOpenAction(event));
                 break;
             case DOOR_CLOSED:
-                actionList.add(new DoorClosedHandler(event));
+                actionList.add(new DoorClosedAction(event));
                 break;
             default:
                 // do nothing

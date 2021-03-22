@@ -1,10 +1,10 @@
 package ru.sbt.mipt.oop;
 
-public class LightOffHandler implements Action {
+public class LightOffAction implements Action {
 
     private final String lightId;
 
-    public LightOffHandler(SensorEvent event) {
+    public LightOffAction(SensorEvent event) {
         this.lightId = event.getObjectId();
     }
 
