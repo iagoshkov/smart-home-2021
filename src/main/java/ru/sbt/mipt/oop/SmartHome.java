@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHome {
-    // Encapsulation
     private final Collection<Room> rooms;
 
     public SmartHome() {

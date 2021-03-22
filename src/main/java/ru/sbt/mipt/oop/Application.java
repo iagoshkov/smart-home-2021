@@ -9,14 +9,12 @@ public class Application {
         JsonSmartHomeReader smartHomeReader = new JsonSmartHomeReader("smart-home-1.json");
         SmartHome smartHome = smartHomeReader.read();
 
-        // SRP & IOP & LSP
         List<EventProcessor> eventProcessors = Arrays.asList(
                 new LightEventProcessor(),
                 new DoorEventProcessor(),
                 new HallDoorEventProcessor(new LightOffCommandProducer())
         );
 
-        // SRP
         SmartHomeEventHandler smartHomeEventHandler = new SmartHomeEventHandler(smartHome, eventProcessors);
 
         SmartHomeSimulator.simulateWork(smartHomeEventHandler);
