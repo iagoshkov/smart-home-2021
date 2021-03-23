@@ -6,21 +6,26 @@ import ru.sbt.mipt.oop.sensors.SensorEvent;
 
 import java.util.Collection;
 
+import static ru.sbt.mipt.oop.sensors.SensorEventType.DOOR_CLOSED;
 import static ru.sbt.mipt.oop.sensors.SensorEventType.DOOR_OPEN;
 
 public class DoorSensorEventHandler implements SensorEventHandler {
-    private final Collection<Room> rooms;
+    private final SmartHome smartHome;
     private final SensorEvent event;
 
     public DoorSensorEventHandler(SmartHome smartHome, SensorEvent event) {
-        this.rooms = smartHome.getRooms();
         this.event = event;
+        this.smartHome = smartHome;
     }
 
     @Override
     public void handleEvent() {
+        if (event.getType() != DOOR_OPEN && event.getType() != DOOR_CLOSED) {
+            return;
+        }
+
         // событие от двери
-        for (Room room : rooms) {
+        for (Room room : smartHome.getRooms()) {
             for (Door door : room.getDoors()) {
                 if (door.getId().equals(event.getObjectId())) {
                     if (event.getType() == DOOR_OPEN) {
@@ -48,7 +53,7 @@ public class DoorSensorEventHandler implements SensorEventHandler {
 
     private void handleHallDoorClose(Room room, Door door) {
         if (room.getName().equals("hall")) {
-            for (Room homeRoom : rooms) {
+            for (Room homeRoom : smartHome.getRooms()) {
                 for (Light light : homeRoom.getLights()) {
                     light.setOn(false);
                     SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());

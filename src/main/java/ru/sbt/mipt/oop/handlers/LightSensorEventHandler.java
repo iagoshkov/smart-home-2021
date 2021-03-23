@@ -7,21 +7,26 @@ import ru.sbt.mipt.oop.sensors.SensorEvent;
 
 import java.util.Collection;
 
+import static ru.sbt.mipt.oop.sensors.SensorEventType.LIGHT_OFF;
 import static ru.sbt.mipt.oop.sensors.SensorEventType.LIGHT_ON;
 
 public class LightSensorEventHandler implements SensorEventHandler {
-    private final Collection<Room> rooms;
+    private final SmartHome smartHome;
     private final SensorEvent event;
 
     public LightSensorEventHandler(SmartHome smartHome, SensorEvent event) {
-        this.rooms = smartHome.getRooms();
         this.event = event;
+        this.smartHome = smartHome;
     }
 
     @Override
     public void handleEvent() {
         // событие от источника света
-        for (Room room : rooms) {
+        if (event.getType() != LIGHT_ON && event.getType() != LIGHT_OFF) {
+            return;
+        }
+
+        for (Room room : smartHome.getRooms()) {
             for (Light light : room.getLights()) {
                 if (light.getId().equals(event.getObjectId())) {
                     if (event.getType() == LIGHT_ON) {
