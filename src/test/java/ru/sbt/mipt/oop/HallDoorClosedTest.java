@@ -22,7 +22,7 @@ public class HallDoorClosedTest {
                 new HallDoorEventProcessor(new LightOffCommandProducer())
         );
 
-        eventHandler = new SmartHomeEventHandler(smartHome, eventProcessors);
+        eventHandler = new SmartHomeSensorEventHandler(smartHome, eventProcessors);
     }
 
     private void IsLightTurnedOff(String id) {

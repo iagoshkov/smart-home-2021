@@ -15,7 +15,7 @@ public class Application {
                 new HallDoorEventProcessor(new LightOffCommandProducer())
         );
 
-        SmartHomeEventHandler smartHomeEventHandler = new SmartHomeEventHandler(smartHome, eventProcessors);
+        SmartHomeEventHandler smartHomeEventHandler = new SmartHomeSensorEventHandler(smartHome, eventProcessors);
 
         SmartHomeSimulator.simulateWork(smartHomeEventHandler);
     }

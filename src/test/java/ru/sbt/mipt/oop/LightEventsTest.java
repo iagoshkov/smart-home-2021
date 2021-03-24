@@ -20,7 +20,7 @@ public class LightEventsTest {
                 new LightEventProcessor()
         );
 
-        eventHandler = new SmartHomeEventHandler(smartHome, eventProcessors);
+        eventHandler = new SmartHomeSensorEventHandler(smartHome, eventProcessors);
     }
 
     @Test

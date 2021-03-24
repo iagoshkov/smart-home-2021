@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop;
 
-public record SensorEvent(SensorEventType type, String objectId) {
+public record SensorEvent(SensorEventType type, String objectId) implements Event {
 
     public SensorEventType getType() {
         return type;

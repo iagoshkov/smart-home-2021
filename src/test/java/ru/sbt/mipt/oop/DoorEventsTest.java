@@ -20,7 +20,7 @@ public class DoorEventsTest {
                 new DoorEventProcessor()
         );
 
-        eventHandler = new SmartHomeEventHandler(smartHome, eventProcessors);
+        eventHandler = new SmartHomeSensorEventHandler(smartHome, eventProcessors);
     }
 
     @Test
