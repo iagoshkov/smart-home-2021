@@ -2,11 +2,8 @@ package ru.sbt.mipt.oop.events.processors;
 
 
 import ru.sbt.mipt.oop.SmartHome;
-import ru.sbt.mipt.oop.commands.CommandSender;
 import ru.sbt.mipt.oop.events.SensorEvent;
-import ru.sbt.mipt.oop.events.SensorEventType;
 
-import static ru.sbt.mipt.oop.events.SensorEventType.*;
 
 public class AnyEventProcessor implements EventProcessor {
     private final SmartHome smartHome;
@@ -27,6 +24,6 @@ public class AnyEventProcessor implements EventProcessor {
     public void processEvent(SensorEvent event){
         lightEventProcessor.processEvent(event);
         doorEventProcessor.processEvent(event);
-
+        hallDoorEventHandler.processEvent(event);
     }
 }
