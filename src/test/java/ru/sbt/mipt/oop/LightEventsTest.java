@@ -3,28 +3,21 @@ package ru.sbt.mipt.oop;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LightEventsTest {
-
-    private final SmartHome smartHome;
-    private final SmartHomeEventHandler eventHandler;
+public class LightEventsTest extends SmartHomeTestComponent {
 
     public LightEventsTest() {
-        SmartHomeCreator smartHomeCreator = new SomeSmartHomeCreator();
-        smartHome = smartHomeCreator.create();
+        super();
 
-        List<EventProcessor> eventProcessors = Arrays.asList(
-                new LightEventProcessor()
-        );
-
-        eventHandler = new SmartHomeSensorEventHandler(smartHome, eventProcessors);
+        SmartHomeTest smartHomeTest = new SmartHomeTest();
+        smartHome = smartHomeTest.smartHome;
+        eventHandler = smartHomeTest.eventHandler;
     }
 
     @Test
-    public void applyOnExistingLight() {
+    public void applyOnExistingLightTest() {
         AllLightsAction allLightsAction = new AllLightsAction();
         smartHome.execute(allLightsAction);
 
@@ -37,7 +30,7 @@ public class LightEventsTest {
     }
 
     @Test
-    public void applyOnNonExistingLight() {
+    public void applyOnNonExistingLightTest() {
         AllLightsAction allLightsAction = new AllLightsAction();
         smartHome.execute(allLightsAction);
 
@@ -55,10 +48,10 @@ public class LightEventsTest {
     private void checkIsLightOnByEvent(String id, SensorEventType lightEventType, Boolean isOpenExpected) {
         eventHandler.handleEvent(new SensorEvent(lightEventType, id));
 
-        IsLightOn(id, isOpenExpected);
+        isLightOn(id, isOpenExpected);
     }
 
-    private void IsLightOn(String id, Boolean isOnExpected) {
+    private void isLightOn(String id, Boolean isOnExpected) {
         IsLightOnAction isLightOn = new IsLightOnAction(id);
         smartHome.execute(isLightOn);
         Assert.assertEquals(isOnExpected, isLightOn.isOn());

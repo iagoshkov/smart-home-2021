@@ -4,35 +4,26 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class HallDoorClosedTest {
-
-    private final SmartHome smartHome;
-    private final SmartHomeEventHandler eventHandler;
+public class HallDoorClosedTest extends SmartHomeTestComponent {
 
     public HallDoorClosedTest() {
-        SmartHomeCreator smartHomeCreator = new SomeSmartHomeCreator();
-        smartHome = smartHomeCreator.create();
+        super();
 
-        List<EventProcessor> eventProcessors = Arrays.asList(
-                new LightEventProcessor(),
-                new DoorEventProcessor(),
-                new HallDoorEventProcessor(new LightOffCommandProducer())
-        );
-
-        eventHandler = new SmartHomeSensorEventHandler(smartHome, eventProcessors);
+        SmartHomeTest smartHomeTest = new SmartHomeTest();
+        smartHome = smartHomeTest.smartHome;
+        eventHandler = smartHomeTest.eventHandler;
     }
 
-    private void IsLightTurnedOff(String id) {
+    private void isLightTurnedOff(String id) {
         IsLightOnAction isLightOn = new IsLightOnAction(id);
         smartHome.execute(isLightOn);
         Assert.assertEquals(Boolean.FALSE, isLightOn.isOn());
     }
 
     @Test
-    public void closeHallDoor() {
+    public void closeHallDoorTest() {
         AllDoorsAction allDoorsAction = new AllDoorsAction();
         smartHome.execute(allDoorsAction);
 
@@ -61,7 +52,7 @@ public class HallDoorClosedTest {
         eventHandler.handleEvent(new SensorEvent(SensorEventType.DOOR_CLOSED, hallRoomDoorId));
 
         for (Light light : lights) {
-            IsLightTurnedOff(light.getId());
+            isLightTurnedOff(light.getId());
         }
     }
 
@@ -86,7 +77,7 @@ public class HallDoorClosedTest {
     }
 
     @Test
-    public void closeNotHallDoor() {
+    public void closeNotHallDoorTest() {
         AllLightsAction allLightsAction = new AllLightsAction();
         smartHome.execute(allLightsAction);
 
