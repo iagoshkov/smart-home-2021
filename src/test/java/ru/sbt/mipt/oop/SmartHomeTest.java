@@ -6,10 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
-public class SmartHomeTest {
-
-    public SmartHome smartHome;
-    public SmartHomeEventHandler eventHandler;
+public class SmartHomeTest extends SmartHomeTestComponent {
 
     public SmartHomeTest() {
         smartHome = new SomeSmartHomeCreator().create();
@@ -24,9 +21,7 @@ public class SmartHomeTest {
     }
 
     private void testComponent(SmartHomeTestComponent component) throws IllegalAccessException, InvocationTargetException {
-        component.smartHome = smartHome;
-        component.eventHandler = eventHandler;
-
+        component.set(smartHome, eventHandler);
         ClassPublicMethodsTester.testClassPublicMethods(component);
     }
 
