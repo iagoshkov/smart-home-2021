@@ -12,31 +12,21 @@ public class AnyEventProcessor implements EventProcessor {
     private final SmartHome smartHome;
     private final DoorEventProcessor doorEventProcessor;
     private final LightEventProcessor lightEventProcessor;
+    private final HallDoorEventHandler hallDoorEventHandler;
 
     public AnyEventProcessor(SmartHome smartHome) {
         this.smartHome = smartHome;
         this.doorEventProcessor = new DoorEventProcessor(smartHome);
         this.lightEventProcessor = new LightEventProcessor(smartHome);
+        this.hallDoorEventHandler = new HallDoorEventHandler(smartHome);
     }
 
-    private boolean isLightEvent(SensorEvent event) {
-        return (event.getType().equals(SensorEventType.LIGHT_ON) || event.getType().equals(SensorEventType.LIGHT_OFF));
-    }
 
-    private boolean isDoorEvent(SensorEvent event) {
-        return (event.getType().equals(DOOR_OPEN) || event.getType().equals(DOOR_CLOSED));
-    }
 
     @Override
     public void processEvent(SensorEvent event){
-        if (isLightEvent(event)) {
-            // событие от источника света
-            lightEventProcessor.processEvent(event);
-        }
+        lightEventProcessor.processEvent(event);
+        doorEventProcessor.processEvent(event);
 
-        if (isDoorEvent(event)) {
-            // событие от двери
-            doorEventProcessor.processEvent(event);
-        }
     }
 }

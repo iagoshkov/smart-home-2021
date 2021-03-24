@@ -8,6 +8,9 @@ import ru.sbt.mipt.oop.events.SensorEvent;
 import ru.sbt.mipt.oop.events.SensorEventType;
 import ru.sbt.mipt.oop.utils.Searher;
 
+import static ru.sbt.mipt.oop.events.SensorEventType.DOOR_CLOSED;
+import static ru.sbt.mipt.oop.events.SensorEventType.DOOR_OPEN;
+
 public class DoorEventProcessor implements EventProcessor {
     private final SmartHome smartHome;
 
@@ -15,28 +18,13 @@ public class DoorEventProcessor implements EventProcessor {
         this.smartHome = smartHome;
     }
 
-    private boolean isHallDoor(String id) {
-        for (Room room : smartHome.getRooms()) {
-            for (Door door : room.getDoors()) {
-                if (door.getId().equals(id) && room.getName().equals("hall")) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     @Override
     public void processEvent(SensorEvent event) {
+        if (!isDoorEvent(event)) return;
+
         Door targetDoor = (new Searher(smartHome)).findDoor(event.getObjectId());
         if (targetDoor != null) {
             updateDoorState(targetDoor, getDoorState(event));
-
-            if (isHallDoor(targetDoor.getId())) {
-                CommandSender sender = new CommandSender(smartHome);
-                sender.sendAllLight();
-                (new LightEventProcessor(smartHome)).processEvent(new SensorEvent(SensorEventType.LIGHT_OFF, "all"));
-            }
         }
     }
 
@@ -47,6 +35,10 @@ public class DoorEventProcessor implements EventProcessor {
 
     private boolean getDoorState(SensorEvent event){
         return event.getType().equals(SensorEventType.DOOR_OPEN);
+    }
+
+    private boolean isDoorEvent(SensorEvent event) {
+        return (event.getType().equals(DOOR_OPEN) || event.getType().equals(DOOR_CLOSED));
     }
 
 }
