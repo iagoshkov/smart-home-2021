@@ -17,9 +17,9 @@ public class SmartHomeEventHandlerWithAlarmSystem implements SmartHomeEventHandl
 
     @Override
     public void handleEvent(Event event) {
-        System.out.println("Got event: " + event);
-
         if (event instanceof AlarmSystemEvent alarmSystemEvent) {
+            System.out.println("Got event: " + event);
+
             eventProcessor.processEvent(alarmSystem, alarmSystemEvent);
         } else if (wrappedEventHandler != null && alarmSystem.getState().allowSensorEvents()) {
             wrappedEventHandler.handleEvent(event);
