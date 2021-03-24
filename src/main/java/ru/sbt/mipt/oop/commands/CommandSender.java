@@ -1,4 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.commands;
+
+import ru.sbt.mipt.oop.Light;
+import ru.sbt.mipt.oop.Room;
+import ru.sbt.mipt.oop.SmartHome;
 
 public class CommandSender {
     private final SmartHome smartHome;
