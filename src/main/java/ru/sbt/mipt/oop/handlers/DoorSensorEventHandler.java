@@ -11,15 +11,13 @@ import static ru.sbt.mipt.oop.sensors.SensorEventType.DOOR_OPEN;
 
 public class DoorSensorEventHandler implements SensorEventHandler {
     private final SmartHome smartHome;
-    private final SensorEvent event;
 
-    public DoorSensorEventHandler(SmartHome smartHome, SensorEvent event) {
-        this.event = event;
+    public DoorSensorEventHandler(SmartHome smartHome) {
         this.smartHome = smartHome;
     }
 
     @Override
-    public void handleEvent() {
+    public void handleEvent(SensorEvent event) {
         if (event.getType() != DOOR_OPEN && event.getType() != DOOR_CLOSED) {
             return;
         }
