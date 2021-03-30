@@ -21,7 +21,7 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
         String code = "xkcd";
 
         SmartHomeEventHandler eventHandlerWithAlarmSystem =
-                new SmartHomeEventHandlerWithAlarmSystem(eventHandler, new AlarmSystemEventProcessor(), code);
+                new SmartHomeEventHandlerWithAlarmSystem(eventHandler, new AlarmSystemEventProcessor(), new AlarmSystem(code));
 
         this.smartHomeTest = new SmartHomeTest();
         smartHomeTest.set(this.smartHome, eventHandlerWithAlarmSystem);

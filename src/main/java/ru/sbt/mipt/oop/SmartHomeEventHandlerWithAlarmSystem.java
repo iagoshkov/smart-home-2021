@@ -1,20 +1,8 @@
 package ru.sbt.mipt.oop;
 
-public class SmartHomeEventHandlerWithAlarmSystem implements SmartHomeEventHandler {
-
-    SmartHomeEventHandler wrappedEventHandler;
-    AlarmSystemEventProcessor eventProcessor;
-
-    private final AlarmSystem alarmSystem;
-
-    public SmartHomeEventHandlerWithAlarmSystem(SmartHomeEventHandler wrappedEventHandler,
-                                                AlarmSystemEventProcessor eventProcessor,
-                                                String code) {
-        this.wrappedEventHandler = wrappedEventHandler;
-        this.eventProcessor = eventProcessor;
-        this.alarmSystem = new AlarmSystem(code);
-    }
-
+public record SmartHomeEventHandlerWithAlarmSystem(SmartHomeEventHandler wrappedEventHandler,
+                                                   AlarmSystemEventProcessor eventProcessor,
+                                                   AlarmSystem alarmSystem) implements SmartHomeEventHandler {
     @Override
     public void handleEvent(Event event) {
         if (event instanceof AlarmSystemEvent alarmSystemEvent) {
@@ -25,5 +13,4 @@ public class SmartHomeEventHandlerWithAlarmSystem implements SmartHomeEventHandl
             wrappedEventHandler.handleEvent(event);
         }
     }
-
 }
