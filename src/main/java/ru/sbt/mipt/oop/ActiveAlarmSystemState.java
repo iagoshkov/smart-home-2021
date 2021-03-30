@@ -1,14 +1,7 @@
 package ru.sbt.mipt.oop;
 
-public class ActiveAlarmSystemState extends AlarmSystemState {
-
-    private final String code;
-
-    protected ActiveAlarmSystemState(AlarmSystem alarmSystem, String code) {
-        super(alarmSystem);
-        this.code = code;
-    }
-
+public record ActiveAlarmSystemState(AlarmSystem alarmSystem,
+                                     String code) implements AlarmSystemState {
     @Override
     public void deactivate(String code) {
         if (this.code == null || this.code.equals(code)) {
@@ -17,5 +10,4 @@ public class ActiveAlarmSystemState extends AlarmSystemState {
             alarmSystem.setState(new PanicAlarmSystemState(alarmSystem, this.code, System.out::println));
         }
     }
-
 }

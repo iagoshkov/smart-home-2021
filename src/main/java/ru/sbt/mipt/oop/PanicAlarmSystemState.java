@@ -1,15 +1,7 @@
 package ru.sbt.mipt.oop;
 
-public class PanicAlarmSystemState extends AlarmSystemState {
-
-    private final String code;
-    private final PanicMessenger panicMessenger;
-
-    public PanicAlarmSystemState(AlarmSystem alarmSystem, String code) {
-        super(alarmSystem);
-        this.code = code;
-        this.messenger = messenger;
-    }
+public record PanicAlarmSystemState(AlarmSystem alarmSystem, String code,
+                                    Messenger messenger) implements AlarmSystemState {
 
     @Override
     public void deactivate(String code) {

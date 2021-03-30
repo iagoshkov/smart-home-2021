@@ -8,7 +8,7 @@ public class AlarmSystem {
         return state;
     }
 
-    public void setState(AlarmSystemState state) {
+    void setState(AlarmSystemState state) {
         this.state = state;
     }
 

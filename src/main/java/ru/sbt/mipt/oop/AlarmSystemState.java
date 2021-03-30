@@ -1,22 +1,16 @@
 package ru.sbt.mipt.oop;
 
-public abstract class AlarmSystemState {
+public interface AlarmSystemState {
 
-    protected final AlarmSystem alarmSystem;
-
-    protected AlarmSystemState(AlarmSystem alarmSystem) {
-        this.alarmSystem = alarmSystem;
-    }
-
-    public void activate(String code) {
+    default void activate(String code) {
         // do nothing
     }
 
-    public void deactivate(String code) {
+    default void deactivate(String code) {
         // do nothing
     }
 
-    public boolean allowSensorEvents() {
+    default boolean allowSensorEvents() {
         return true;
     }
 
