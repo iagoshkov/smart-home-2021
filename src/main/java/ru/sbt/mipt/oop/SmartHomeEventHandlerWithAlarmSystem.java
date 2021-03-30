@@ -9,7 +9,7 @@ public record SmartHomeEventHandlerWithAlarmSystem(SmartHomeEventHandler wrapped
             System.out.println("Got event: " + event);
 
             eventProcessor.processEvent(alarmSystem, alarmSystemEvent);
-        } else if (wrappedEventHandler != null && alarmSystem.getState().allowSensorEvents()) {
+        } else if (wrappedEventHandler != null && alarmSystem.allowSensorEvents()) {
             wrappedEventHandler.handleEvent(event);
         }
     }

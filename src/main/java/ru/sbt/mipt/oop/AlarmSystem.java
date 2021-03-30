@@ -1,12 +1,8 @@
 package ru.sbt.mipt.oop;
 
-public class AlarmSystem {
+public class AlarmSystem implements AlarmSystemState {
 
     private AlarmSystemState state;
-
-    public AlarmSystemState getState() {
-        return state;
-    }
 
     void setState(AlarmSystemState state) {
         this.state = state;
@@ -16,4 +12,18 @@ public class AlarmSystem {
         this.state = new ActiveAlarmSystemState(this, code);
     }
 
+    @Override
+    public void activate(String code) {
+        state.activate(code);
+    }
+
+    @Override
+    public void deactivate(String code) {
+        state.deactivate(code);
+    }
+
+    @Override
+    public boolean allowSensorEvents() {
+        return state.allowSensorEvents();
+    }
 }
