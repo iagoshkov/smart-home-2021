@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AlarmSystemTest extends SmartHomeTestComponent {
 
@@ -20,11 +21,10 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
 
         String code = "xkcd";
 
-        SmartHomeEventHandler eventHandlerWithAlarmSystem =
-                new SmartHomeEventHandlerWithAlarmSystem(eventHandler, new AlarmSystemEventProcessor(), new AlarmSystem(code));
+        eventHandler = new SmartHomeEventHandlerWithAlarmSystem(eventHandler, new AlarmSystemEventProcessor(), new AlarmSystem(code));
 
         this.smartHomeTest = new SmartHomeTest();
-        smartHomeTest.set(this.smartHome, eventHandlerWithAlarmSystem);
+        smartHomeTest.set(this.smartHome, eventHandler);
     }
 
     @Test
@@ -40,32 +40,36 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
         return allDoorsAction.getDoors();
     }
 
+    private List<Boolean> getAllDoorsAreOpen() {
+        return getAllDoors().stream().map(Door::isOpen).collect(Collectors.toList());
+    }
+
     private List<Light> getAllLights() {
         AllLightsAction allLightsAction = new AllLightsAction();
         smartHome.execute(allLightsAction);
         return allLightsAction.getLights();
     }
 
+    private List<Boolean> getAllLightsAreOn() {
+        return getAllLights().stream().map(Light::isOn).collect(Collectors.toList());
+    }
+
 
     @Test
     public void doWithoutCodeTest() {
-        List<Door> doorsBefore = getAllDoors();
-        List<Light> lightsBefore = getAllLights();
+        List<Boolean> doorsAreOpenBefore = getAllDoorsAreOpen();
+        List<Boolean> lightsAreOnBefore = getAllLightsAreOn();
 
         SmartHomeSimulator.simulateWork(eventHandler);
 
-        List<Door> doorsAfter = getAllDoors();
-        List<Light> lightsAfter = getAllLights();
+        List<Boolean> doorsAreOpenAfter = getAllDoorsAreOpen();
+        List<Boolean> lightsAreOnAfter = getAllLightsAreOn();
 
-        Assert.assertEquals(doorsBefore.size(), doorsAfter.size());
-        for (int i = 0; i < doorsBefore.size(); ++i) {
-            Assert.assertEquals(doorsBefore.get(i).isOpen(), doorsAfter.get(i).isOpen());
-        }
+        Assert.assertEquals(doorsAreOpenBefore.size(), doorsAreOpenAfter.size());
+        Assert.assertArrayEquals(doorsAreOpenBefore.toArray(), doorsAreOpenAfter.toArray());
 
-        Assert.assertEquals(lightsBefore.size(), lightsAfter.size());
-        for (int i = 0; i < lightsBefore.size(); ++i) {
-            Assert.assertEquals(lightsBefore.get(i).isOn(), lightsAfter.get(i).isOn());
-        }
+        Assert.assertEquals(lightsAreOnBefore.size(), lightsAreOnAfter.size());
+        Assert.assertArrayEquals(lightsAreOnBefore.toArray(), lightsAreOnAfter.toArray());
     }
 
     @Test
