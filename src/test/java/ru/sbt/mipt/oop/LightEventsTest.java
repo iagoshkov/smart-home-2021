@@ -56,4 +56,5 @@ public class LightEventsTest extends SmartHomeTestComponent {
         smartHome.execute(isLightOn);
         Assert.assertEquals(isOnExpected, isLightOn.isOn());
     }
+
 }

@@ -2,7 +2,6 @@ package ru.sbt.mipt.oop;
 
 import org.junit.Test;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,24 +19,28 @@ public class SmartHomeTest extends SmartHomeTestComponent {
         eventHandler = new SmartHomeSensorEventHandler(smartHome, eventProcessors);
     }
 
-    private void testComponent(SmartHomeTestComponent component) throws IllegalAccessException, InvocationTargetException {
-        component.set(smartHome, eventHandler);
-        ClassPublicMethodsTester.testClassPublicMethods(component);
+    @Test
+    public void doorEventsTest() {
+        DoorEventsTest doorEventsTest = new DoorEventsTest();
+
+        doorEventsTest.applyOnExistingDoorTest();
+        doorEventsTest.applyOnNonExistingDoorTest();
     }
 
     @Test
-    public void doorEventsTest() throws InvocationTargetException, IllegalAccessException {
-        testComponent(new DoorEventsTest());
+    public void lightEventsTest() {
+        LightEventsTest lightEventsTest = new LightEventsTest();
+
+        lightEventsTest.applyOnExistingLightTest();
+        lightEventsTest.applyOnNonExistingLightTest();
     }
 
     @Test
-    public void lightEventsTest() throws InvocationTargetException, IllegalAccessException {
-        testComponent(new LightEventsTest());
-    }
+    public void hallDoorClosedTest() {
+        HallDoorClosedTest hallDoorClosedTest = new HallDoorClosedTest();
 
-    @Test
-    public void hallDoorClosedTest() throws InvocationTargetException, IllegalAccessException {
-        testComponent(new HallDoorClosedTest());
+        hallDoorClosedTest.closeHallDoorTest();
+        hallDoorClosedTest.closeNotHallDoorTest();
     }
 
 }

@@ -3,7 +3,6 @@ package ru.sbt.mipt.oop;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,10 +27,17 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
     }
 
     @Test
-    public void correctCodeTest() throws InvocationTargetException, IllegalAccessException {
+    public void runSmartHomeTests() {
+        smartHomeTest.doorEventsTest();
+        smartHomeTest.lightEventsTest();
+        smartHomeTest.hallDoorClosedTest();
+    }
+
+    @Test
+    public void correctCodeTest() {
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, correctCode));
 
-        ClassPublicMethodsTester.testClassPublicMethods(smartHomeTest);
+        runSmartHomeTests();
     }
 
     private List<Door> getAllDoors() {
@@ -80,23 +86,23 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
     }
 
     @Test
-    public void correctCodeAfterIncorrectTest() throws InvocationTargetException, IllegalAccessException {
+    public void correctCodeAfterIncorrectTest() {
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, "123"));
 
         doWithoutCodeTest();
 
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, correctCode));
 
-        ClassPublicMethodsTester.testClassPublicMethods(smartHomeTest);
+        runSmartHomeTests();
     }
 
     @Test
-    public void deactivateAndActivateTest() throws InvocationTargetException, IllegalAccessException {
+    public void deactivateAndActivateTest() {
         String code1 = correctCode;
 
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, code1));
 
-        ClassPublicMethodsTester.testClassPublicMethods(smartHomeTest);
+        runSmartHomeTests();
 
         String code2 = correctCode + correctCode;
 
@@ -110,7 +116,7 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
 
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, code2));
 
-        ClassPublicMethodsTester.testClassPublicMethods(smartHomeTest);
+        runSmartHomeTests();
     }
 
 }

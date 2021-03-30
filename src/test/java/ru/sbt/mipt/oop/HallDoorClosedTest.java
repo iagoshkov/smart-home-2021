@@ -133,4 +133,5 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
         }
         return null;
     }
+
 }

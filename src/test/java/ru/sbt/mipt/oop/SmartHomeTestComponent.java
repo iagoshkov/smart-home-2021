@@ -1,6 +1,7 @@
 package ru.sbt.mipt.oop;
 
 public class SmartHomeTestComponent {
+
     public SmartHome smartHome = null;
     public SmartHomeEventHandler eventHandler = null;
 
@@ -9,6 +10,4 @@ public class SmartHomeTestComponent {
         this.eventHandler = eventHandler;
     }
 
-    public SmartHomeTestComponent() {
-    }
 }

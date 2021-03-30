@@ -56,4 +56,5 @@ public class DoorEventsTest extends SmartHomeTestComponent {
         smartHome.execute(isDoorOpen);
         Assert.assertEquals(isOpenExpected, isDoorOpen.isOpen());
     }
+
 }
