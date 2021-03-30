@@ -8,8 +8,7 @@ public class PanicAlarmSystemState extends AlarmSystemState {
     public PanicAlarmSystemState(AlarmSystem alarmSystem, String code) {
         super(alarmSystem);
         this.code = code;
-
-        this.panicMessenger = System.out::println;
+        this.messenger = messenger;
     }
 
     @Override
@@ -21,7 +20,7 @@ public class PanicAlarmSystemState extends AlarmSystemState {
 
     @Override
     public boolean allowSensorEvents() {
-        panicMessenger.sendMessage("Sending sms");
+        messenger.sendMessage("Sending sms");
         return false;
     }
 

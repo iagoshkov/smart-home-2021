@@ -1,5 +1,5 @@
 package ru.sbt.mipt.oop;
 
-public interface PanicMessenger {
+public interface Messenger {
     void sendMessage(String message);
 }

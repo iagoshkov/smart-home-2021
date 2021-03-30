@@ -14,7 +14,7 @@ public class ActiveAlarmSystemState extends AlarmSystemState {
         if (this.code == null || this.code.equals(code)) {
             alarmSystem.setState(new InactiveAlarmSystemState(alarmSystem));
         } else {
-            alarmSystem.setState(new PanicAlarmSystemState(alarmSystem, this.code));
+            alarmSystem.setState(new PanicAlarmSystemState(alarmSystem, this.code, System.out::println));
         }
     }
 
