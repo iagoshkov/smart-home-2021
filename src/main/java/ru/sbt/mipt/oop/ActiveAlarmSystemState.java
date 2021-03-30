@@ -10,4 +10,11 @@ public record ActiveAlarmSystemState(AlarmSystem alarmSystem,
             alarmSystem.setState(new PanicAlarmSystemState(alarmSystem, this.code, System.out::println));
         }
     }
+
+    @Override
+    public boolean allowSensorEvents() {
+        alarmSystem.setState(new PanicAlarmSystemState(alarmSystem, this.code, System.out::println));
+        return false;
+    }
+
 }
