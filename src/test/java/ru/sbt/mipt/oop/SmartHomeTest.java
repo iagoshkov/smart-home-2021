@@ -20,27 +20,27 @@ public class SmartHomeTest extends SmartHomeTestComponent {
     }
 
     @Test
-    public void doorEventsTest() {
+    public void doorEvents() {
         DoorEventsTest doorEventsTest = new DoorEventsTest();
 
-        doorEventsTest.applyOnExistingDoorTest();
-        doorEventsTest.applyOnNonExistingDoorTest();
+        doorEventsTest.applyOnExistingDoor();
+        doorEventsTest.applyOnNonExistingDoor();
     }
 
     @Test
-    public void lightEventsTest() {
+    public void lightEvents() {
         LightEventsTest lightEventsTest = new LightEventsTest();
 
-        lightEventsTest.applyOnExistingLightTest();
-        lightEventsTest.applyOnNonExistingLightTest();
+        lightEventsTest.applyOnExistingLight();
+        lightEventsTest.applyOnNonExistingLight();
     }
 
     @Test
-    public void hallDoorClosedTest() {
+    public void hallDoorClosed() {
         HallDoorClosedTest hallDoorClosedTest = new HallDoorClosedTest();
 
-        hallDoorClosedTest.closeHallDoorTest();
-        hallDoorClosedTest.closeNotHallDoorTest();
+        hallDoorClosedTest.closeHallDoor();
+        hallDoorClosedTest.closeNotHallDoor();
     }
 
 }

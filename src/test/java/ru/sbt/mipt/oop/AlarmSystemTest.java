@@ -28,13 +28,13 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
 
     @Test
     public void runSmartHomeTests() {
-        smartHomeTest.doorEventsTest();
-        smartHomeTest.lightEventsTest();
-        smartHomeTest.hallDoorClosedTest();
+        smartHomeTest.doorEvents();
+        smartHomeTest.lightEvents();
+        smartHomeTest.hallDoorClosed();
     }
 
     @Test
-    public void correctCodeTest() {
+    public void correctCode() {
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, correctCode));
 
         runSmartHomeTests();
@@ -62,7 +62,7 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
 
 
     @Test
-    public void doWithoutCodeTest() {
+    public void doWithoutCode() {
         List<Boolean> doorsAreOpenBefore = getAllDoorsAreOpen();
         List<Boolean> lightsAreOnBefore = getAllLightsAreOn();
 
@@ -79,17 +79,17 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
     }
 
     @Test
-    public void incorrectCodeTest() {
+    public void incorrectCode() {
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, "123"));
 
-        doWithoutCodeTest();
+        doWithoutCode();
     }
 
     @Test
     public void correctCodeAfterIncorrectTest() {
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, "123"));
 
-        doWithoutCodeTest();
+        doWithoutCode();
 
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, correctCode));
 
@@ -97,7 +97,7 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
     }
 
     @Test
-    public void deactivateAndActivateTest() {
+    public void deactivateAndActivate() {
         String code1 = correctCode;
 
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, code1));
@@ -108,11 +108,11 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
 
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_ACTIVATE, code2));
 
-        doWithoutCodeTest();
+        doWithoutCode();
 
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, code1));
 
-        doWithoutCodeTest();
+        doWithoutCode();
 
         smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, code2));
 

@@ -17,7 +17,7 @@ public class LightEventsTest extends SmartHomeTestComponent {
     }
 
     @Test
-    public void applyOnExistingLightTest() {
+    public void applyOnExistingLight() {
         AllLightsAction allLightsAction = new AllLightsAction();
         smartHome.execute(allLightsAction);
 
@@ -30,7 +30,7 @@ public class LightEventsTest extends SmartHomeTestComponent {
     }
 
     @Test
-    public void applyOnNonExistingLightTest() {
+    public void applyOnNonExistingLight() {
         AllLightsAction allLightsAction = new AllLightsAction();
         smartHome.execute(allLightsAction);
 

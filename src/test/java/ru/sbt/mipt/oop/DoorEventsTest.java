@@ -17,7 +17,7 @@ public class DoorEventsTest extends SmartHomeTestComponent {
     }
 
     @Test
-    public void applyOnExistingDoorTest() {
+    public void applyOnExistingDoor() {
         AllDoorsAction allDoorsAction = new AllDoorsAction();
         smartHome.execute(allDoorsAction);
 
@@ -30,7 +30,7 @@ public class DoorEventsTest extends SmartHomeTestComponent {
     }
 
     @Test
-    public void applyOnNonExistingDoorTest() {
+    public void applyOnNonExistingDoor() {
         AllDoorsAction allDoorsAction = new AllDoorsAction();
         smartHome.execute(allDoorsAction);
 

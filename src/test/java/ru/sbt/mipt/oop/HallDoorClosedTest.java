@@ -23,7 +23,7 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
     }
 
     @Test
-    public void closeHallDoorTest() {
+    public void closeHallDoor() {
         AllDoorsAction allDoorsAction = new AllDoorsAction();
         smartHome.execute(allDoorsAction);
 
@@ -77,7 +77,7 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
     }
 
     @Test
-    public void closeNotHallDoorTest() {
+    public void closeNotHallDoor() {
         AllLightsAction allLightsAction = new AllLightsAction();
         smartHome.execute(allLightsAction);
 
