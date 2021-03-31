@@ -10,14 +10,8 @@ public class DoorEventProcessor implements EventProcessor {
         List<Action> actionList = new ArrayList<>();
 
         switch (event.getType()) {
-            case DOOR_OPEN:
-                actionList.add(new DoorOpenAction(event));
-                break;
-            case DOOR_CLOSED:
-                actionList.add(new DoorClosedAction(event));
-                break;
-            default:
-                // do nothing
+            case DOOR_OPEN -> actionList.add(new DoorOpenAction(event));
+            case DOOR_CLOSED -> actionList.add(new DoorClosedAction(event));
         }
 
         for (Action action : actionList) {

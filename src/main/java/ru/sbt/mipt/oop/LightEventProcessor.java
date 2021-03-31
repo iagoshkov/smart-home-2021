@@ -10,14 +10,8 @@ public class LightEventProcessor implements EventProcessor {
         List<Action> actionList = new ArrayList<>();
 
         switch (event.getType()) {
-            case LIGHT_ON:
-                actionList.add(new LightOnAction(event));
-                break;
-            case LIGHT_OFF:
-                actionList.add(new LightOffAction(event));
-                break;
-            default:
-                // do nothing
+            case LIGHT_ON -> actionList.add(new LightOnAction(event));
+            case LIGHT_OFF -> actionList.add(new LightOffAction(event));
         }
 
         for (Action action : actionList) {

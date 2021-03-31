@@ -3,24 +3,17 @@ package ru.sbt.mipt.oop;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DoorEventsTest {
-
-    private final SmartHome smartHome;
-    private final SmartHomeEventHandler eventHandler;
+public class DoorEventsTest extends SmartHomeTestComponent {
 
     public DoorEventsTest() {
-        SmartHomeCreator smartHomeCreator = new SomeSmartHomeCreator();
-        smartHome = smartHomeCreator.create();
+        super();
 
-        List<EventProcessor> eventProcessors = Arrays.asList(
-                new DoorEventProcessor()
-        );
-
-        eventHandler = new SmartHomeEventHandler(smartHome, eventProcessors);
+        SmartHomeTest smartHomeTest = new SmartHomeTest();
+        smartHome = smartHomeTest.smartHome;
+        eventHandler = smartHomeTest.eventHandler;
     }
 
     @Test
@@ -63,4 +56,5 @@ public class DoorEventsTest {
         smartHome.execute(isDoorOpen);
         Assert.assertEquals(isOpenExpected, isDoorOpen.isOpen());
     }
+
 }
