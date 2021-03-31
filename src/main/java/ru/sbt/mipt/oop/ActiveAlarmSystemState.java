@@ -1,20 +1,31 @@
 package ru.sbt.mipt.oop;
 
+import java.util.Objects;
+
 public record ActiveAlarmSystemState(AlarmSystem alarmSystem,
                                      String code) implements AlarmSystemState {
+
     @Override
     public void deactivate(String code) {
-        if (this.code == null || this.code.equals(code)) {
-            alarmSystem.setState(new InactiveAlarmSystemState(alarmSystem));
+        if (Objects.equals(this.code, code)) {
+            setInactiveState();
         } else {
-            alarmSystem.setState(new PanicAlarmSystemState(alarmSystem, this.code, System.out::println));
+            setPanicState(this.code);
         }
     }
 
     @Override
     public boolean allowSensorEvents() {
-        alarmSystem.setState(new PanicAlarmSystemState(alarmSystem, this.code, System.out::println));
+        setPanicState(this.code);
         return false;
+    }
+
+    private void setInactiveState() {
+        alarmSystem.setState(new InactiveAlarmSystemState(alarmSystem));
+    }
+
+    private void setPanicState(String code) {
+        alarmSystem.setState(new PanicAlarmSystemState(alarmSystem, code, System.out::println));
     }
 
 }

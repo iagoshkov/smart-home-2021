@@ -1,11 +1,14 @@
 package ru.sbt.mipt.oop;
 
-public record PanicAlarmSystemState(AlarmSystem alarmSystem, String code,
+import java.util.Objects;
+
+public record PanicAlarmSystemState(AlarmSystem alarmSystem,
+                                    String code,
                                     Messenger messenger) implements AlarmSystemState {
 
     @Override
     public void deactivate(String code) {
-        if (this.code.equals(code)) {
+        if (Objects.equals(this.code, code)) {
             alarmSystem.setState(new InactiveAlarmSystemState(alarmSystem));
         }
     }
