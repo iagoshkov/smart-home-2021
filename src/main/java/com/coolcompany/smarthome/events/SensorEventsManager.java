@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SensorEventsManager {
-    private final String[] eventTypes = new String[] { "LightIsOn", "LightIsOff", "DoorIsOpen", "DoorIsClosed", "DoorIsLocked", "DoorIsUnlocked" };
 
-    private Collection<EventHandler> handlers = new ArrayList<>();
+    private final String[] eventTypes = new String[]{
+            "LightIsOn", "LightIsOff", "DoorIsOpen", "DoorIsClosed", "DoorIsLocked", "DoorIsUnlocked"
+    };
+
+    private final Collection<EventHandler> handlers = new ArrayList<>();
 
     public void registerEventHandler(EventHandler handler) {
         this.handlers.add(handler);
@@ -29,6 +32,5 @@ public class SensorEventsManager {
         String objectId = "" + ((int) (10 * Math.random()));
         return new CCSensorEvent(sensorEventType, objectId);
     }
-
 
 }
