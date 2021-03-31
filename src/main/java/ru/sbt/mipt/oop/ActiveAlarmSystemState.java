@@ -20,6 +20,11 @@ public record ActiveAlarmSystemState(AlarmSystem alarmSystem,
         return false;
     }
 
+    @Override
+    public void panic() {
+        setPanicState(this.code);
+    }
+
     private void setInactiveState() {
         alarmSystem.setState(new InactiveAlarmSystemState(alarmSystem));
     }

@@ -26,4 +26,7 @@ public class AlarmSystem implements AlarmSystemState {
     public boolean allowSensorEvents() {
         return state.allowSensorEvents();
     }
+
+    @Override
+    public void panic() { state.panic(); }
 }

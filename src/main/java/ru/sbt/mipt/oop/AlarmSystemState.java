@@ -14,4 +14,8 @@ public interface AlarmSystemState {
         return true;
     }
 
+    default void panic() {
+        // do nothing
+    }
+
 }
