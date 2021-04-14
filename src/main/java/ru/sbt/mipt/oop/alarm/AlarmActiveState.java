@@ -2,8 +2,17 @@ package ru.sbt.mipt.oop.alarm;
 
 import java.util.Objects;
 
-public record AlarmActiveState(Alarm alarmSystem,
-                               String code) implements AlarmState {
+public class AlarmActiveState implements AlarmState {
+
+    final private Alarm alarm;
+    final private String code;
+
+    public AlarmActiveState(Alarm alarm, String code) {
+        this.alarm = alarm;
+        this.code = code;
+
+        System.out.println("Alarm was activated");
+    }
 
     @Override
     public void deactivate(String code) {
@@ -22,7 +31,7 @@ public record AlarmActiveState(Alarm alarmSystem,
 
     @Override
     public void panic() {
-        alarmSystem.setState(new AlarmPanicState(alarmSystem, this.code, System.out::println));
+        alarm.setState(new AlarmPanicState(alarm, this.code, System.out::println));
     }
 
     private boolean isCodeCorrect(String code) {
@@ -30,7 +39,7 @@ public record AlarmActiveState(Alarm alarmSystem,
     }
 
     private void setInactiveState() {
-        alarmSystem.setState(new AlarmInactiveState(alarmSystem));
+        alarm.setState(new AlarmInactiveState(alarm));
     }
 
 }

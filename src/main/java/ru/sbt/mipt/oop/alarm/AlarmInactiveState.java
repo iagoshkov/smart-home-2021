@@ -1,15 +1,23 @@
 package ru.sbt.mipt.oop.alarm;
 
-public record AlarmInactiveState(Alarm alarmSystem) implements AlarmState {
+public class AlarmInactiveState implements AlarmState {
+
+    final private Alarm alarm;
+
+    public AlarmInactiveState(Alarm alarm) {
+        this.alarm = alarm;
+
+        System.out.println("Alarm was deactivated");
+    }
 
     @Override
     public void activate(String code) {
-        alarmSystem.setState(new AlarmActiveState(alarmSystem, code));
+        alarm.setState(new AlarmActiveState(alarm, code));
     }
 
     @Override
     public void panic() {
-        alarmSystem.setState(new AlarmPanicState(alarmSystem, null, System.out::println));
+        alarm.setState(new AlarmPanicState(alarm, null, System.out::println));
     }
 
 }
