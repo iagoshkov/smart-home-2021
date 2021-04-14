@@ -1,4 +1,7 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.util;
+
+import ru.sbt.mipt.oop.Action;
+import ru.sbt.mipt.oop.Door;
 
 public class IsDoorOpenAction implements Action {
 

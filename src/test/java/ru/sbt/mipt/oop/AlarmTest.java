@@ -8,6 +8,7 @@ import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.alarm.AlarmEvent;
 import ru.sbt.mipt.oop.alarm.AlarmEventProcessor;
 import ru.sbt.mipt.oop.alarm.AlarmEventType;
+import ru.sbt.mipt.oop.util.SmartHomeTestComponent;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,4 +1,7 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.util;
+
+import ru.sbt.mipt.oop.SmartHome;
+import ru.sbt.mipt.oop.SmartHomeEventHandler;
 
 public class SmartHomeTestComponent {
 
