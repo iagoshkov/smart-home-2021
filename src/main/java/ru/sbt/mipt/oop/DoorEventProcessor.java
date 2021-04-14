@@ -1,5 +1,8 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.actions.DoorClosedAction;
+import ru.sbt.mipt.oop.actions.DoorOpenAction;
+
 import java.util.ArrayList;
 import java.util.List;
 

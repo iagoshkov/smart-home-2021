@@ -1,4 +1,9 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.actions;
+
+import ru.sbt.mipt.oop.Action;
+import ru.sbt.mipt.oop.Light;
+import ru.sbt.mipt.oop.Room;
+import ru.sbt.mipt.oop.SensorEvent;
 
 public class LightOnAction implements Action {
 

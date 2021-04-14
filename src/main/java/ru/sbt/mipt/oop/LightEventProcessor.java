@@ -1,5 +1,8 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.actions.LightOffAction;
+import ru.sbt.mipt.oop.actions.LightOnAction;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -2,6 +2,8 @@ package ru.sbt.mipt.oop;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ru.sbt.mipt.oop.actions.AllDoorsAction;
+import ru.sbt.mipt.oop.actions.AllLightsAction;
 import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.alarm.AlarmEvent;
 import ru.sbt.mipt.oop.alarm.AlarmEventProcessor;

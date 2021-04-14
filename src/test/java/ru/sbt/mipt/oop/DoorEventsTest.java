@@ -2,6 +2,7 @@ package ru.sbt.mipt.oop;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ru.sbt.mipt.oop.actions.AllDoorsAction;
 
 import java.util.List;
 import java.util.stream.Collectors;
