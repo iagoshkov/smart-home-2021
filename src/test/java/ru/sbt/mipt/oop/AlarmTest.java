@@ -6,12 +6,12 @@ import org.junit.Test;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class AlarmSystemTest extends SmartHomeTestComponent {
+public class AlarmTest extends SmartHomeTestComponent {
 
     private final String correctCode = "xkcd";
     private final SmartHomeTest smartHomeTest;
 
-    public AlarmSystemTest() {
+    public AlarmTest() {
         super();
 
         SmartHomeTest smartHomeTest = new SmartHomeTest();
@@ -20,7 +20,7 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
 
         String code = "xkcd";
 
-        eventHandler = new SmartHomeEventHandlerWithAlarmSystem(eventHandler, new AlarmSystemEventProcessor(), new AlarmSystem(code));
+        eventHandler = new SmartHomeEventHandlerWithAlarm(eventHandler, new AlarmEventProcessor(), new Alarm(code));
 
         this.smartHomeTest = new SmartHomeTest();
         smartHomeTest.set(this.smartHome, eventHandler);
@@ -35,7 +35,7 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
 
     @Test
     public void correctCode() {
-        smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, correctCode));
+        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, correctCode));
 
         runSmartHomeTests();
     }
@@ -80,18 +80,18 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
 
     @Test
     public void incorrectCode() {
-        smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, "123"));
+        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, "123"));
 
         doWithoutCode();
     }
 
     @Test
     public void correctCodeAfterIncorrectTest() {
-        smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, "123"));
+        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, "123"));
 
         doWithoutCode();
 
-        smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, correctCode));
+        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, correctCode));
 
         runSmartHomeTests();
     }
@@ -100,21 +100,21 @@ public class AlarmSystemTest extends SmartHomeTestComponent {
     public void deactivateAndActivate() {
         String code1 = correctCode;
 
-        smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, code1));
+        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, code1));
 
         runSmartHomeTests();
 
         String code2 = correctCode + correctCode;
 
-        smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_ACTIVATE, code2));
+        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_ACTIVATE, code2));
 
         doWithoutCode();
 
-        smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, code1));
+        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, code1));
 
         doWithoutCode();
 
-        smartHomeTest.eventHandler.handleEvent(new AlarmSystemEvent(AlarmSystemEventType.ALARM_DEACTIVATE, code2));
+        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, code2));
 
         runSmartHomeTests();
     }

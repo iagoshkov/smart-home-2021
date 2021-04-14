@@ -1,15 +1,15 @@
 package ru.sbt.mipt.oop;
 
-public class AlarmSystem implements AlarmSystemState {
+public class Alarm implements AlarmState {
 
-    private AlarmSystemState state;
+    private AlarmState state;
 
-    void setState(AlarmSystemState state) {
+    void setState(AlarmState state) {
         this.state = state;
     }
 
-    public AlarmSystem(String code) {
-        this.state = new ActiveAlarmSystemState(this, code);
+    public Alarm(String code) {
+        this.state = new AlarmActiveState(this, code);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop;
 
-public record AlarmSystemEvent(AlarmSystemEventType type, String code) implements Event {
+public record AlarmEvent(AlarmEventType type, String code) implements Event {
     @Override
     public String toString() {
         return "AlarmSystemEvent{" +
