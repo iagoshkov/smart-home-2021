@@ -1,4 +1,6 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.alarm;
+
+import ru.sbt.mipt.oop.Messenger;
 
 import java.util.Objects;
 

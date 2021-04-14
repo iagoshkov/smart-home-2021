@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.alarm;
 
 public record AlarmInactiveState(Alarm alarmSystem) implements AlarmState {
 
