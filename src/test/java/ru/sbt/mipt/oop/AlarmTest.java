@@ -8,7 +8,7 @@ import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.alarm.AlarmEvent;
 import ru.sbt.mipt.oop.alarm.AlarmEventProcessor;
 import ru.sbt.mipt.oop.alarm.AlarmEventType;
-import ru.sbt.mipt.oop.event.handler.EventHandlerWithAlarm;
+import ru.sbt.mipt.oop.event.handler.AlarmEventHandlerDecorator;
 import ru.sbt.mipt.oop.util.SmartHomeTestComponent;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class AlarmTest extends SmartHomeTestComponent {
 
         String code = "xkcd";
 
-        eventHandler = new EventHandlerWithAlarm(eventHandler, new AlarmEventProcessor(), new Alarm(code));
+        eventHandler = new AlarmEventHandlerDecorator(new Alarm(code), new AlarmEventProcessor(), eventHandler);
 
         this.smartHomeTest = new SmartHomeTest();
         smartHomeTest.set(this.smartHome, eventHandler);

@@ -9,6 +9,7 @@ import java.util.List;
 
 public record SensorEventHandler(SmartHome smartHome,
                                  List<EventProcessor> eventProcessors) implements EventHandler {
+    @Override
     public void handleEvent(Event event) {
         System.out.println("Got event: " + event);
 

@@ -5,9 +5,9 @@ import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.alarm.AlarmEvent;
 import ru.sbt.mipt.oop.alarm.AlarmEventProcessor;
 
-public record EventHandlerWithAlarm(EventHandler wrapped,
-                                    AlarmEventProcessor eventProcessor,
-                                    Alarm alarm) implements EventHandler {
+public record AlarmEventHandlerDecorator(Alarm alarm,
+                                         AlarmEventProcessor eventProcessor,
+                                         EventHandler wrapped) implements EventHandler {
     @Override
     public void handleEvent(Event event) {
         if (event instanceof AlarmEvent alarmEvent) {
