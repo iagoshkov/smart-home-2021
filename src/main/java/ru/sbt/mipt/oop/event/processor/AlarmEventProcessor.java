@@ -5,9 +5,9 @@ import ru.sbt.mipt.oop.event.AlarmEvent;
 
 public class AlarmEventProcessor {
     public void processEvent(Alarm alarm, AlarmEvent event) {
-        switch (event.type()) {
-            case ALARM_ACTIVATE -> alarm.activate(event.code());
-            case ALARM_DEACTIVATE -> alarm.deactivate(event.code());
+        switch (event.getType()) {
+            case ALARM_ACTIVATE -> alarm.activate(event.getCode());
+            case ALARM_DEACTIVATE -> alarm.deactivate(event.getCode());
         }
     }
 }

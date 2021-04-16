@@ -2,7 +2,10 @@ package ru.sbt.mipt.oop.event;
 
 import ru.sbt.mipt.oop.Event;
 
-public record SensorEvent(SensorEventType type, String objectId) implements Event {
+public class SensorEvent implements Event {
+
+    private final SensorEventType type;
+    private final String objectId;
 
     public SensorEventType getType() {
         return type;
@@ -10,6 +13,11 @@ public record SensorEvent(SensorEventType type, String objectId) implements Even
 
     public String getObjectId() {
         return objectId;
+    }
+
+    public SensorEvent(SensorEventType type, String objectId) {
+        this.type = type;
+        this.objectId = objectId;
     }
 
     @Override
