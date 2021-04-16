@@ -1,4 +1,7 @@
-package ru.sbt.mipt.oop.alarm;
+package ru.sbt.mipt.oop.event.processor;
+
+import ru.sbt.mipt.oop.alarm.Alarm;
+import ru.sbt.mipt.oop.event.AlarmEvent;
 
 public class AlarmEventProcessor {
     public void processEvent(Alarm alarm, AlarmEvent event) {

@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.alarm;
+package ru.sbt.mipt.oop.event;
 
 import ru.sbt.mipt.oop.Event;
 
