@@ -18,7 +18,7 @@ public class LightEventsTest extends SmartHomeTestComponent {
 
         SmartHomeTest smartHomeTest = new SmartHomeTest();
         smartHome = smartHomeTest.smartHome;
-        eventHandler = smartHomeTest.eventHandler;
+        eventProcessor = smartHomeTest.eventProcessor;
     }
 
     @Test
@@ -51,7 +51,7 @@ public class LightEventsTest extends SmartHomeTestComponent {
     }
 
     private void checkIsLightOnByEvent(String id, SensorEventType lightEventType, Boolean isOpenExpected) {
-        eventHandler.handleEvent(new SensorEvent(lightEventType, id));
+        eventProcessor.processEvent(new SensorEvent(lightEventType, id));
 
         isLightOn(id, isOpenExpected);
     }

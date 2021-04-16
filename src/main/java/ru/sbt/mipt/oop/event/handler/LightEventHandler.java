@@ -1,18 +1,24 @@
-package ru.sbt.mipt.oop.event.processor;
+package ru.sbt.mipt.oop.event.handler;
 
 import ru.sbt.mipt.oop.Action;
-import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.SmartHome;
+import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.actions.LightOffAction;
 import ru.sbt.mipt.oop.actions.LightOnAction;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LightEventProcessor implements EventProcessor {
+public class LightEventHandler implements EventHandler {
+
+    private final SmartHome smartHome;
+
+    public LightEventHandler(SmartHome smartHome) {
+        this.smartHome = smartHome;
+    }
 
     @Override
-    public void processEvent(SmartHome smartHome, SensorEvent event) {
+    public void handleEvent(SensorEvent event) {
         List<Action> actionList = new ArrayList<>();
 
         switch (event.getType()) {

@@ -20,7 +20,7 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
 
         SmartHomeTest smartHomeTest = new SmartHomeTest();
         smartHome = smartHomeTest.smartHome;
-        eventHandler = smartHomeTest.eventHandler;
+        eventProcessor = smartHomeTest.eventProcessor;
     }
 
     private void isLightTurnedOff(String id) {
@@ -44,10 +44,10 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
         if (lights.isEmpty()) return;
 
         // At least one door is open
-        eventHandler.handleEvent(new SensorEvent(SensorEventType.DOOR_OPEN, doors.get(0).getId()));
+        eventProcessor.processEvent(new SensorEvent(SensorEventType.DOOR_OPEN, doors.get(0).getId()));
 
         // At least one light is on
-        eventHandler.handleEvent(new SensorEvent(SensorEventType.LIGHT_ON, lights.get(0).getId()));
+        eventProcessor.processEvent(new SensorEvent(SensorEventType.LIGHT_ON, lights.get(0).getId()));
 
         Door hallRoomDoor = findHallRoomDoor();
 
@@ -56,7 +56,7 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
         String hallRoomDoorId = hallRoomDoor.getId();
 
         // Close hall door, so all lights will be turned off
-        eventHandler.handleEvent(new SensorEvent(SensorEventType.DOOR_CLOSED, hallRoomDoorId));
+        eventProcessor.processEvent(new SensorEvent(SensorEventType.DOOR_CLOSED, hallRoomDoorId));
 
         for (Light light : lights) {
             isLightTurnedOff(light.getId());
@@ -92,7 +92,7 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
         if (lights.isEmpty()) return;
 
         // At least one light is on
-        eventHandler.handleEvent(new SensorEvent(SensorEventType.LIGHT_ON, lights.get(0).getId()));
+        eventProcessor.processEvent(new SensorEvent(SensorEventType.LIGHT_ON, lights.get(0).getId()));
 
         Door notHallRoomDoor = findNotHallRoomDoor();
 
@@ -103,7 +103,7 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
         List<Boolean> lightIsOnListBefore = getLightIsOnList(lights);
 
         // Close not hall door, so it doesn't make anything
-        eventHandler.handleEvent(new SensorEvent(SensorEventType.DOOR_CLOSED, notHallRoomDoorId));
+        eventProcessor.processEvent(new SensorEvent(SensorEventType.DOOR_CLOSED, notHallRoomDoorId));
 
         List<Boolean> lightIsOnListAfter = getLightIsOnList(lights);
 
