@@ -3,15 +3,8 @@ package ru.sbt.mipt.oop.actions;
 import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Door;
 import ru.sbt.mipt.oop.Room;
-import ru.sbt.mipt.oop.SensorEvent;
 
-public class DoorClosedAction implements Action {
-
-    private final String doorId;
-
-    public DoorClosedAction(SensorEvent event) {
-        this.doorId = event.getObjectId();
-    }
+public record DoorClosedAction(String doorId) implements Action {
 
     @Override
     public void apply(Object obj) {

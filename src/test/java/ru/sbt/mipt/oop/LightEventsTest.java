@@ -3,6 +3,8 @@ package ru.sbt.mipt.oop;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.sbt.mipt.oop.actions.AllLightsAction;
+import ru.sbt.mipt.oop.event.SensorEvent;
+import ru.sbt.mipt.oop.event.SensorEventType;
 import ru.sbt.mipt.oop.util.IsLightOnAction;
 import ru.sbt.mipt.oop.util.SmartHomeTestComponent;
 

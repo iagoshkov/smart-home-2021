@@ -3,15 +3,8 @@ package ru.sbt.mipt.oop.actions;
 import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Light;
 import ru.sbt.mipt.oop.Room;
-import ru.sbt.mipt.oop.SensorEvent;
 
-public class LightOnAction implements Action {
-
-    private final String lightId;
-
-    public LightOnAction(SensorEvent event) {
-        this.lightId = event.getObjectId();
-    }
+public record LightOnAction(String lightId) implements Action {
 
     @Override
     public void apply(Object obj) {

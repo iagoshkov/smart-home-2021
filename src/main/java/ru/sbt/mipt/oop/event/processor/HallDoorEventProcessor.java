@@ -1,4 +1,9 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.event.processor;
+
+import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.command.CommandProducer;
+import ru.sbt.mipt.oop.event.SensorEvent;
+import ru.sbt.mipt.oop.event.SensorEventType;
 
 public record HallDoorEventProcessor(CommandProducer commandProducer) implements EventProcessor {
 

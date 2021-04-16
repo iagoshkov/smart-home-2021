@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.command;
 
 public record SensorCommand(CommandType type, String objectId) {
 

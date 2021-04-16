@@ -1,5 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.event.processor;
 
+import ru.sbt.mipt.oop.Action;
+import ru.sbt.mipt.oop.event.SensorEvent;
+import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.actions.DoorClosedAction;
 import ru.sbt.mipt.oop.actions.DoorOpenAction;
 
@@ -13,8 +16,8 @@ public class DoorEventProcessor implements EventProcessor {
         List<Action> actionList = new ArrayList<>();
 
         switch (event.getType()) {
-            case DOOR_OPEN -> actionList.add(new DoorOpenAction(event));
-            case DOOR_CLOSED -> actionList.add(new DoorClosedAction(event));
+            case DOOR_OPEN -> actionList.add(new DoorOpenAction(event.getObjectId()));
+            case DOOR_CLOSED -> actionList.add(new DoorClosedAction(event.getObjectId()));
         }
 
         for (Action action : actionList) {

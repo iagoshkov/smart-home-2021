@@ -1,4 +1,7 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.command;
+
+import ru.sbt.mipt.oop.Light;
+import ru.sbt.mipt.oop.SmartHome;
 
 public class LightOffCommandProducer implements CommandProducer {
 
