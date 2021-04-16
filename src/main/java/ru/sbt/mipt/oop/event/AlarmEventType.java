@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.alarm;
+package ru.sbt.mipt.oop.event;
 
 public enum AlarmEventType {
     ALARM_ACTIVATE,

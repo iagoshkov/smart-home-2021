@@ -2,8 +2,8 @@ package ru.sbt.mipt.oop.event.handler;
 
 import ru.sbt.mipt.oop.Event;
 import ru.sbt.mipt.oop.alarm.Alarm;
-import ru.sbt.mipt.oop.alarm.AlarmEvent;
-import ru.sbt.mipt.oop.alarm.AlarmEventProcessor;
+import ru.sbt.mipt.oop.event.AlarmEvent;
+import ru.sbt.mipt.oop.event.processor.AlarmEventProcessor;
 
 public record AlarmEventHandlerDecorator(Alarm alarm,
                                          AlarmEventProcessor eventProcessor,

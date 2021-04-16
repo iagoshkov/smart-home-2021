@@ -5,9 +5,9 @@ import org.junit.Test;
 import ru.sbt.mipt.oop.actions.AllDoorsAction;
 import ru.sbt.mipt.oop.actions.AllLightsAction;
 import ru.sbt.mipt.oop.alarm.Alarm;
-import ru.sbt.mipt.oop.alarm.AlarmEvent;
-import ru.sbt.mipt.oop.alarm.AlarmEventProcessor;
-import ru.sbt.mipt.oop.alarm.AlarmEventType;
+import ru.sbt.mipt.oop.event.AlarmEvent;
+import ru.sbt.mipt.oop.event.processor.AlarmEventProcessor;
+import ru.sbt.mipt.oop.event.AlarmEventType;
 import ru.sbt.mipt.oop.event.handler.AlarmEventHandlerDecorator;
 import ru.sbt.mipt.oop.util.SmartHomeTestComponent;
 

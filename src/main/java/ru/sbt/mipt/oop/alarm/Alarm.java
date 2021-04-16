@@ -28,5 +28,7 @@ public class Alarm implements AlarmState {
     }
 
     @Override
-    public void panic() { state.panic(); }
+    public void panic() {
+        state.panic();
+    }
 }
