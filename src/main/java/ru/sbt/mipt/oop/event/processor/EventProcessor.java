@@ -1,8 +1,7 @@
 package ru.sbt.mipt.oop.event.processor;
 
-import ru.sbt.mipt.oop.event.SensorEvent;
-import ru.sbt.mipt.oop.SmartHome;
+import ru.sbt.mipt.oop.Event;
 
 public interface EventProcessor {
-    void processEvent(SmartHome smartHome, SensorEvent event);
+    void processEvent(Event event);
 }

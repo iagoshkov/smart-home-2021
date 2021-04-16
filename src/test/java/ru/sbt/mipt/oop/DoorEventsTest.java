@@ -18,7 +18,7 @@ public class DoorEventsTest extends SmartHomeTestComponent {
 
         SmartHomeTest smartHomeTest = new SmartHomeTest();
         smartHome = smartHomeTest.smartHome;
-        eventHandler = smartHomeTest.eventHandler;
+        eventProcessor = smartHomeTest.eventProcessor;
     }
 
     @Test
@@ -51,7 +51,7 @@ public class DoorEventsTest extends SmartHomeTestComponent {
     }
 
     private void checkIsDoorOpenByEvent(String id, SensorEventType doorEventType, Boolean isOpenExpected) {
-        eventHandler.handleEvent(new SensorEvent(doorEventType, id));
+        eventProcessor.processEvent(new SensorEvent(doorEventType, id));
 
         isDoorOpen(id, isOpenExpected);
     }

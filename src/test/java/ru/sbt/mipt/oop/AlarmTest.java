@@ -6,9 +6,9 @@ import ru.sbt.mipt.oop.actions.AllDoorsAction;
 import ru.sbt.mipt.oop.actions.AllLightsAction;
 import ru.sbt.mipt.oop.alarm.Alarm;
 import ru.sbt.mipt.oop.event.AlarmEvent;
-import ru.sbt.mipt.oop.event.processor.AlarmEventProcessor;
+import ru.sbt.mipt.oop.event.handler.AlarmEventHandler;
 import ru.sbt.mipt.oop.event.AlarmEventType;
-import ru.sbt.mipt.oop.event.handler.AlarmEventHandlerDecorator;
+import ru.sbt.mipt.oop.event.processor.AlarmEventProcessorDecorator;
 import ru.sbt.mipt.oop.util.SmartHomeTestComponent;
 
 import java.util.List;
@@ -24,14 +24,14 @@ public class AlarmTest extends SmartHomeTestComponent {
 
         SmartHomeTest smartHomeTest = new SmartHomeTest();
         smartHome = smartHomeTest.smartHome;
-        eventHandler = smartHomeTest.eventHandler;
+        eventProcessor = smartHomeTest.eventProcessor;
 
         String code = "xkcd";
 
-        eventHandler = new AlarmEventHandlerDecorator(new Alarm(code), new AlarmEventProcessor(), eventHandler);
+        eventProcessor = new AlarmEventProcessorDecorator(new Alarm(code), new AlarmEventHandler(), eventProcessor);
 
         this.smartHomeTest = new SmartHomeTest();
-        smartHomeTest.set(this.smartHome, eventHandler);
+        smartHomeTest.set(this.smartHome, eventProcessor);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class AlarmTest extends SmartHomeTestComponent {
 
     @Test
     public void correctCode() {
-        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, correctCode));
+        smartHomeTest.eventProcessor.processEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, correctCode));
 
         runSmartHomeTests();
     }
@@ -74,7 +74,7 @@ public class AlarmTest extends SmartHomeTestComponent {
         List<Boolean> doorsAreOpenBefore = getAllDoorsAreOpen();
         List<Boolean> lightsAreOnBefore = getAllLightsAreOn();
 
-        SmartHomeSimulator.simulateWork(eventHandler);
+        SmartHomeSimulator.simulateWork(eventProcessor);
 
         List<Boolean> doorsAreOpenAfter = getAllDoorsAreOpen();
         List<Boolean> lightsAreOnAfter = getAllLightsAreOn();
@@ -88,18 +88,18 @@ public class AlarmTest extends SmartHomeTestComponent {
 
     @Test
     public void incorrectCode() {
-        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, "123"));
+        smartHomeTest.eventProcessor.processEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, "123"));
 
         doWithoutCode();
     }
 
     @Test
     public void correctCodeAfterIncorrectTest() {
-        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, "123"));
+        smartHomeTest.eventProcessor.processEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, "123"));
 
         doWithoutCode();
 
-        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, correctCode));
+        smartHomeTest.eventProcessor.processEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, correctCode));
 
         runSmartHomeTests();
     }
@@ -108,21 +108,21 @@ public class AlarmTest extends SmartHomeTestComponent {
     public void deactivateAndActivate() {
         String code1 = correctCode;
 
-        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, code1));
+        smartHomeTest.eventProcessor.processEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, code1));
 
         runSmartHomeTests();
 
         String code2 = correctCode + correctCode;
 
-        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_ACTIVATE, code2));
+        smartHomeTest.eventProcessor.processEvent(new AlarmEvent(AlarmEventType.ALARM_ACTIVATE, code2));
 
         doWithoutCode();
 
-        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, code1));
+        smartHomeTest.eventProcessor.processEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, code1));
 
         doWithoutCode();
 
-        smartHomeTest.eventHandler.handleEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, code2));
+        smartHomeTest.eventProcessor.processEvent(new AlarmEvent(AlarmEventType.ALARM_DEACTIVATE, code2));
 
         runSmartHomeTests();
     }

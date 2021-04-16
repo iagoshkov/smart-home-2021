@@ -1,14 +1,22 @@
-package ru.sbt.mipt.oop.event.processor;
+package ru.sbt.mipt.oop.event.handler;
 
 import ru.sbt.mipt.oop.*;
 import ru.sbt.mipt.oop.command.CommandProducer;
 import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.event.SensorEventType;
 
-public record HallDoorEventProcessor(CommandProducer commandProducer) implements EventProcessor {
+public class HallDoorEventHandler implements EventHandler {
+
+    private final SmartHome smartHome;
+    private final CommandProducer commandProducer;
+
+    public HallDoorEventHandler(SmartHome smartHome, CommandProducer commandProducer) {
+        this.smartHome = smartHome;
+        this.commandProducer = commandProducer;
+    }
 
     @Override
-    public void processEvent(SmartHome smartHome, SensorEvent event) {
+    public void handleEvent(SensorEvent event) {
         if (event.getType() != SensorEventType.DOOR_CLOSED) return;
 
         String hallRoomName = "hall";
