@@ -3,7 +3,6 @@ package ru.sbt.mipt.oop;
 import java.util.Arrays;
 
 public class SomeSmartHomeCreator implements SmartHomeCreator {
-
     @Override
     public SmartHome create() {
         Room kitchen = new Room(Arrays.asList(new Light("1", false), new Light("2", true)),
@@ -21,5 +20,4 @@ public class SomeSmartHomeCreator implements SmartHomeCreator {
 
         return new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
     }
-
 }

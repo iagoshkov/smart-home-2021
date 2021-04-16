@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHome implements Actionable {
+
     private final Collection<Room> rooms;
 
     public SmartHome() {
@@ -22,8 +23,7 @@ public class SmartHome implements Actionable {
     public void execute(Action action) {
         action.apply(this);
 
-        for (Room room : rooms) {
-            room.execute(action);
-        }
+        rooms.forEach(room -> room.execute(action));
     }
+
 }

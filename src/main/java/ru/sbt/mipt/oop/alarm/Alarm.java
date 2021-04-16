@@ -31,4 +31,5 @@ public class Alarm implements AlarmState {
     public void panic() {
         state.panic();
     }
+
 }

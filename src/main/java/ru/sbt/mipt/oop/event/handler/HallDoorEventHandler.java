@@ -1,6 +1,8 @@
 package ru.sbt.mipt.oop.event.handler;
 
-import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.Door;
+import ru.sbt.mipt.oop.Room;
+import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.command.CommandProducer;
 import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.event.SensorEventType;

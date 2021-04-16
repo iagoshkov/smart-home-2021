@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Application {
-
     public static void main(String... args) {
         SmartHomeReader smartHomeReader = new JsonSmartHomeReader("smart-home-1.json");
         SmartHome smartHome = smartHomeReader.read();
@@ -26,5 +25,4 @@ public class Application {
 
         SmartHomeSimulator.simulateWork(eventProcessor);
     }
-
 }

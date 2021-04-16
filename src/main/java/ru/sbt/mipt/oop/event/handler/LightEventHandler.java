@@ -2,9 +2,9 @@ package ru.sbt.mipt.oop.event.handler;
 
 import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.SmartHome;
-import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.actions.TurnLightOffAction;
 import ru.sbt.mipt.oop.actions.TurnLightOnAction;
+import ru.sbt.mipt.oop.event.SensorEvent;
 
 import java.util.ArrayList;
 import java.util.List;

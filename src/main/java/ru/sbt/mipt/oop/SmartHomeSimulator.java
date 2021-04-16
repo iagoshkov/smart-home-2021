@@ -4,7 +4,6 @@ import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.event.processor.EventProcessor;
 
 public class SmartHomeSimulator {
-
     public static void simulateWork(EventProcessor eventProcessor) {
         SensorEvent event;
         while (true) {
@@ -14,5 +13,4 @@ public class SmartHomeSimulator {
             eventProcessor.processEvent(event);
         }
     }
-
 }
