@@ -6,12 +6,13 @@ import ru.sbt.mipt.oop.event.processor.SensorEventProcessor;
 import ru.sbt.mipt.oop.event.handler.*;
 import ru.sbt.mipt.oop.event.handler.DoorEventHandler;
 import ru.sbt.mipt.oop.event.handler.EventHandler;
+import ru.sbt.mipt.oop.io.JsonSmartHomeReader;
+import ru.sbt.mipt.oop.io.SmartHomeReader;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class Application {
-
     public static void main(String... args) {
         SmartHomeReader smartHomeReader = new JsonSmartHomeReader("smart-home-1.json");
         SmartHome smartHome = smartHomeReader.read();
@@ -26,5 +27,4 @@ public class Application {
 
         SmartHomeSimulator.simulateWork(eventProcessor);
     }
-
 }

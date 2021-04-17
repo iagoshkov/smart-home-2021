@@ -4,8 +4,7 @@ import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Light;
 import ru.sbt.mipt.oop.Room;
 
-public record LightOffAction(String lightId) implements Action {
-
+public record TurnLightOffAction(String lightId) implements Action {
     @Override
     public void apply(Object obj) {
         if (obj instanceof Room room) {
@@ -19,5 +18,4 @@ public record LightOffAction(String lightId) implements Action {
             });
         }
     }
-
 }

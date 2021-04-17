@@ -38,7 +38,7 @@ public class AlarmPanicState implements AlarmState {
     }
 
     private void sendMessage() {
-        messenger.sendMessage("Sending sms");
+        messenger.send("Sending sms");
     }
 
 }

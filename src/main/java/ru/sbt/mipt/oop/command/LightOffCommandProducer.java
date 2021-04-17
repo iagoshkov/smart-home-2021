@@ -4,7 +4,6 @@ import ru.sbt.mipt.oop.Light;
 import ru.sbt.mipt.oop.SmartHome;
 
 public class LightOffCommandProducer implements CommandProducer {
-
     @Override
     public void produceCommand(SmartHome smartHome) {
         CommandSender commandSender = command -> System.out.println("Pretend we're sending command " + command);
@@ -17,5 +16,4 @@ public class LightOffCommandProducer implements CommandProducer {
             }
         });
     }
-
 }

@@ -1,6 +1,14 @@
 package ru.sbt.mipt.oop.command;
 
-public record SensorCommand(CommandType type, String objectId) {
+public class SensorCommand {
+
+    private final CommandType type;
+    private final String objectId;
+
+    public SensorCommand(CommandType type, String objectId) {
+        this.type = type;
+        this.objectId = objectId;
+    }
 
     @Override
     public String toString() {

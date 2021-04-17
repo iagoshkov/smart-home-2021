@@ -3,6 +3,7 @@ package ru.sbt.mipt.oop;
 import java.util.Collection;
 
 public class Room implements Actionable {
+
     private final Collection<Light> lights;
     private final Collection<Door> doors;
     private final String name;
@@ -21,11 +22,8 @@ public class Room implements Actionable {
     public void execute(Action action) {
         action.apply(this);
 
-        for (Light light : lights) {
-            light.execute(action);
-        }
-        for (Door door : doors) {
-            door.execute(action);
-        }
+        lights.forEach(light -> light.execute(action));
+        doors.forEach(door -> door.execute(action));
     }
+
 }
