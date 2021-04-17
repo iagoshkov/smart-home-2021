@@ -6,6 +6,8 @@ import ru.sbt.mipt.oop.event.processor.SensorEventProcessor;
 import ru.sbt.mipt.oop.event.handler.*;
 import ru.sbt.mipt.oop.event.handler.DoorEventHandler;
 import ru.sbt.mipt.oop.event.handler.EventHandler;
+import ru.sbt.mipt.oop.io.JsonSmartHomeReader;
+import ru.sbt.mipt.oop.io.SmartHomeReader;
 
 import java.util.Arrays;
 import java.util.List;

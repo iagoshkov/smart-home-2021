@@ -14,7 +14,7 @@ import java.util.List;
 public class SmartHomeTest extends SmartHomeTestComponent {
 
     public SmartHomeTest() {
-        smartHome = new SomeSmartHomeCreator().create();
+        smartHome = new SmartHomeCreator().create();
 
         List<EventHandler> eventHandlers = Arrays.asList(
                 new LightEventHandler(smartHome),
