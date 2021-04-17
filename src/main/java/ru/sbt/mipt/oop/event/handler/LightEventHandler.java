@@ -3,8 +3,8 @@ package ru.sbt.mipt.oop.event.handler;
 import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.SmartHome;
 import ru.sbt.mipt.oop.event.SensorEvent;
-import ru.sbt.mipt.oop.actions.LightOffAction;
-import ru.sbt.mipt.oop.actions.LightOnAction;
+import ru.sbt.mipt.oop.actions.TurnLightOffAction;
+import ru.sbt.mipt.oop.actions.TurnLightOnAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +22,8 @@ public class LightEventHandler implements EventHandler {
         List<Action> actionList = new ArrayList<>();
 
         switch (event.getType()) {
-            case LIGHT_ON -> actionList.add(new LightOnAction(event.getObjectId()));
-            case LIGHT_OFF -> actionList.add(new LightOffAction(event.getObjectId()));
+            case LIGHT_ON -> actionList.add(new TurnLightOnAction(event.getObjectId()));
+            case LIGHT_OFF -> actionList.add(new TurnLightOffAction(event.getObjectId()));
         }
 
         for (Action action : actionList) {

@@ -4,7 +4,7 @@ import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Door;
 import ru.sbt.mipt.oop.Room;
 
-public record DoorOpenAction(String doorId) implements Action {
+public record OpenDoorAction(String doorId) implements Action {
 
     @Override
     public void apply(Object obj) {

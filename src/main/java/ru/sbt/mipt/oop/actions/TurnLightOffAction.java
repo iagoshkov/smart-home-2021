@@ -4,7 +4,7 @@ import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Light;
 import ru.sbt.mipt.oop.Room;
 
-public record LightOnAction(String lightId) implements Action {
+public record TurnLightOffAction(String lightId) implements Action {
 
     @Override
     public void apply(Object obj) {
@@ -12,8 +12,8 @@ public record LightOnAction(String lightId) implements Action {
             room.execute(element -> {
                 if (element instanceof Light light) {
                     if (light.getId().equals(lightId)) {
-                        light.setOn(true);
-                        System.out.println("Light " + lightId + " in room " + room.getName() + " was turned on.");
+                        light.setOn(false);
+                        System.out.println("Light " + lightId + " in room " + room.getName() + " was turned off.");
                     }
                 }
             });
