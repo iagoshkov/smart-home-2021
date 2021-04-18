@@ -8,28 +8,31 @@ public class Alarm implements AlarmState {
         this.state = state;
     }
 
-    public Alarm(String code) {
-        this.state = new AlarmActiveState(this, code);
+    public Alarm() {
+        this.state = new AlarmInactiveState(this);
     }
 
     @Override
     public void activate(String code) {
+        System.out.println("Alarm was activated");
         state.activate(code);
     }
 
     @Override
     public void deactivate(String code) {
+        System.out.println("Alarm was deactivated");
         state.deactivate(code);
+    }
+
+    @Override
+    public void panic() {
+        System.out.println("Alarm was got panic state");
+        state.panic();
     }
 
     @Override
     public boolean allowSensorEvents() {
         return state.allowSensorEvents();
-    }
-
-    @Override
-    public void panic() {
-        state.panic();
     }
 
 }

@@ -10,8 +10,6 @@ public class AlarmActiveState implements AlarmState {
     public AlarmActiveState(Alarm alarm, String code) {
         this.alarm = alarm;
         this.code = code;
-
-        System.out.println("Alarm was activated");
     }
 
     @Override
@@ -24,14 +22,14 @@ public class AlarmActiveState implements AlarmState {
     }
 
     @Override
-    public boolean allowSensorEvents() {
-        panic();
-        return false;
+    public void panic() {
+        alarm.setState(new AlarmPanicState(alarm, this.code, System.out::println));
     }
 
     @Override
-    public void panic() {
-        alarm.setState(new AlarmPanicState(alarm, this.code, System.out::println));
+    public boolean allowSensorEvents() {
+        panic();
+        return false;
     }
 
     private boolean isCodeCorrect(String code) {
