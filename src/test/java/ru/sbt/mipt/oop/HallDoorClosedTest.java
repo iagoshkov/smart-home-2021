@@ -60,14 +60,14 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
     }
 
     private Door findHallRoomDoor() {
-        Room hallRoom = getRoom(hallRoomName);
-        if (hallRoom == null) return null;
-
-        AllDoorsAction allDoorsAction = new AllDoorsAction();
-        hallRoom.execute(allDoorsAction);
-
-        List<Door> doors = allDoorsAction.getDoors();
-        return !doors.isEmpty() ? doors.get(0) : null;
+        Room hallRoom = getHallRoom();
+        if (hallRoom != null) {
+            List<Door> doors = getDoors(hallRoom);
+            if (!doors.isEmpty()) {
+                return doors.get(0);
+            }
+        }
+        return null;
     }
 
     private Door findNotHallRoomDoor() {

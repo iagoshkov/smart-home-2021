@@ -6,6 +6,8 @@ public class AlarmInactiveState implements AlarmState {
 
     public AlarmInactiveState(Alarm alarm) {
         this.alarm = alarm;
+
+        System.out.println("Alarm was deactivated");
     }
 
     @Override

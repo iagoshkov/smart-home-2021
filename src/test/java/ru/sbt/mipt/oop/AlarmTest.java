@@ -14,17 +14,22 @@ import java.util.List;
 
 public class AlarmTest extends SmartHomeTestComponent {
 
-    private final SmartHomeTest smartHomeTest;
+    private final SmartHomeTest smartHomeTest = new SmartHomeTest();
 
-    private final Alarm alarm;
+    private final Alarm alarm = new Alarm();
     private final String correctCode = "xkcd";
+
+    public Alarm getAlarm() {
+        return alarm;
+    }
+
+    public String getCorrectCode() {
+        return correctCode;
+    }
 
     public AlarmTest() {
         super();
 
-        smartHomeTest = new SmartHomeTest();
-
-        alarm = new Alarm();
         EventProcessor eventProcessor = new AlarmEventProcessorDecorator(
                 smartHomeTest.getEventProcessor(),
                 alarm,
@@ -49,19 +54,19 @@ public class AlarmTest extends SmartHomeTestComponent {
 
     @Test
     public void doWithoutCode() {
-        List<Boolean> doorsAreOpenBefore = getDoorIsOpenList(doors);
-        List<Boolean> lightsAreOnBefore = getLightIsOnList(lights);
+        List<Boolean> doorIsOpenListBefore = getDoorIsOpenList(doors);
+        List<Boolean> lightIsOnListBefore = getLightIsOnList(lights);
 
         SmartHomeSimulator.simulateWork(eventProcessor);
 
-        List<Boolean> doorsAreOpenAfter = getDoorIsOpenList(doors);
-        List<Boolean> lightsAreOnAfter = getLightIsOnList(lights);
+        List<Boolean> doorIsOpenListAfter = getDoorIsOpenList(doors);
+        List<Boolean> lightIsOnListAfter = getLightIsOnList(lights);
 
-        Assert.assertEquals(doorsAreOpenBefore.size(), doorsAreOpenAfter.size());
-        Assert.assertArrayEquals(doorsAreOpenBefore.toArray(), doorsAreOpenAfter.toArray());
+        Assert.assertEquals(doorIsOpenListBefore.size(), doorIsOpenListAfter.size());
+        Assert.assertArrayEquals(doorIsOpenListBefore.toArray(), doorIsOpenListAfter.toArray());
 
-        Assert.assertEquals(lightsAreOnBefore.size(), lightsAreOnAfter.size());
-        Assert.assertArrayEquals(lightsAreOnBefore.toArray(), lightsAreOnAfter.toArray());
+        Assert.assertEquals(lightIsOnListBefore.size(), lightIsOnListAfter.size());
+        Assert.assertArrayEquals(lightIsOnListBefore.toArray(), lightIsOnListAfter.toArray());
     }
 
     @Test
