@@ -14,6 +14,8 @@ public class AlarmPanicState implements AlarmState {
         this.alarm = alarm;
         this.code = code;
         this.messenger = messenger;
+
+        System.out.println("Alarm was got panic state");
     }
 
     @Override
