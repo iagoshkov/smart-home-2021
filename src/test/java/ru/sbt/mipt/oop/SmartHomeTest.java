@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop;
 
 import org.junit.Test;
-import ru.sbt.mipt.oop.command.LightOffCommandProducer;
+import ru.sbt.mipt.oop.command.TurnOffLightCommandProducer;
 import ru.sbt.mipt.oop.event.processor.SensorEventProcessor;
 import ru.sbt.mipt.oop.event.handler.*;
 import ru.sbt.mipt.oop.event.handler.DoorEventHandler;
@@ -19,7 +19,7 @@ public class SmartHomeTest extends SmartHomeTestComponent {
         List<EventHandler> eventHandlers = Arrays.asList(
                 new LightEventHandler(smartHome),
                 new DoorEventHandler(smartHome),
-                new HallDoorEventHandler(smartHome, new LightOffCommandProducer())
+                new HallDoorEventHandler(smartHome, new TurnOffLightCommandProducer())
         );
 
         eventProcessor = new SensorEventProcessor(smartHome, eventHandlers);
