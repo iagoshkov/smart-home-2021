@@ -4,6 +4,10 @@ public class Alarm implements AlarmState {
 
     private AlarmState state;
 
+    public AlarmState getState() {
+        return state;
+    }
+
     void setState(AlarmState state) {
         this.state = state;
     }
