@@ -3,14 +3,9 @@ package ru.sbt.mipt.oop;
 import org.junit.Assert;
 import org.junit.Test;
 import ru.sbt.mipt.oop.actions.AllDoorsAction;
-import ru.sbt.mipt.oop.actions.AllLightsAction;
-import ru.sbt.mipt.oop.actions.AllRoomsAction;
 import ru.sbt.mipt.oop.event.SensorEvent;
 import ru.sbt.mipt.oop.event.SensorEventType;
-import ru.sbt.mipt.oop.util.IsLightOnAction;
-import ru.sbt.mipt.oop.util.SmartHomeTestComponent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HallDoorClosedTest extends SmartHomeTestComponent {
@@ -19,32 +14,12 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
         super();
 
         SmartHomeTest smartHomeTest = new SmartHomeTest();
-        smartHome = smartHomeTest.smartHome;
-        eventProcessor = smartHomeTest.eventProcessor;
-    }
-
-    private void isLightTurnedOff(String id) {
-        IsLightOnAction isLightOn = new IsLightOnAction(id);
-        smartHome.execute(isLightOn);
-        Assert.assertEquals(Boolean.FALSE, isLightOn.isOn());
+        set(smartHomeTest.getSmartHome(), smartHomeTest.getEventProcessor());
     }
 
     @Test
     public void closeHallDoor() {
-        AllDoorsAction allDoorsAction = new AllDoorsAction();
-        smartHome.execute(allDoorsAction);
-
-        List<Door> doors = allDoorsAction.getDoors();
-        if (doors.isEmpty()) return;
-
-        AllLightsAction allLightsAction = new AllLightsAction();
-        smartHome.execute(allLightsAction);
-
-        List<Light> lights = allLightsAction.getLights();
-        if (lights.isEmpty()) return;
-
-        // At least one door is open
-        eventProcessor.processEvent(new SensorEvent(SensorEventType.DOOR_OPEN, doors.get(0).getId()));
+        if (doors.isEmpty() || lights.isEmpty()) return;
 
         // At least one light is on
         eventProcessor.processEvent(new SensorEvent(SensorEventType.LIGHT_ON, lights.get(0).getId()));
@@ -58,38 +33,12 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
         // Close hall door, so all lights will be turned off
         eventProcessor.processEvent(new SensorEvent(SensorEventType.DOOR_CLOSED, hallRoomDoorId));
 
-        for (Light light : lights) {
-            isLightTurnedOff(light.getId());
-        }
-    }
-
-    private Door findHallRoomDoor() {
-        String hallRoomName = "hall";
-
-        AllRoomsAction allRoomsAction = new AllRoomsAction();
-        smartHome.execute(allRoomsAction);
-
-        for (Room room : allRoomsAction.getRooms()) {
-            if (room.getName().equals(hallRoomName)) {
-                AllDoorsAction allDoorsAction = new AllDoorsAction();
-                room.execute(allDoorsAction);
-
-                List<Door> doors = allDoorsAction.getDoors();
-                if (!doors.isEmpty()) {
-                    return doors.iterator().next();
-                }
-            }
-        }
-        return null;
+        lights.forEach(light -> Assert.assertEquals(Boolean.FALSE, light.isOn()));
     }
 
     @Test
     public void closeNotHallDoor() {
-        AllLightsAction allLightsAction = new AllLightsAction();
-        smartHome.execute(allLightsAction);
-
-        List<Light> lights = allLightsAction.getLights();
-        if (lights.isEmpty()) return;
+        if (doors.isEmpty() || lights.isEmpty()) return;
 
         // At least one light is on
         eventProcessor.processEvent(new SensorEvent(SensorEventType.LIGHT_ON, lights.get(0).getId()));
@@ -102,7 +51,7 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
 
         List<Boolean> lightIsOnListBefore = getLightIsOnList(lights);
 
-        // Close not hall door, so it doesn't make anything
+        // Close not hall door, so it doesn't make anything ot lights
         eventProcessor.processEvent(new SensorEvent(SensorEventType.DOOR_CLOSED, notHallRoomDoorId));
 
         List<Boolean> lightIsOnListAfter = getLightIsOnList(lights);
@@ -110,31 +59,23 @@ public class HallDoorClosedTest extends SmartHomeTestComponent {
         Assert.assertEquals(lightIsOnListBefore, lightIsOnListAfter);
     }
 
-    private List<Boolean> getLightIsOnList(List<Light> lights) {
-        List<Boolean> lightIsOnList = new ArrayList<>();
+    private Door findHallRoomDoor() {
+        Room hallRoom = getRoom(hallRoomName);
+        if (hallRoom == null) return null;
 
-        for (Light light : lights) {
-            IsLightOnAction isLightOn = new IsLightOnAction(light.getId());
-            smartHome.execute(isLightOn);
-            lightIsOnList.add(isLightOn.isOn());
-        }
-        return lightIsOnList;
+        AllDoorsAction allDoorsAction = new AllDoorsAction();
+        hallRoom.execute(allDoorsAction);
+
+        List<Door> doors = allDoorsAction.getDoors();
+        return !doors.isEmpty() ? doors.get(0) : null;
     }
 
     private Door findNotHallRoomDoor() {
-        String hallRoomName = "hall";
-
-        AllRoomsAction allRoomsAction = new AllRoomsAction();
-        smartHome.execute(allRoomsAction);
-
-        for (Room room : allRoomsAction.getRooms()) {
+        for (Room room : rooms) {
             if (!room.getName().equals(hallRoomName)) {
-                AllDoorsAction allDoorsAction = new AllDoorsAction();
-                room.execute(allDoorsAction);
-
-                List<Door> doors = allDoorsAction.getDoors();
+                List<Door> doors = getDoors(room);
                 if (!doors.isEmpty()) {
-                    return doors.iterator().next();
+                    return doors.get(0);
                 }
             }
         }
