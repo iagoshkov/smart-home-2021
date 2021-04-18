@@ -65,6 +65,10 @@ public class SmartHomeTestComponent {
         return rooms.stream().filter(room -> room.getName().equals(name)).findAny().orElse(null);
     }
 
+    protected Room getHallRoom() {
+        return getRoom(hallRoomName);
+    }
+
     protected Door getDoor(String id) {
         return doors.stream().filter(door -> door.getId().equals(id)).findAny().orElse(null);
     }
