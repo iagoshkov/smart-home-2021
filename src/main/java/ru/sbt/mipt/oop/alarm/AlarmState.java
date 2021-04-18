@@ -10,12 +10,12 @@ public interface AlarmState {
         // do nothing
     }
 
-    default boolean allowSensorEvents() {
-        return true;
-    }
-
     default void panic() {
         // do nothing
+    }
+
+    default boolean allowSensorEvents() {
+        return true;
     }
 
 }

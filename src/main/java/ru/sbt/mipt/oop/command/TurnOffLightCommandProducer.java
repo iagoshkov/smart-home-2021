@@ -3,7 +3,7 @@ package ru.sbt.mipt.oop.command;
 import ru.sbt.mipt.oop.Light;
 import ru.sbt.mipt.oop.SmartHome;
 
-public class LightOffCommandProducer implements CommandProducer {
+public class TurnOffLightCommandProducer implements CommandProducer {
     @Override
     public void produceCommand(SmartHome smartHome) {
         CommandSender commandSender = command -> System.out.println("Pretend we're sending command " + command);

@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.command.LightOffCommandProducer;
+import ru.sbt.mipt.oop.command.TurnOffLightCommandProducer;
 import ru.sbt.mipt.oop.event.processor.EventProcessor;
 import ru.sbt.mipt.oop.event.processor.SensorEventProcessor;
 import ru.sbt.mipt.oop.event.handler.*;
@@ -20,7 +20,7 @@ public class Application {
         List<EventHandler> eventHandlers = Arrays.asList(
                 new LightEventHandler(smartHome),
                 new DoorEventHandler(smartHome),
-                new HallDoorEventHandler(smartHome, new LightOffCommandProducer())
+                new HallDoorEventHandler(smartHome, new TurnOffLightCommandProducer())
         );
 
         EventProcessor eventProcessor = new SensorEventProcessor(smartHome, eventHandlers);
