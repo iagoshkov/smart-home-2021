@@ -1,6 +1,5 @@
 package ru.sbt.mipt.oop;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ru.sbt.mipt.oop.alarm.Alarm;
@@ -9,8 +8,6 @@ import ru.sbt.mipt.oop.event.AlarmEventType;
 import ru.sbt.mipt.oop.event.handler.AlarmEventHandler;
 import ru.sbt.mipt.oop.event.processor.AlarmEventProcessorDecorator;
 import ru.sbt.mipt.oop.event.processor.EventProcessor;
-
-import java.util.List;
 
 public class AlarmTest extends SmartHomeTestComponent {
 
@@ -54,19 +51,7 @@ public class AlarmTest extends SmartHomeTestComponent {
 
     @Test
     public void doWithoutCode() {
-        List<Boolean> doorIsOpenListBefore = getDoorIsOpenList(doors);
-        List<Boolean> lightIsOnListBefore = getLightIsOnList(lights);
-
-        SmartHomeSimulator.simulateWork(eventProcessor);
-
-        List<Boolean> doorIsOpenListAfter = getDoorIsOpenList(doors);
-        List<Boolean> lightIsOnListAfter = getLightIsOnList(lights);
-
-        Assert.assertEquals(doorIsOpenListBefore.size(), doorIsOpenListAfter.size());
-        Assert.assertArrayEquals(doorIsOpenListBefore.toArray(), doorIsOpenListAfter.toArray());
-
-        Assert.assertEquals(lightIsOnListBefore.size(), lightIsOnListAfter.size());
-        Assert.assertArrayEquals(lightIsOnListBefore.toArray(), lightIsOnListAfter.toArray());
+        doWithoutChanges(() -> SmartHomeSimulator.simulateWork(eventProcessor));
     }
 
     @Test
