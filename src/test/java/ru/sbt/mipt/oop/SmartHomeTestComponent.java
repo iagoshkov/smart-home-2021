@@ -1,5 +1,6 @@
 package ru.sbt.mipt.oop;
 
+import org.junit.Assert;
 import ru.sbt.mipt.oop.actions.AllDoorsAction;
 import ru.sbt.mipt.oop.actions.AllLightsAction;
 import ru.sbt.mipt.oop.actions.AllRoomsAction;
@@ -87,6 +88,22 @@ public class SmartHomeTestComponent {
         return doors.stream()
                 .map(Door::isOpen)
                 .collect(Collectors.toList());
+    }
+
+    protected void doWithoutChanges(Runnable func) {
+        List<Boolean> doorIsOpenListBefore = getDoorIsOpenList(doors);
+        List<Boolean> lightIsOnListBefore = getLightIsOnList(lights);
+
+        func.run();
+
+        List<Boolean> doorIsOpenListAfter = getDoorIsOpenList(doors);
+        List<Boolean> lightIsOnListAfter = getLightIsOnList(lights);
+
+        Assert.assertEquals(doorIsOpenListBefore.size(), doorIsOpenListAfter.size());
+        Assert.assertArrayEquals(doorIsOpenListBefore.toArray(), doorIsOpenListAfter.toArray());
+
+        Assert.assertEquals(lightIsOnListBefore.size(), lightIsOnListAfter.size());
+        Assert.assertArrayEquals(lightIsOnListBefore.toArray(), lightIsOnListAfter.toArray());
     }
 
 }
