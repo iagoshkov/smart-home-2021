@@ -5,3 +5,4 @@ import ru.sbt.mipt.oop.Event.SensorEvent;
 public interface CCEventCreator {
     SensorEvent create(String id);
 }
+
