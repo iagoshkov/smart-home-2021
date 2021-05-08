@@ -21,7 +21,7 @@ public class HallDoorEventHandler implements SensorEventHandler {
                if (homeObject instanceof Room && homeObject.getId().equals("hall")) {
                    Action action = (HomeObject currentRoomObject) -> {
                        if (currentRoomObject instanceof Door && currentRoomObject.getId().equals(event.getObjectId())) {
-                           turnOffAllTheLights();
+                           turnOffAllTheLights(); 
                        }
                    };
                    ((Room) homeObject).execute(action);
