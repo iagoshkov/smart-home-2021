@@ -11,7 +11,7 @@ public class DoorEventHandler implements SensorEventHandler {
     private SmartHome smartHome;
 
     public DoorEventHandler(SmartHome smartHome) {
-        this.smartHome = smartHome;
+        this.smartHome = smartHome; 
     }
     
     private void OpenTheDoor(Door door) {
