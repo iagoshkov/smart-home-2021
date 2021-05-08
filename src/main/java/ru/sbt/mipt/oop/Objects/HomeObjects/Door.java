@@ -17,4 +17,5 @@ public class Door extends HomeObject{
         super(id);
         this.isOpen = isOpen;
     }
+  
 }
