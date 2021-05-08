@@ -25,3 +25,4 @@ public class AlertAlarmState implements AlarmState {
         return this;
     }
 }
+
