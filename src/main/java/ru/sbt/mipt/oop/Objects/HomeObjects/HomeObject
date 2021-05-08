@@ -1,0 +1,15 @@
+
+package ru.sbt.mipt.oop.Objects.HomeObjects;
+
+public abstract class HomeObject {
+
+    private String id;
+        
+    public String getId() {
+        return id;
+    }
+
+    public HomeObject(String id) {
+        this.id = id;
+    }
+}
