@@ -27,6 +27,7 @@ public class Room extends HomeObject implements Actionable {
         this.doors = doors;
         this.lights = lights;
         super(name);   
+        
     }
 
     @Override
