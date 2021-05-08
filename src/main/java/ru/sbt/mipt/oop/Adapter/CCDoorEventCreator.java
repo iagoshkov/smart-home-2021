@@ -14,4 +14,5 @@ public CCDoorEventCreator(DoorEventType type) {
     public SensorEvent create(String id) {
         return new DoorEvent(id, type);
     }
+    
 }
