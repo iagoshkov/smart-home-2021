@@ -8,7 +8,7 @@ public class AlarmEventHandler implements SensorEventHandler{
     private SmartAlarm alarm;
 
     public AlarmEventHandler(SmartAlarm alarm) {
-        this.alarm = alarm;
+        this.alarm = alarm; 
     }
 
     @Override
