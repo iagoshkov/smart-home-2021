@@ -5,4 +5,5 @@ import ru.sbt.mipt.oop.HomeObject;
 
 import java.util.function.Consumer;
 
-public interface Action extends Consumer<HomeObject> {}
+public interface Action extends Consumer<HomeObject> {
+}
