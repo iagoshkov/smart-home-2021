@@ -15,3 +15,4 @@ public class CCLightEventCreator implements CCEventCreator {
         return new LightEvent(id, type);
     }
 }
+
