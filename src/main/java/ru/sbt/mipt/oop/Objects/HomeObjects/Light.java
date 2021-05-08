@@ -2,7 +2,6 @@ package ru.sbt.mipt.oop.Objects.HomeObjects;
 
 
 public class Light extends HomeObject {
-  
     private boolean isOn;
   
     public boolean isOn() {
