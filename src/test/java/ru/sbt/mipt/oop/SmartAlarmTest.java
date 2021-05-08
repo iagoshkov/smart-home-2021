@@ -1,7 +1,6 @@
 package ru.sbt.mipt.oop;
 import org.junit.Test;
 import ru.sbt.mipt.oop.Objects.Alarm.SmartAlarm;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartAlarmTest {
