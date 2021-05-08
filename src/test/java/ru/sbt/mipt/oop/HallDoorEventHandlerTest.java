@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class HallDoorHandlerTest {
+public class HallDoorEventHandlerTest {
   
     @Mock
     SmartHome smartHome;
