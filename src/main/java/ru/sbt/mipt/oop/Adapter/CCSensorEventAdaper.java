@@ -31,7 +31,6 @@ public class CCSensorEventAdapter implements EventHandler {
         } else {
           String type = event.getEventType();
           SensorEvent sensorEvent = map.get(type).create(event.getObjectId());
-
         for (SensorEventHandler handler : handler) {
             handler.handleEvent(sensorEvent);
         }
