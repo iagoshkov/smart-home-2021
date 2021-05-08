@@ -11,6 +11,11 @@ public class ActivatedAlarmState implements AlarmState {
     public AlarmState activate(String code) {
         return this;
     }
+    
+    @Override
+    public AlarmState alert() {
+        return new AlertAlarmState(code);
+    }
 
     @Override
     public AlarmState deactivate(String code) {
@@ -18,10 +23,5 @@ public class ActivatedAlarmState implements AlarmState {
             return new DeactivatedAlarmState();
         }
         return this.alert();
-    }
-
-    @Override
-    public AlarmState alert() {
-        return new AlertAlarmState(code);
     }
 }
