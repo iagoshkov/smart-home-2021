@@ -7,7 +7,7 @@ public class DoorEvent extends SensorEvent{
 
     public DoorEvent(String objectId, DoorEventType doorEventType) {
         super(objectId);
-        this.doorEventType = doorEventType;
+        this.doorEventType = doorEventType; 
     }
 
     public DoorEventType getDoorEventType() {
