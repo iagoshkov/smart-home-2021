@@ -7,6 +7,14 @@ public class SmartAlarm {
     public SmartAlarm() {
         this.state = new DeactivatedAlarmState();
     }
+    
+    public void alert() {
+        state = state.alert();
+    }
+  
+    public  boolean isAlert() {
+        return (state instanceof AlertAlarmState);
+    }
 
     public void activate(String code) {
         state = state.activate(code);
@@ -22,13 +30,5 @@ public class SmartAlarm {
 
     public boolean isDeactivated() {
         return (state instanceof DeactivatedAlarmState);
-    }
-
-    public void alert() {
-        state = state.alert();
-    }
-  
-    public  boolean isAlert() {
-        return (state instanceof AlertAlarmState);
     }
 }
