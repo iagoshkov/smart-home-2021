@@ -57,4 +57,5 @@ public class DoorEventHandlerTest {
         handler.handleEvent(doorEvent);
         assertTrue(door.isOpen());
     }
+  
 }
