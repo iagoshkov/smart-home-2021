@@ -20,7 +20,7 @@ public class LightEventHandler implements SensorEventHandler {
     }
 
     private void turnTheLightOn(Light light) {
-        light.setOn(true);
+        light.setOn(true); 
         System.out.println("Light " + light.getId() + " was turned on.");
     }
 
