@@ -20,6 +20,7 @@ public class Room extends HomeObject implements Actionable {
     
     public Collection<Light> getLights() {
         return lights;
+        
     }
 
     public Room(String name, Collection<Door> doors, Collection<Light> lights) {
