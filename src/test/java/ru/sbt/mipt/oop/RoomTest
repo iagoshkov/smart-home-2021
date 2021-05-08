@@ -1,0 +1,37 @@
+  
+package ru.sbt.mipt.oop;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import ru.sbt.mipt.oop.Action.Action;
+import ru.sbt.mipt.oop.Object.HomeObjects.Door;
+import ru.sbt.mipt.oop.Objects.HomeObjects.HomeObject;
+import ru.sbt.mipt.oop.Objects.HomeObjects.Light;
+import ru.sbt.mipt.oop.Objects.HomeObjects.Actionable.Room;
+import java.util.ArrayList;
+import java.util.Collections;
+import static org.junit.jupiter.api.Assertions.*;
+
+@RunWith(MockitoJUnitRunner.class)
+public class RoomTest {
+
+    @Mock
+    Door door;
+    
+    @Mock
+    Light light;
+
+    @InjectMocks
+    Room room;
+
+    @Test
+    public void executeRoom() {
+        room = new Room(new ArrayList<>(Collections.singletonList(light)), new ArrayList<>(Collections.singletonList(door)), "my_room");
+        final int[] calls_cnt = {0};
+        Action action = (HomeObject homeObject) -> calls_cnt[0] += 1;
+        room.execute(action);
+        assertEquals(3, calls_cnt[0]);
+    }
+}
