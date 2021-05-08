@@ -27,7 +27,7 @@ public class RoomTest {
     Room room;
 
     @Test
-    public void executeRoom() {
+    public void execute() {
         room = new Room(new ArrayList<>(Collections.singletonList(light)), new ArrayList<>(Collections.singletonList(door)), "my_room");
         final int[] calls_cnt = {0};
         Action action = (HomeObject homeObject) -> calls_cnt[0] += 1;
