@@ -1,5 +1,10 @@
 package ru.sbt.mipt.oop;
 
+import ru.sbt.mipt.oop.EventHandler.DoorEventHandler;
+import ru.sbt.mipt.oop.EventHandler.HallDoorEventHandler;
+import ru.sbt.mipt.oop.EventHandler.LightEventHandler;
+import ru.sbt.mipt.oop.SmartHome.SmartHome;
+
 import java.util.Arrays;
 
 public class Application {

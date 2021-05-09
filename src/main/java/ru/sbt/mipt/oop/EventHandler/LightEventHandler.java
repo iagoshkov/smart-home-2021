@@ -1,6 +1,10 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.EventHandler;
 
 //import ru.sbt.mipt.oop.*;
+import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.SmartHome.Light;
+import ru.sbt.mipt.oop.SmartHome.SmartHome;
+
 import static ru.sbt.mipt.oop.SensorEventType.*;
 
 public class LightEventHandler implements EventHandler {

@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.SmartHome;
 
 //класс, осуществляющий древовидную компоновку:
 public interface Actionable {

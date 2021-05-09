@@ -1,7 +1,8 @@
 package ru.sbt.mipt.oop;
 
 import com.google.gson.Gson;
-import java.io.BufferedReader;
+import ru.sbt.mipt.oop.SmartHome.SmartHome;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;

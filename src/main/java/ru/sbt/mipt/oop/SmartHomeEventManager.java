@@ -1,9 +1,8 @@
 package ru.sbt.mipt.oop;
 
-import java.util.List;
+import ru.sbt.mipt.oop.EventHandler.EventHandler;
 
-import static ru.sbt.mipt.oop.SensorEventType.*;
-import static ru.sbt.mipt.oop.SensorEventType.DOOR_CLOSED;
+import java.util.List;
 
 public class SmartHomeEventManager implements EventManager {
     private final List<EventHandler> eventHandlers;

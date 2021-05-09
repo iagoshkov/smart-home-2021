@@ -1,4 +1,13 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.EventHandler;
+
+import ru.sbt.mipt.oop.CommandSender;
+import ru.sbt.mipt.oop.CommandType;
+import ru.sbt.mipt.oop.SensorCommand;
+import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.SmartHome.Door;
+import ru.sbt.mipt.oop.SmartHome.Light;
+import ru.sbt.mipt.oop.SmartHome.Room;
+import ru.sbt.mipt.oop.SmartHome.SmartHome;
 
 import static ru.sbt.mipt.oop.SensorEventType.*;
 
@@ -15,7 +24,7 @@ public class HallDoorEventHandler implements EventHandler {
         // в этом случае мы хотим автоматически выключить свет во всем доме (это же умный дом!)
         System.out.println("Turning lights off at whole home");
         if(event.getType().equals(DOOR_CLOSED) && findRoomByDoorId(event.getObjectId()).getName().equals("hall")) {
-            for (Room room : smartHome.rooms) {
+            for (Room room : smartHome.getRooms()) {
                 for (Light light : room.getLights()) {
                     light.setOn(false);
                     SensorCommand command = new SensorCommand(CommandType.LIGHT_OFF, light.getId());
@@ -26,7 +35,7 @@ public class HallDoorEventHandler implements EventHandler {
     }
 
     private Room findRoomByDoorId(String doorId) {
-        for (Room room : smartHome.rooms) {
+        for (Room room : smartHome.getRooms()) {
             for (Door door : room.getDoors()) {
                 if (door.getId().equals(doorId)) {
                     return room;
