@@ -23,7 +23,8 @@ public class Light implements Actionable {
 
     @Override
     public void execute(Action action) {
-        action.act(action);
+        //System.out.println("light id=" + id + " executing");
+        action.act(this);
     }
 
     /*@Override

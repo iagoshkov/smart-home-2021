@@ -19,13 +19,7 @@ public class Door implements Actionable {
 
     @Override
     public void execute(Action action) {
-        action.act(action);
+        //System.out.println("door id=" + id + " executing");
+        action.act(this);
     }
-
-    /*@Override
-    public void act(ActionStrategy action) {
-        if (action.getObjectId().equals(id)) {
-            System.out.println("Alo!");
-        }
-    }*/
 }

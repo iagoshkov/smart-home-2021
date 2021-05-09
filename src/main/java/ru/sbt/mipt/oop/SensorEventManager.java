@@ -9,8 +9,8 @@ public class SensorEventManager {
     SmartHome smartHome;
 
     public SensorEventManager(SmartHome smartHome) {
-        lightEventHandler = new LightEventHandler();
-        doorEventHandler = new DoorEventHandler();
+        lightEventHandler = new LightEventHandler(smartHome);
+        doorEventHandler = new DoorEventHandler(smartHome);
         this.smartHome = smartHome;
     }
 
@@ -19,10 +19,10 @@ public class SensorEventManager {
         while (event != null) {
             System.out.println("Got event: " + event);
             if (event.getType() == LIGHT_ON || event.getType() == LIGHT_OFF) {
-                lightEventHandler.handleEvent(smartHome, event);
+                lightEventHandler.handleEvent(event);
             }
             if (event.getType() == DOOR_OPEN || event.getType() == DOOR_CLOSED) {
-                doorEventHandler.handleEvent(smartHome, event);
+                doorEventHandler.handleEvent(event);
             }
             event = getNextSensorEvent();
         }
