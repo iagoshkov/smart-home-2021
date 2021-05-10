@@ -3,7 +3,7 @@ import ru.sbt.mipt.oop.Event.*;
 import ru.sbt.mipt.oop.Type.EventType;
 
 public class CCDoorEventCreator implements CCEventCreator {
-    private EventType type;
+    private final EventType type;
 
 public CCDoorEventCreator(EventType type) {
         this.type = type;
