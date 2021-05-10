@@ -1,11 +1,11 @@
 package ru.sbt.mipt.oop.Adapter;
 import ru.sbt.mipt.oop.Event.*;
-import ru.sbt.mipt.oop.Type.DoorEventType;
+import ru.sbt.mipt.oop.Type.EventType;
 
 public class CCDoorEventCreator implements CCEventCreator {
-    private DoorEventType type;
+    private EventType type;
 
-public CCDoorEventCreator(DoorEventType type) {
+public CCDoorEventCreator(EventType type) {
         this.type = type;
     }
 
