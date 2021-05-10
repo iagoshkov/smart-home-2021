@@ -3,7 +3,7 @@ package ru.sbt.mipt.oop.Event;
 import ru.sbt.mipt.oop.Type.EventType;
 
 public class DoorEvent extends SensorEvent{
-    private EventType doorEventType;
+    private final EventType doorEventType;
 
     public DoorEvent(String objectId, EventType doorEventType) {
         super(objectId);
