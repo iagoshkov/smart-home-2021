@@ -4,7 +4,7 @@ import ru.sbt.mipt.oop.Event.LightEvent;
 import ru.sbt.mipt.oop.Type.EventType;
 
 public class CCLightEventCreator implements CCEventCreator {
-    private EventType type;
+    private final EventType type;
     
     public CCLightEventCreator(EventType type) {
         this.type = type;
