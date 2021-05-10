@@ -4,10 +4,11 @@ import ru.sbt.mipt.oop.Event.SensorEvent;
 import ru.sbt.mipt.oop.Handler.SensorEventHandler;
 import ru.sbt.mipt.oop.Objects.Alarm.SmartAlarm;
 
-public class AlarmSensorEventHandler implements SensorEventHandler {
+public class AlarmSensorEventHandler implements AlarmSensorEventHandlerInterface {
     private final SmartAlarm alarm;
     private final List<SensorEventHandler> handlers;
 
+    @Override
     public AlarmSensorEventHandler(SmartAlarm alarm, List<SensorEventHandler> handlers) {
         this.alarm = alarm;
         this.handlers = handlers;
