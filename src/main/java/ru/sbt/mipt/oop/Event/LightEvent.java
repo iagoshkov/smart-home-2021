@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop.Event;
 import ru.sbt.mipt.oop.Type.EventType;
 
 public class LightEvent extends SensorEvent{
-    private EventType lightEventType;
+    private final EventType lightEventType;
 
     public LightEvent(String objectId, EventType lightEventType) {
         super(objectId);
