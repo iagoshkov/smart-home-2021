@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 public class CCSensorEventAdapter implements EventHandler {
-    private SmartHome smartHome;
-    private SmartAlarm alarm;
-    private HashMap<String, CCEventCreator> map;
-    private ArrayList<SensorEventHandler> handler;
+    private final SmartHome smartHome;
+    private final SmartAlarm alarm;
+    private final HashMap<String, CCEventCreator> map;
+    private final ArrayList<SensorEventHandler> handler;
 
     public CCSensorEventAdapter(SmartHome smartHome, SmartAlarm alarm, Map<String, CCEventCreator> map, List<SensorEventHandler> handler) {
         this.smartHome = smartHome;
