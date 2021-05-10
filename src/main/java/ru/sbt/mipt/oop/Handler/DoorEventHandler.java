@@ -5,7 +5,7 @@ import ru.sbt.mipt.oop.Event.SensorEvent;
 import ru.sbt.mipt.oop.Objects.HomeObjects.Door;
 import ru.sbt.mipt.oop.Objects.HomeObjects.HomeObject;
 import ru.sbt.mipt.oop.Objects.HomeObjects.Actionable.SmartHome;
-import static ru.sbt.mipt.oop.types.DoorEventType.*;
+import static ru.sbt.mipt.oop.types.EventType.*;
 
 public class DoorEventHandler implements SensorEventHandler {
     private SmartHome smartHome;
