@@ -2,7 +2,7 @@ package ru.sbt.mipt.oop.Objects.HomeObjects;
 import ru.sbt.mipt.oop.Action.Action;
 
 public class Light extends HomeObject implements Actionable{
-    private boolean isOn;
+    private final boolean isOn;
   
     public boolean isOn() {
         return isOn;
