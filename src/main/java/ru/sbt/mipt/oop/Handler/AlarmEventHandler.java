@@ -5,7 +5,7 @@ import static ru.sbt.mipt.oop.Type.EventType.ON;
 import static ru.sbt.mipt.oop.Types.EventType.OFF;
 
 public class AlarmEventHandler implements SensorEventHandler{
-    private SmartAlarm alarm;
+    private final SmartAlarm alarm;
 
     public AlarmEventHandler(SmartAlarm alarm) {
         this.alarm = alarm; 
