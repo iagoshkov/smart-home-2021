@@ -4,11 +4,13 @@ import java.util.Collection;
 import ru.sbt.mipt.oop.Action.Action;
 import ru.sbt.mipt.oop.Objects.Alarm.AlarmState;
 import ru.sbt.mipt.oop.Objects.HomeObjects.HomeObject;
+import java.util.Arrays;
+import java.util.List;
 
 public class SmartHome extends HomeObject implements Actionable {
-    Collection<Room> rooms;
+    List<Room> rooms;
         
-    public Collection<Room> getRooms() {
+    public List<Room> getRooms() {
         return rooms;
     }
         
@@ -23,7 +25,7 @@ public class SmartHome extends HomeObject implements Actionable {
         rooms = new ArrayList<>();
     }
 
-    public SmartHome(Collection<Room> rooms) {
+    public SmartHome(List<Room> rooms) {
         super("home");
         this.rooms = rooms;
     }
