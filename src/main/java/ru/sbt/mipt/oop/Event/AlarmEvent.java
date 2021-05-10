@@ -2,8 +2,8 @@ package ru.sbt.mipt.oop.Event;
 import ru.sbt.mipt.oop.Type.EventType;
 
 public class AlarmEvent extends SensorEvent {
-    private EventType alarmEventType;
-    private String code; 
+    private final EventType alarmEventType;
+    private final String code; 
 
     public AlarmEvent(EventType alarmEventType, String code) {
         super("alarm");
