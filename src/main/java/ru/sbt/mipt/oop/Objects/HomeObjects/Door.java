@@ -1,7 +1,8 @@
 
 package ru.sbt.mipt.oop.Objects.HomeObjects;
+import ru.sbt.mipt.oop.Action.Action;
 
-public class Door extends HomeObject{
+public class Door extends HomeObject implements Actionable{
   
     private boolean isOpen;
   
@@ -16,6 +17,11 @@ public class Door extends HomeObject{
     public Door(boolean isOpen, String id) {
         super(id);
         this.isOpen = isOpen;
+    }
+  
+    @Override
+    public void execute(Action action) {
+        action.accept(this);
     }
   
 }
