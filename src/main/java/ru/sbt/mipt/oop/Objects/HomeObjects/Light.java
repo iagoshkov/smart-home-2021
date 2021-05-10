@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.Objects.HomeObjects;
+import ru.sbt.mipt.oop.Action.Action;
 
-
-public class Light extends HomeObject {
+public class Light extends HomeObject implements Actionable{
     private boolean isOn;
   
     public boolean isOn() {
@@ -16,4 +16,9 @@ public class Light extends HomeObject {
         super(id);
         this.isOn = isOn;
     }
+    
+     @Override
+    public void execute(Action action) {
+        action.accept(this);
+        }
 }
