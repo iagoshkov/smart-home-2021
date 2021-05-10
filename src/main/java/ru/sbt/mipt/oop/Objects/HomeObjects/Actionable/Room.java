@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Room extends HomeObject implements Actionable {
-    private String name;
+    private final String name;
     
     public String getName() {
         return name;
