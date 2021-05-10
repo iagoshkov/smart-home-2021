@@ -2,6 +2,8 @@ package ru.sbt.mipt.oop.Objects.HomeObjects.Actionable;
 import java.util.Collection;
 import ru.sbt.mipt.oop.Action.Action;
 import ru.sbt.mipt.oop.Objects.HomeObjects.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class Room extends HomeObject implements Actionable {
     private String name;
@@ -10,20 +12,20 @@ public class Room extends HomeObject implements Actionable {
         return name;
     }
     
-    private Collection<Door> doors;
+    private List<Door> doors;
     
-    public Collection<Door> getDoors() {
+    public List<Door> getDoors() {
         return doors;
     }
     
-    private Collection<Light> lights;
+    private List<Light> lights;
     
-    public Collection<Light> getLights() {
+    public List<Light> getLights() {
         return lights;
         
     }
 
-    public Room(String name, Collection<Door> doors, Collection<Light> lights) {
+    public Room(String name, List<Door> doors, List<Light> lights) {
         this.name = name;
         this.doors = doors;
         this.lights = lights;
