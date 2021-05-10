@@ -1,7 +1,7 @@
 package ru.sbt.mipt.oop.Objects.Alarm;
 
 public class AlertAlarmState implements AlarmState {
-    private String code;
+    private final String code;
 
     public AlertAlarmState(String code) {
         this.code = code;
