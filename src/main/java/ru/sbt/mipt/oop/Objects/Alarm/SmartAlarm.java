@@ -2,7 +2,7 @@
 package ru.sbt.mipt.oop.Object.Alarm;
 
 public class SmartAlarm {
-    private AlarmState state;
+    private final AlarmState state;
 
     public SmartAlarm() {
         this.state = new DeactivatedAlarmState();
