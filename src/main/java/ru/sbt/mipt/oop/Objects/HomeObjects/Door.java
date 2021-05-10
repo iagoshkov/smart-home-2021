@@ -4,7 +4,7 @@ import ru.sbt.mipt.oop.Action.Action;
 
 public class Door extends HomeObject implements Actionable{
   
-    private boolean isOpen;
+    private final boolean isOpen;
   
     public boolean isOpen() {
         return isOpen;
