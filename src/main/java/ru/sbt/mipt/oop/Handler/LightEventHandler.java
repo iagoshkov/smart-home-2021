@@ -5,7 +5,7 @@ import ru.sbt.mipt.oop.Event.SensorEvent;
 import ru.sbt.mipt.oop.Objects.HomeObjects.HomeObject;
 import ru.sbt.mipt.oop.Objects.HomeObjects.Light;
 import ru.sbt.mipt.oop.Objects.HomeObjects.Actionable.SmartHome;
-import static ru.sbt.mipt.oop.Type.LightEventType.LIGHT_ON;
+import static ru.sbt.mipt.oop.Type.EventType.ON;
 
 public class LightEventHandler implements SensorEventHandler {
     private SmartHome smartHome;
@@ -29,7 +29,7 @@ public class LightEventHandler implements SensorEventHandler {
         if (event instanceof LightEvent) {
             Action action = (HomeObject homeObject) -> {
                 if (homeObject instanceof Light && homeObject.getId().equals(event.getObjectId())) {
-                    if (((LightEvent) event).getLightEventType() == LIGHT_ON) {
+                    if (((LightEvent) event).getLightEventType() == ON) {
                         turnTheLightOn((Light) homeObject);
                     } else {
                         turnTheLightOff((Light) homeObject);
