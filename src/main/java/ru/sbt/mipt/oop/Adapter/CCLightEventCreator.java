@@ -1,12 +1,12 @@
 package ru.sbt.mipt.oop.Adapter;
 import ru.sbt.mipt.oop.Event.SensorEvent;
 import ru.sbt.mipt.oop.Event.LightEvent;
-import ru.sbt.mipt.oop.Type.LightEventType;
+import ru.sbt.mipt.oop.Type.EventType;
 
 public class CCLightEventCreator implements CCEventCreator {
-    private LightEventType type;
+    private EventType type;
     
-    public CCLightEventCreator(LightEventType type) {
+    public CCLightEventCreator(EventType type) {
         this.type = type;
     }
 
