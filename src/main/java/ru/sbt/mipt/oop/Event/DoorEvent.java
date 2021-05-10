@@ -1,16 +1,16 @@
   
 package ru.sbt.mipt.oop.Event;
-import ru.sbt.mipt.oop.Type.DoorEventType;
+import ru.sbt.mipt.oop.Type.EventType;
 
 public class DoorEvent extends SensorEvent{
-    private DoorEventType doorEventType;
+    private EventType doorEventType;
 
-    public DoorEvent(String objectId, DoorEventType doorEventType) {
+    public DoorEvent(String objectId, EventType doorEventType) {
         super(objectId);
         this.doorEventType = doorEventType; 
     }
 
-    public DoorEventType getDoorEventType() {
+    public EventType getDoorEventType() {
         return doorEventType;
     }
 
