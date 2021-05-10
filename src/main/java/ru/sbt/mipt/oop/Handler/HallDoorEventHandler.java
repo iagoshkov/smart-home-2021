@@ -8,7 +8,7 @@ import static ru.sbt.mipt.oop.Type.EventType.OFF;
 import static ru.sbt.mipt.oop.Commands.LightCommands.turnTheLightOffCommand;
 
 public class HallDoorEventHandler implements SensorEventHandler {
-    private SmartHome smartHome;
+    private final SmartHome smartHome;
 
     public HallDoorEventHandler(SmartHome smartHome) {
         this.smartHome = smartHome;
