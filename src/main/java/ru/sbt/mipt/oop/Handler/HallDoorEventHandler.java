@@ -4,7 +4,7 @@ import ru.sbt.mipt.oop.Event.DoorEvent;
 import ru.sbt.mipt.oop.Event.SensorEvent;
 import ru.sbt.mipt.oop.Objects.HomeObjects.*;
 import ru.sbt.mipt.oop.Objects.HomeObjects.actionable.*;
-import static ru.sbt.mipt.oop.Type.DoorEventType.DOOR_CLOSED;
+import static ru.sbt.mipt.oop.Type.EventType.OFF;
 import static ru.sbt.mipt.oop.Commands.LightCommands.turnTheLightOffCommand;
 
 public class HallDoorEventHandler implements SensorEventHandler {
@@ -16,7 +16,7 @@ public class HallDoorEventHandler implements SensorEventHandler {
 
     @Override
     public void handleEvent(SensorEvent event) {
-        if (event instanceof DoorEvent && ((DoorEvent) event).getDoorEventType() == DOOR_CLOSED) {
+        if (event instanceof DoorEvent && ((DoorEvent) event).getDoorEventType() == OFF) {
             Action checkTheHallDoor = (HomeObject homeObject) -> {
                if (homeObject instanceof Room && homeObject.getId().equals("hall")) {
                    Action action = (HomeObject currentRoomObject) -> {
