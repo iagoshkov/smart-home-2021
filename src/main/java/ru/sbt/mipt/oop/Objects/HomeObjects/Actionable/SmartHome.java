@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SmartHome extends HomeObject implements Actionable {
-    List<Room> rooms;
+    private final List<Room> rooms;
         
     public List<Room> getRooms() {
         return rooms;
