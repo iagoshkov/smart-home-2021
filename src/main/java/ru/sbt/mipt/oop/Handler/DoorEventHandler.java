@@ -8,7 +8,7 @@ import ru.sbt.mipt.oop.Objects.HomeObjects.Actionable.SmartHome;
 import static ru.sbt.mipt.oop.types.EventType.*;
 
 public class DoorEventHandler implements SensorEventHandler {
-    private SmartHome smartHome;
+    private final SmartHome smartHome;
 
     public DoorEventHandler(SmartHome smartHome) {
         this.smartHome = smartHome; 
