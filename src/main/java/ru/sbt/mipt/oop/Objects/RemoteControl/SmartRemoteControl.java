@@ -12,8 +12,8 @@ public class SmartRemoteControl implements RemoteControl {
     @Override
     public void onButtonPressed(String buttonCode, String rcId) {
         if (uniqueRemoteControls.containsKey(rcId)) {
-            UniqueRemoteControl remote_control = uniqueRemoteControls.get(rcId);
-            Command command = remote_control.getCommandByButton(buttonCode);
+            UniqueRemoteControl remoteControl = uniqueRemoteControls.get(rcId);
+            Command command = remoteControl.getCommandByButton(buttonCode);
             if (command != null) {
                 command.execute();
             }
