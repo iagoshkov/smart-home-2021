@@ -13,7 +13,7 @@ import java.util.Map;
 public class CCSensorEventAdapter implements EventHandler {
     private final SmartHome smartHome;
     private final SmartAlarm alarm;
-    private final HashMap<String, CCEventCreator> map;
+    private final Map<String, CCEventCreator> map;
     private final ArrayList<SensorEventHandler> handler;
 
     public CCSensorEventAdapter(SmartHome smartHome, SmartAlarm alarm, Map<String, CCEventCreator> map, List<SensorEventHandler> handler) {
