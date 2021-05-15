@@ -10,10 +10,6 @@ import java.util.List;
 public class SmartHome extends HomeObject implements Actionable {
     private final List<Room> rooms;
         
-    public List<Room> getRooms() {
-        return rooms;
-    }
-        
     public void addRoom(Room room) {
         rooms.add(room);
     }
