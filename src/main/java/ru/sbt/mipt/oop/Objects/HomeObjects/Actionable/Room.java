@@ -14,16 +14,7 @@ public class Room extends HomeObject implements Actionable {
     
     private List<Door> doors;
     
-    public List<Door> getDoors() {
-        return doors;
-    }
-    
     private List<Light> lights;
-    
-    public List<Light> getLights() {
-        return lights;
-        
-    }
 
     public Room(String name, List<Door> doors, List<Light> lights) {
         this.name = name;
