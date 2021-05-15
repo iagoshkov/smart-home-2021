@@ -8,7 +8,6 @@ public class AlarmSensorEventHandler extends AlarmSensorEventHandlerInterface {
     private final SmartAlarm alarm;
     private final List<SensorEventHandler> handlers;
 
-    @Override
     public AlarmSensorEventHandler(SmartAlarm alarm, List<SensorEventHandler> handlers) {
         this.alarm = alarm;
         this.handlers = handlers;
