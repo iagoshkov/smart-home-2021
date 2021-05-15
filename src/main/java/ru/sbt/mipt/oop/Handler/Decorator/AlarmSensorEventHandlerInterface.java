@@ -6,6 +6,5 @@ import ru.sbt.mipt.oop.Handler.SensorEventHandler;
 import ru.sbt.mipt.oop.Objects.Alarm.SmartAlarm;
 
 public abstract class AlarmSensorEventHandlerInterface {
-   public AlarmSensorEventHandler(SmartAlarm alarm, List<SensorEventHandler> handlers);
    void handleEvent(SensorEvent event);
 }
