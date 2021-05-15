@@ -40,6 +40,13 @@ public class MyConfiguration {
     }
     
         @Bean
+    Map<String, UniqueRemoteControl> state(SmartHome smartHome, SmartAlarm alarm) {
+        return Map.of(
+                "1", remoteControl(smartHome, alarm)
+        );
+    }
+    
+        @Bean
     SensorEventsManager sensorEventsManager() {
         SensorEventsManager manager = new SensorEventsManager();
 
@@ -54,4 +61,37 @@ public class MyConfiguration {
 
         return Arrays.asList(new AlarmSensorEventHandler(alarm, sensorEventHandlers), new AlarmEventHandler(alarm));
     }
+    
+        @Bean
+    RemoteControlRegistry remoteControlRegistry() {
+        SmartRemoteControl smartRemoteControl = smartRemoteControl(state(smartHome(), smartAlarm()));
+        RemoteControlRegistry remoteControlRegistry = new RemoteControlRegistry();
+
+        remoteControlRegistry.registerRemoteControl(smartRemoteControl, "1");
+
+        return remoteControlRegistry;
+    }
+    
+        @Bean
+    RemoteControlRegistry remoteControlRegistry() {
+        SmartRemoteControl smartRemoteControl = smartRemoteControl(state(smartHome(), smartAlarm()));
+        RemoteControlRegistry remoteControlRegistry = new RemoteControlRegistry();
+
+        remoteControlRegistry.registerRemoteControl(smartRemoteControl, "1");
+
+        return remoteControlRegistry;
+    }
+    
+        @Bean
+    UniqueRemoteControl remoteControl(SmartHome smartHome, SmartAlarm alarm) {
+        return new UniqueRemoteControl(Map.of(
+                "A", new ActivateTheAlarmCommand(alarm),
+                "B", new AlertAlarmCommand(alarm),
+                "C", new CloseTheHallDoorCommand(smartHome),
+                "D", new TurnOffAllTheLightsCommand(smartHome),
+                "F", new TurnOnAllTheLightsCommand(smartHome)
+        ));
+    }
+    
+    
 }
